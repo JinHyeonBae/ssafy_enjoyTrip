@@ -36,6 +36,7 @@ onMounted(() => {
 				<th scope="col">댓글번호</th>
 				<th scope="col">댓글내용</th>
 				<th scope="col">작성자</th>
+				<th scope="col">작성날짜</th>
 				<th scope="col">수정</th>
 				<th scope="col">삭제</th>
 			</tr>

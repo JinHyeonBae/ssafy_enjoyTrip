@@ -18,7 +18,9 @@ function modifyComment(comment, success, fail) {
 
 function deleteComment(comment, success, fail) {
 	console.log("comment!!!!", comment);
-	local.delete(`${url}`, JSON.stringify(comment)).then(success).catch(fail);
+	local.defaults.headers.delete['comment'] = JSON.stringify(comment);
+	console.log(comment)
+	local.delete(`${url}`).then(success).catch(fail);
 }
 
 export { listComment, registComment, modifyComment, deleteComment };

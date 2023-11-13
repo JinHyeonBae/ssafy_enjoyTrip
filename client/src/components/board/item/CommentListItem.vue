@@ -1,4 +1,5 @@
 <script setup>
+import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 import { deleteComment, modifyComment } from "@/api/comment";
 import { createPinia } from "pinia";
@@ -13,6 +14,32 @@ const delcomment = ref({
 	commentNo: commentNo,
 	userId: userId,
 });
+
+const router = useRouter();
+const isModify = ref(false);
+const inputValue = ref("");
+
+function updateComment(commentno) {
+  if (isModify.value == true) {
+    const modifyContent = inputValue.value;
+    modifyComment(
+      {
+        articleNo: Number(articleno),
+        commentNo: comment.commentNo,
+        content: modifyContent,
+      },
+      ({ data }) => {
+        console.log(data);
+        router.go(0);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  isModify.value = !isModify.value;
+}
+
 function onDeleteComment() {
 	console.log(comment.commentNo + "번 댓글 삭제하러 가자!!!", articleno + "," + comment.userId);
 	deleteComment(
@@ -28,26 +55,47 @@ function onDeleteComment() {
 console.log("comment:", comment);
 </script>
 
+
+
 <template>
 	<tr class="text-center">
-		<th scope="row">{{ comment.commentNo }}</th>
-		<td class="text-start">
-			{{ comment.content }}
-		</td>
-		<td>{{ comment.userId }}</td>
-		<td>
-			<button type="button" class="btn btn-outline-success mb-3">
-				<!--@click="updateComment"-->
-				글수정
-			</button>
-		</td>
-		<td>
-			<button type="button" class="btn btn-outline-danger mb-3 ms-1" @click="onDeleteComment">
-				글삭제
-			</button>
-		</td>
+	  <th scope="row">
+		{{ comment.commentNo }}
+	  </th>
+	  <td>{{ comment.userId }}</td>
+	  <td v-if="isModify == false">
+		{{ comment.content }}
+	  </td>
+	  <td v-else>
+		<input v-model="inputValue" placeholder="수정할 내용을 입력해주세요" />
+	  </td>
+	  <td>{{ comment.registerTime }}</td>
+	  <td>
+		<button
+		  type="button"
+		  class="btn btn-outline-success mb-3"
+		  @click="updateComment(comment.commentNo)"
+		>
+		  글수정
+		</button>
+	  </td>
+	  <td>
+		<button
+		  type="button"
+		  class="btn btn-outline-danger mb-3 ms-1"
+		  @click="onDeleteComment"
+		>
+		  글삭제
+		</button>
+	  </td>
 	</tr>
-</template>
+  </template>
+  
+  <style scoped>
+  a {
+	text-decoration: none;
+  }
+  </style>
 
 <style scoped>
 a {

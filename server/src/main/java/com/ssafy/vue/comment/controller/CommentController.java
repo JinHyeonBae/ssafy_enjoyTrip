@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,6 +38,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 //http://localhost/vue/swagger-ui.html
 @CrossOrigin(origins = { "*" }, methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.POST} , maxAge = 6000)
@@ -134,8 +137,23 @@ public class CommentController {
 
 	@ApiOperation(value = "댓글 글삭제", notes = "댓글 정보를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@DeleteMapping
-	public ResponseEntity<?> deleteComment(@RequestBody ReqDelCommentDto comment) throws Exception {
-		logger.info("deleteArticle - 호출---------------------- {}",comment);
+	public ResponseEntity<?> deleteComment(@RequestHeader(value="comment") String header) throws Exception {
+		//logger.info("{}" + header);
+		ObjectMapper objectMapper = new ObjectMapper();
+		ReqDelCommentDto delDto = objectMapper.readValue(header, ReqDelCommentDto.class);
+
+		System.out.println(delDto.getArticleNo());
+		System.out.println(delDto.getCommentNo());
+		System.out.println(delDto.getUserId());
+
+		ReqDelCommentDto comment = new ReqDelCommentDto();
+		comment.setArticleNo(delDto.getArticleNo());
+		comment.setCommentNo(delDto.getCommentNo());
+		comment.setUserId(delDto.getUserId());
+
+		//logger.infon("TYPE : " + typeof(header))
+		//ReqDelCommentDto comment = (ReqDelCommentDto) header.get("comment");
+		//logger.info("deleteArticle - 호출---------------------- {}",comment);
 		try {
 			commentService.deleteComment(comment);
 			return ResponseEntity.ok(new ResBasicCommentDto(HttpStatus.OK.value(), "댓글 삭제 완료!"));

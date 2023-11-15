@@ -17,9 +17,9 @@ const logout = () => {
 
 <template>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-		<div class="container">
+		<div class="container-fluid">
 			<router-link :to="{ name: 'main' }" class="navbar-brand">
-				<img src="@/assets/logo2.png" class="rounded mx-auto d-block" alt="..." />
+				<img src="@/assets/ssafy_logo.png" class="rounded mx-auto d-block" alt="..." />
 			</router-link>
 			<button
 				class="navbar-toggler"
@@ -70,38 +70,15 @@ const logout = () => {
 						<router-link :to="{ name: 'estations' }" class="nav-link">전기차충전소</router-link>
 					</li>
 				</ul>
-				<!-- <form class="d-flex" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="검색..."
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success" type="button">search</button>
-        </form> -->
-				<ul
-					class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll"
-					style="--bs-scroll-height: 100px"
-				>
-					<template v-for="menu in menuList" :key="menu.routeName">
-						<template v-if="menu.show">
-							<template v-if="menu.routeName === 'user-logout'">
-								<li class="nav-item">
-									<router-link to="/" @click.prevent="logout" class="nav-link">{{
-										menu.name
-									}}</router-link>
-								</li>
-							</template>
-							<template v-else>
-								<li class="nav-item">
-									<router-link :to="{ name: menu.routeName }" class="nav-link">{{
-										menu.name
-									}}</router-link>
-								</li>
-							</template>
-						</template>
-					</template>
-				</ul>
+				<form class="d-flex" role="search">
+					<input
+						class="form-control me-2"
+						type="search"
+						placeholder="검색..."
+						aria-label="Search"
+					/>
+					<button class="btn btn-outline-success" type="button">search</button>
+				</form>
 			</div>
 		</div>
 	</nav>

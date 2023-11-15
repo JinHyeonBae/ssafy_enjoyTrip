@@ -1,0 +1,160 @@
+<script setup>
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import ScheduleStepButton from "./ScheduleStepButton.vue";
+import AttractionItem from "./AttractionItem.vue";
+
+import { ref } from "vue";
+
+const isShowing = ref(false);
+const getAttractionInfo = () => {};
+</script>
+
+<template>
+  <div class="container">
+    <div
+      class="d-flex flex-column flex-shrink-0 bg-body-tertiary"
+      style="width: 4.5rem; z-index: 10"
+    >
+      <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+        <li class="nav-item"></li>
+        <li>
+          <ScheduleStepButton name="일정 설정"></ScheduleStepButton>
+          <ScheduleStepButton name="계획 설정"></ScheduleStepButton>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary"
+      style="width: 380px"
+    >
+      <div
+        class="list-title d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom mb-2"
+      >
+        <svg class="bi pe-none me-2" width="30" height="24">
+          <use xlink:href="#bootstrap" />
+        </svg>
+        <span class="mx-auto fs-5 fw-semibold" style="color: white"
+          >여행지 목록</span
+        >
+      </div>
+      <h3 class="mx-auto m-4">여행 장소를 골라주세요!</h3>
+      <div class="list-group list-group-flush border-bottom scrollarea">
+        <AttractionItem
+          attraction="여행지 이름이 여기 들어갈겁니당"
+          date="2023-10-22"
+          description="여행지 설며어어어어어어어엉 안녀어어어어엉 내일봐용~~"
+        />
+        <AttractionItem
+          attraction="여행지 이름이 여기 들어갈겁니당"
+          date="2023-10-22"
+          description="누가 자영씨 이름 불렀어!!!!!"
+        />
+        <AttractionItem
+          attraction="여행지 이름이 여기 들어갈겁니당"
+          date="2023-10-22"
+          description="누가 자영씨 이름 불렀어!!!!!"
+        />
+      </div>
+    </div>
+    <button
+      data-bs-toggle="collapse"
+      role="button"
+      data-bs-target="#basket"
+      aria-expanded="false"
+      aria-controls="basket"
+      style="background-color: white; border: 2px solid #85d5e4"
+    >
+      >
+    </button>
+    <div
+      id="basket"
+      class="collapse collapse-horizontal"
+      style="min-height: 120px; background-color: #f8f9fa"
+    >
+      <ul style="width: 20rem; flex-wrap: nowrap">
+        <AttractionItem
+          attraction="여행지 이름이 여기 들어갈겁니당"
+          date="2023-10-22"
+          description="누가 자영씨 이름 불렀어!!!!!"
+        />
+        <AttractionItem
+          attraction="여행지 이름이 여기 들어갈겁니당"
+          date="2023-10-22"
+          description="누가 자영씨 이름 불렀어!!!!!"
+        />
+      </ul>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.container {
+  display: flex;
+}
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
+main {
+  height: 100vh;
+  height: -webkit-fill-available;
+  max-height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.dropdown-toggle {
+  outline: 0;
+}
+
+.btn-toggle {
+  padding: 0.25rem 0.5rem;
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+  background-color: transparent;
+}
+.btn-toggle:hover,
+.btn-toggle:focus {
+  color: rgba(var(--bs-emphasis-color-rgb), 0.85);
+  background-color: var(--bs-tertiary-bg);
+}
+
+.btn-toggle::before {
+  width: 1.25em;
+  line-height: 0;
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%280,0,0,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+  transition: transform 0.35s ease;
+  transform-origin: 0.5em 50%;
+}
+
+[data-bs-theme="dark"] .btn-toggle::before {
+  content: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='rgba%28255,255,255,.5%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M5 14l6-6-6-6'/%3e%3c/svg%3e");
+}
+
+.btn-toggle[aria-expanded="true"] {
+  color: rgba(var(--bs-emphasis-color-rgb), 0.85);
+}
+.btn-toggle[aria-expanded="true"]::before {
+  transform: rotate(90deg);
+}
+
+.btn-toggle-nav a {
+  padding: 0.1875rem 0.5rem;
+  margin-top: 0.125rem;
+  margin-left: 1.25rem;
+}
+.btn-toggle-nav a:hover,
+.btn-toggle-nav a:focus {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.list-title {
+  background-color: #85d5e4;
+}
+</style>

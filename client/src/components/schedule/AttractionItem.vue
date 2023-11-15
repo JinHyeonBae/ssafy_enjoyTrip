@@ -1,0 +1,29 @@
+<script setup>
+import Busan from "@/assets/img/main/Busan.jpg";
+const { attraction, date, description } = defineProps({
+  attraction: String,
+  date: String,
+  description: String,
+});
+</script>
+
+<template>
+  <a
+    href="#"
+    class="list-group-item d-flex flex-row list-group-item-action py-3 lh-sm mb-3"
+    @click="getAttractionInfo"
+  >
+    <img class="rounded" style="width: 4.5rem; height: 100%" :src="Busan" />
+    <div
+      class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
+    >
+      <strong class="mb-1">{{ attraction }}</strong>
+      <small class="text-body-secondary">{{ date }}</small>
+      <div class="col-10 mb-1 small">
+        {{ description }}
+      </div>
+    </div>
+  </a>
+</template>
+
+<style scoped></style>

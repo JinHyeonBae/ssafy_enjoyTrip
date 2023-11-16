@@ -17,22 +17,23 @@ const article = ref({
 	userName: "",
 	hit: 0,
 	registerTime: "",
+	fileInfos: [],
 });
 
 if (props.type === "modify") {
 	let { articleno } = route.params;
-  console.log(articleno + "번글 얻어와서 수정할거야");
-  getModifyArticle(
-    articleno,
-    ({ data }) => {
-      article.value = data;
-      isUseId.value = true;
-    },
-    (error) => {
-      console.log(error);
-    }
-  );
-  isUseId.value = true;
+	console.log(articleno + "번글 얻어와서 수정할거야");
+	getModifyArticle(
+		articleno,
+		({ data }) => {
+			article.value = data;
+			isUseId.value = true;
+		},
+		(error) => {
+			console.log(error);
+		}
+	);
+	isUseId.value = true;
 }
 
 const subjectErrMsg = ref("");
@@ -101,6 +102,25 @@ function updateArticle() {
 function moveList() {
 	router.push({ name: "article-list" });
 }
+const previewImages = ref([]);
+
+const upload = (event) => {
+	if (event.target.files.length > 5) {
+		alert("사진은 최대 5개 까지 첨부가능합니다.");
+	} else {
+		for (const file of event.target.files) {
+			const reader = new FileReader();
+			reader.onload = (e) => {
+				previewImages.value.push(e.target.result);
+			};
+			reader.readAsDataURL(file);
+		}
+	}
+	// 사용자가 올린 이미지
+	console.log(event.target.files);
+	// URL.createObjectURL로 사용자가 올린 이미지를 URL로 만들어서 화면에 표시할 수 있게 한다. img 태그의 src값에 바인딩해준다
+	//   this.imageUploaded = URL.createObjectURL(this.image)
+};
 </script>
 
 <template>
@@ -122,6 +142,18 @@ function moveList() {
 		<div class="mb-3">
 			<label for="content" class="form-label">내용 : </label>
 			<textarea class="form-control" v-model="article.content" rows="10"></textarea>
+		</div>
+		<div class="mb-3">
+			<input id="input-file" type="file" accept="image/*" @change="upload" multiple="multiple" />
+		</div>
+		<div class="w-100 image_container row d-flex justify-content-center">
+			<img
+				class="m-3 col-auto"
+				v-for="(previewImage, index) in previewImages"
+				:key="index"
+				:src="previewImage"
+				style="height: 200px; width: 300px; object-fit: cover"
+			/>
 		</div>
 		<div class="col-auto text-center">
 			<button type="submit" class="btn btn-outline-primary mb-3" v-if="type === 'regist'">

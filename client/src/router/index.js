@@ -17,11 +17,6 @@ const router = createRouter({
       component: TheElectricChargingStation,
     },
     {
-      path: "/test/schedule",
-      name: "schedule",
-      component: ScheduleHome,
-    },
-    {
       path: "/user",
       name: "user",
       component: () => import("@/views/TheUserView.vue"),
@@ -77,6 +72,23 @@ const router = createRouter({
           path: "modify/:articleno",
           name: "article-modify",
           component: () => import("@/components/board/BoardModify.vue"),
+        },
+      ],
+    },
+    {
+      path: "/schedule",
+      name: "schedule",
+      component: ScheduleHome,
+      children: [
+        {
+          path: "list",
+          name: "attraction-list",
+          component: () => import("@/components/schedule/AttractionList.vue"),
+        },
+        {
+          path: "date",
+          name: "trip-date",
+          component: () => import("@/components/schedule/TripDate.vue"),
         },
       ],
     },

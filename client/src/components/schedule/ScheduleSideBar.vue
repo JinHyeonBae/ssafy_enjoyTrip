@@ -2,6 +2,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import ScheduleStepButton from "./ScheduleStepButton.vue";
+import AttractionList from "./AttractionList.vue";
 import AttractionItem from "./AttractionItem.vue";
 
 import { ref } from "vue";
@@ -20,7 +21,7 @@ const getAttractionInfo = () => {};
         <li class="nav-item"></li>
         <li>
           <ScheduleStepButton name="일정 설정"></ScheduleStepButton>
-          <ScheduleStepButton name="계획 설정"></ScheduleStepButton>
+          <ScheduleStepButton name="장소 설정"></ScheduleStepButton>
         </li>
       </ul>
     </div>
@@ -38,23 +39,9 @@ const getAttractionInfo = () => {};
           >여행지 목록</span
         >
       </div>
-      <h3 class="mx-auto m-4">여행 장소를 골라주세요!</h3>
+      <h3 class="mx-auto m-4">여행 일정을 정해주세요!</h3>
       <div class="list-group list-group-flush border-bottom scrollarea">
-        <AttractionItem
-          attraction="여행지 이름이 여기 들어갈겁니당"
-          date="2023-10-22"
-          description="여행지 설며어어어어어어어엉 안녀어어어어엉 내일봐용~~"
-        />
-        <AttractionItem
-          attraction="여행지 이름이 여기 들어갈겁니당"
-          date="2023-10-22"
-          description="누가 자영씨 이름 불렀어!!!!!"
-        />
-        <AttractionItem
-          attraction="여행지 이름이 여기 들어갈겁니당"
-          date="2023-10-22"
-          description="누가 자영씨 이름 불렀어!!!!!"
-        />
+        <RouterView></RouterView>
       </div>
     </div>
     <button

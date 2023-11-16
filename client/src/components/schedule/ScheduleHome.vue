@@ -2,6 +2,7 @@
 import { ref, watch, onMounted } from "vue";
 import ScheduleSideBar from "./ScheduleSideBar.vue";
 import ScheduleMap from "./ScheduleMap.vue";
+import SendButton from "./SendButton.vue";
 </script>
 
 <template>
@@ -9,6 +10,7 @@ import ScheduleMap from "./ScheduleMap.vue";
     <ScheduleSideBar class="item"></ScheduleSideBar>
     <ScheduleMap class="item"></ScheduleMap>
   </div>
+  <SendButton></SendButton>
 </template>
 
 <style scope>
@@ -23,6 +25,6 @@ import ScheduleMap from "./ScheduleMap.vue";
 }
 
 .item:nth-child(2) {
-  flex-grow: 3;
+  flex-grow: 2;
 }
 </style>

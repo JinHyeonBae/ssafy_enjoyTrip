@@ -40,8 +40,8 @@ import io.swagger.annotations.ApiResponses;
 public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-//	private static final String SUCCESS = "success";
-//	private static final String FAIL = "fail";
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
 
 	private BoardService boardService;
 

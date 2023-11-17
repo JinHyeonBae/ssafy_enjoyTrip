@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ssafy.vue.board.model.BoardDto;
 import com.ssafy.vue.board.model.BoardListDto;
@@ -50,19 +51,36 @@ public class BoardController {
 		this.boardService = boardService;
 	}
 
+//	@ApiOperation(value = "게시판 글작성", notes = "새로운 게시글 정보를 입력한다.")
+//	@PostMapping
+//	public ResponseEntity<?> writeArticle(
+//			@RequestBody @ApiParam(value = "게시글 정보.", required = true) BoardDto boardDto) {
+//		logger.debug("writeArticle boardDto - {}", boardDto);
+//		try {
+//			boardService.writeArticle(boardDto);
+////			return ResponseEntity.ok().build();
+//			return new ResponseEntity<Void>(HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+//	}
+//	
+	
 	@ApiOperation(value = "게시판 글작성", notes = "새로운 게시글 정보를 입력한다.")
 	@PostMapping
 	public ResponseEntity<?> writeArticle(
-			@RequestBody @ApiParam(value = "게시글 정보.", required = true) BoardDto boardDto) {
-		logger.info("writeArticle boardDto - {}", boardDto);
-		try {
-			boardService.writeArticle(boardDto);
-//			return ResponseEntity.ok().build();
-			return new ResponseEntity<Void>(HttpStatus.CREATED);
-		} catch (Exception e) {
-			return exceptionHandling(e);
-		}
+			@RequestParam(value ="upfile", required=false) MultipartFile file) {
+		logger.debug("writeArticle boardDto - {}", file);
+//		try {
+//			boardService.writeArticle(boardDto);
+//			return new ResponseEntity<Void>(HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return exceptionHandling(e);
+//		}
+		return null;
 	}
+	
+	
 
 	@ApiOperation(value = "게시판 글목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)
 	@ApiResponses({ @ApiResponse(code = 200, message = "회원목록 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),

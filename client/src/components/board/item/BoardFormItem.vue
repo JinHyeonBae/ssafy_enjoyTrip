@@ -17,7 +17,7 @@ const article = ref({
 	userName: "",
 	hit: 0,
 	registerTime: "",
-	fileInfos: [],
+	fileInfos: "",
 });
 
 if (props.type === "modify") {
@@ -73,8 +73,25 @@ function onSubmit() {
 }
 function writeArticle() {
 	console.log("글등록하자!!", article.value);
+	const formData = new FormData();
+	formData.append("articleNo", article.value.articleNo);
+	formData.append("subject", article.value.subject);
+	formData.append("content", article.value.content);
+	formData.append("userId", article.value.userId);
+	formData.append("userName", article.value.userName);
+	formData.append("hit", article.value.hit);
+	formData.append("registerTime", article.value.registerTime);
+	for (let i = 0; i < article.value.fileInfos.length; i++) {
+		formData.append("fileInfos", article.value.fileInfos[i]);
+	}
+	console.log("formData!!!");
+	let entries = formData.entries();
+	for (const pair of entries) {
+		console.log(pair[0] + ", " + pair[1]);
+	}
+
 	registArticle(
-		article.value,
+		formData,
 		(response) => {
 			let msg = "글등록 처리시 문제 발생했습니다.";
 			if (response.status == 201) msg = "글등록이 완료되었습니다.";
@@ -108,7 +125,10 @@ const upload = (event) => {
 	if (event.target.files.length > 5) {
 		alert("사진은 최대 5개 까지 첨부가능합니다.");
 	} else {
+		//file째로(DTO-X 뷰에 찍히는 정보대로) 저장
+		article.value.fileInfos = event.target.files;
 		for (const file of event.target.files) {
+			//프리뷰
 			const reader = new FileReader();
 			reader.onload = (e) => {
 				previewImages.value.push(e.target.result);

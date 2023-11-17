@@ -13,5 +13,14 @@ function localAxios() {
 	return instance;
 }
 
+function multiPartAxios() {
+	const instance = axios.create({
+		baseURL: VITE_VUE_API_URL,
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
+	return instance;
+}
 
-export { localAxios };
+export { localAxios, multiPartAxios };

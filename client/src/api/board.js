@@ -1,6 +1,7 @@
-import { localAxios } from "@/util/http-commons";
+import { localAxios, multiPartAxios } from "@/util/http-commons";
 
 const local = localAxios(); //axios instance
+const mul = multiPartAxios();
 const url = "/board";
 
 function listArticle(param, success, fail) {
@@ -11,9 +12,9 @@ function detailArticle(articleno, success, fail) {
 	local.get(`${url}/${articleno}`).then(success).catch(fail);
 }
 
-function registArticle(article, success, fail) {
-	console.log("boardjs article", article);
-	local.post(`${url}`, JSON.stringify(article)).then(success).catch(fail);
+function registArticle(formData, success, fail) {
+	console.log("boardjs article", formData);
+	mul.post(`${url}`, formData).then(success).catch(fail);
 }
 
 function getModifyArticle(articleno, success, fail) {

@@ -7,8 +7,14 @@ import AttractionItem from "./AttractionItem.vue";
 
 import { ref } from "vue";
 
+// const { attrList } = defineProps({
+//   attrList: Array,
+// });
+
 const isShowing = ref(false);
 const getAttractionInfo = () => {};
+
+// console.log(attrList);
 </script>
 
 <template>

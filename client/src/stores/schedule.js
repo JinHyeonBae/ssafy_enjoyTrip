@@ -5,15 +5,14 @@ export const useAttrStore = defineStore("attrStore", () => {
   //   const attrList = ref([{ name: "", attractionList: [], startDate: "" }]);
 
   const name = ref("");
-  const attrList = ref([]);
+  const selectedAttrList = ref([]);
   const startDate = ref("");
   const destDate = ref("");
 
-  computed(() => console.log(store.startDate));
-
+  const getDataAll = computed(() => selectedAttrList.value);
   // 저장
-  const addAttrList = () => {
-    attrList.value.push({ attrItem });
+  const addToAttrList = (attrItem) => {
+    selectedAttrList.value.push(attrItem);
   };
 
   const changeStartDate = (start) => {
@@ -34,6 +33,10 @@ export const useAttrStore = defineStore("attrStore", () => {
     return destDate.value;
   };
 
+  const getFullDate = () => {
+    return startDate.value + " ~ " + destDate.value;
+  };
+
   //   const changeMenuState = () => {
   //     menuList.value = menuList.value.map((item) => ({
   //       ...item,
@@ -41,13 +44,15 @@ export const useAttrStore = defineStore("attrStore", () => {
   //     }));
   //   };
   return {
-    attrList,
+    selectedAttrList,
     startDate,
     destDate,
-    addAttrList,
+    getDataAll,
+    addToAttrList,
     changeStartDate,
     changeDestDate,
     getStartDate,
     getDestDate,
+    getFullDate,
   };
 });

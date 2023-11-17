@@ -1,7 +1,15 @@
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goNext = () => {
+  router.push({ name: "add-schedule" });
+};
+</script>
 
 <template>
-  <button id="wrapper">다음</button>
+  <button id="wrapper" @click="goNext">다음</button>
 </template>
 
 <style scoped>

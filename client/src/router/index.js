@@ -90,6 +90,12 @@ const router = createRouter({
           name: "trip-date",
           component: () => import("@/components/schedule/TripDate.vue"),
         },
+        {
+          path: "add-to-list",
+          name: "add-schedule",
+          component: () =>
+            import("@/components/schedule/AddAttractionModal.vue"),
+        },
       ],
     },
   ],

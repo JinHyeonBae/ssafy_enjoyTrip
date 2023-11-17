@@ -12,10 +12,9 @@ let page = 1;
 const load = async ($state) => {
   console.log("loading...");
 
+  console.log("STATE : " + $state.loaded);
   const size = import.meta.env.VITE_ATTR_LIST_SIZE;
   const start = page * size - size;
-
-  console.log(start);
 
   try {
     getAttrtions(
@@ -59,11 +58,13 @@ const load = async ($state) => {
   </div>
   <div class="attr-list">
     <div v-for="attraction in attrList">
-      <AttractionItem
-        :attraction="attraction.title"
-        date="2023-10-22"
-        :description="attraction.overview"
-      />
+      <div id="attr-item" @drag="">
+        <AttractionItem
+          :attraction="attraction.title"
+          date="2023-10-22"
+          :description="attraction.overview"
+        />
+      </div>
     </div>
   </div>
   <infinite-loading @infinite="load"></infinite-loading>

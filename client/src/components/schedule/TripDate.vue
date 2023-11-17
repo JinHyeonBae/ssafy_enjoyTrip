@@ -9,15 +9,11 @@ const inputFormat = ref("yyyy-MM-dd");
 
 const StartDateValueHandler = () => {
   const dateControl = document.querySelector('input[id="start"]');
-  //const dateValue = startDate.value;
-  console.log(dateControl.value);
-
   store.changeStartDate(dateControl.value);
 };
 
 const DestDateValueHandler = () => {
   const dateControl = document.querySelector('input[id="dest"]');
-
   store.changeDestDate(dateControl.value);
 };
 </script>
@@ -28,17 +24,19 @@ const DestDateValueHandler = () => {
     <input
       id="start"
       type="date"
-      data-placeholder="날짜 선택"
+      placeholder="출발 일정"
       value=""
+      class="ps-5 pe-5"
       :on-change="StartDateValueHandler"
     />
     <h3 class="mt-5">도착 일정</h3>
     <input
       id="dest"
       type="date"
-      data-placeholder="날짜 선택"
       aria-required="true"
+      placeholder="도착 일정"
       value=""
+      class="ps-5 pe-5"
       :onChange="DestDateValueHandler"
     /><br />
     {{ store.getStartDate() }}<br />
@@ -56,8 +54,7 @@ input[type="date"]::-webkit-inner-spin-button {
 }
 
 input[type="date"]::before {
-  content: attr(data-placeholder);
-  width: 100%;
+  width: 100vw;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {

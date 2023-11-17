@@ -2,8 +2,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import ScheduleStepButton from "./ScheduleStepButton.vue";
-import AttractionList from "./AttractionList.vue";
-import AttractionItem from "./AttractionItem.vue";
+import AttractionShopping from "./AttractionShopping.vue";
 
 import { ref } from "vue";
 
@@ -65,18 +64,7 @@ const getAttractionInfo = () => {};
       class="collapse collapse-horizontal"
       style="min-height: 120px; background-color: #f8f9fa"
     >
-      <ul style="width: 20rem; flex-wrap: nowrap">
-        <AttractionItem
-          attraction="여행지 이름이 여기 들어갈겁니당"
-          date="2023-10-22"
-          description="누가 자영씨 이름 불렀어!!!!!"
-        />
-        <AttractionItem
-          attraction="여행지 이름이 여기 들어갈겁니당"
-          date="2023-10-22"
-          description="누가 자영씨 이름 불렀어!!!!!"
-        />
-      </ul>
+      <AttractionShopping></AttractionShopping>
     </div>
   </div>
 </template>
@@ -149,5 +137,9 @@ main {
 
 .list-title {
   background-color: #85d5e4;
+}
+
+.list-group {
+  height: 100vh;
 }
 </style>

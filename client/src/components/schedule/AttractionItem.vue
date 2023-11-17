@@ -1,10 +1,22 @@
 <script setup>
 import Busan from "@/assets/img/main/Busan.jpg";
+import { useAttrStore } from "@/stores/schedule";
+
 const { attraction, date, description } = defineProps({
   attraction: String,
   date: String,
   description: String,
 });
+
+const store = useAttrStore();
+
+const getAttractionInfo = () => {
+  store.addToAttrList({
+    attraction,
+    date,
+    description,
+  });
+};
 </script>
 
 <template>

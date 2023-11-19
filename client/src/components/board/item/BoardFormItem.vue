@@ -17,8 +17,11 @@ const article = ref({
 	userName: "",
 	hit: 0,
 	registerTime: "",
-	fileInfos: "",
+
 });
+const files = ref({
+	fileInfos: ""
+})
 
 if (props.type === "modify") {
 	let { articleno } = route.params;
@@ -74,15 +77,11 @@ function onSubmit() {
 function writeArticle() {
 	console.log("글등록하자!!", article.value);
 	const formData = new FormData();
-	formData.append("articleNo", article.value.articleNo);
-	formData.append("subject", article.value.subject);
-	formData.append("content", article.value.content);
-	formData.append("userId", article.value.userId);
-	formData.append("userName", article.value.userName);
-	formData.append("hit", article.value.hit);
-	formData.append("registerTime", article.value.registerTime);
-	for (let i = 0; i < article.value.fileInfos.length; i++) {
-		formData.append("fileInfos", article.value.fileInfos[i]);
+	formData.append("article",new Blob([JSON.stringify(article.value)], { type: 'application/json' })
+);
+
+	for (let i = 0; i < files.value.fileInfos.length; i++) {
+		formData.append("upfile", files.value.fileInfos[i]);
 	}
 	console.log("formData!!!");
 	let entries = formData.entries();
@@ -125,8 +124,8 @@ const upload = (event) => {
 	if (event.target.files.length > 5) {
 		alert("사진은 최대 5개 까지 첨부가능합니다.");
 	} else {
-		//file째로(DTO-X 뷰에 찍히는 정보대로) 저장
-		article.value.fileInfos = event.target.files;
+		//file째로(뷰에 찍히는 정보대로) 저장
+		files.value.fileInfos = event.target.files;
 		for (const file of event.target.files) {
 			//프리뷰
 			const reader = new FileReader();
@@ -138,8 +137,7 @@ const upload = (event) => {
 	}
 	// 사용자가 올린 이미지
 	console.log(event.target.files);
-	// URL.createObjectURL로 사용자가 올린 이미지를 URL로 만들어서 화면에 표시할 수 있게 한다. img 태그의 src값에 바인딩해준다
-	//   this.imageUploaded = URL.createObjectURL(this.image)
+
 };
 </script>
 

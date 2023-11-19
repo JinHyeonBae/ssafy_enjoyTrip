@@ -13,7 +13,7 @@ function localAxios() {
 	return instance;
 }
 
-function multiPartAxios() {
+function fileAxios() {
 	const instance = axios.create({
 		baseURL: VITE_VUE_API_URL,
 		headers: {
@@ -23,4 +23,4 @@ function multiPartAxios() {
 	return instance;
 }
 
-export { localAxios, multiPartAxios };
+export { localAxios, fileAxios };

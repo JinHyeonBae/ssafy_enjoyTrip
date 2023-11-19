@@ -13,6 +13,15 @@ public class FileInfoDto {
 	@ApiModelProperty(value = "저장 파일이름")
 	private String saveFile;
 
+	
+
+	public FileInfoDto(String saveFolder, String originalFile, String saveFile) {
+		super();
+		this.saveFolder = saveFolder;
+		this.originalFile = originalFile;
+		this.saveFile = saveFile;
+	}
+
 	public String getSaveFolder() {
 		return saveFolder;
 	}

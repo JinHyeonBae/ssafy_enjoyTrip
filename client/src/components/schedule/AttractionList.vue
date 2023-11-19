@@ -4,7 +4,7 @@ import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
 
 import { ref, watch, onMounted, provide, inject } from "vue";
-import { getAttrtions } from "@/api/schedule";
+import { getAttrations } from "@/api/schedule";
 
 let attrList = ref([]);
 let page = 1;
@@ -17,7 +17,7 @@ const load = async ($state) => {
   const start = page * size - size;
 
   try {
-    getAttrtions(
+    getAttrations(
       {
         sido: 3,
         start: start,
@@ -57,12 +57,13 @@ const load = async ($state) => {
     />
   </div>
   <div class="attr-list">
-    <div v-for="attraction in attrList">
+    <div v-for="(attraction, index) in attrList">
       <div id="attr-item" @drag="">
         <AttractionItem
           :attraction="attraction.title"
           date="2023-10-22"
           :description="attraction.overview"
+          :index="index"
         />
       </div>
     </div>

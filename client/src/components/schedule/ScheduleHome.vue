@@ -3,7 +3,6 @@ import { ref, watch, onMounted, provide } from "vue";
 import ScheduleSideBar from "./ScheduleSideBar.vue";
 import ScheduleMap from "./ScheduleMap.vue";
 import SendButton from "./SendButton.vue";
-import { getAttrtions } from "@/api/schedule";
 
 // const { sido } = defineProps({
 //   sido: Number,

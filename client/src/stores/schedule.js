@@ -3,26 +3,32 @@ import { defineStore } from "pinia";
 
 export const useAttrStore = defineStore("attrStore", () => {
   //   const attrList = ref([{ name: "", attractionList: [], startDate: "" }]);
-
-  const name = ref("");
+  const title = ref("");
+  const memo = ref("");
   const selectedAttrList = ref([]);
   const startDate = ref("");
   const destDate = ref("");
 
   const getDataAll = computed(() => selectedAttrList.value);
   // 저장
-  const addToAttrList = (attrItem) => {
-    selectedAttrList.value.push(attrItem);
+  const addToAttrList = (index) => {
+    selectedAttrList.value.push(index);
   };
 
   const changeStartDate = (start) => {
-    console.log("STARTDATE :" + start);
     startDate.value = start;
   };
 
   const changeDestDate = (dest) => {
-    console.log("destDATE :" + dest);
     destDate.value = dest;
+  };
+
+  const setTitle = (t) => {
+    title.value = t;
+  };
+
+  const setMemo = (m) => {
+    memo.value = m;
   };
 
   const getStartDate = () => {
@@ -33,16 +39,32 @@ export const useAttrStore = defineStore("attrStore", () => {
     return destDate.value;
   };
 
-  const getFullDate = () => {
-    return startDate.value + " ~ " + destDate.value;
-  };
-
   //   const changeMenuState = () => {
   //     menuList.value = menuList.value.map((item) => ({
   //       ...item,
   //       show: !item.show,
   //     }));
   //   };
+
+  const getIndexes = () => {
+    const indexes = ref([]);
+    indexes.value = selectedAttrList.value.map((item) => ({
+      index: item.index,
+    }));
+
+    return indexes.value;
+  };
+
+  const getAllDateAsJson = () => {
+    return {
+      title: title.value,
+      memo: memo.value,
+      start_date: startDate.value,
+      end_date: destDate.value,
+      selectedAttrList: getIndexes(),
+    };
+  };
+
   return {
     selectedAttrList,
     startDate,
@@ -53,6 +75,8 @@ export const useAttrStore = defineStore("attrStore", () => {
     changeDestDate,
     getStartDate,
     getDestDate,
-    getFullDate,
+    getAllDateAsJson,
+    setTitle,
+    setMemo,
   };
 });

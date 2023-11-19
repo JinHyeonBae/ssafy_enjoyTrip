@@ -5,10 +5,10 @@ import { useAttrStore } from "@/stores/schedule";
 
 const store = useAttrStore();
 
-const inputFormat = ref("yyyy-MM-dd");
-
 const StartDateValueHandler = () => {
   const dateControl = document.querySelector('input[id="start"]');
+
+  console.log("START : " + dateControl.value);
   store.changeStartDate(dateControl.value);
 };
 
@@ -24,17 +24,18 @@ const DestDateValueHandler = () => {
     <input
       id="start"
       type="date"
+      aria-required="true"
       placeholder="출발 일정"
       value=""
       class="ps-5 pe-5"
-      :on-change="StartDateValueHandler"
+      :onChange="StartDateValueHandler"
     />
-    <h3 class="mt-5">도착 일정</h3>
+    <h3 class="mt-5">종료 일정</h3>
     <input
       id="dest"
       type="date"
       aria-required="true"
-      placeholder="도착 일정"
+      placeholder="종료 일정"
       value=""
       class="ps-5 pe-5"
       :onChange="DestDateValueHandler"

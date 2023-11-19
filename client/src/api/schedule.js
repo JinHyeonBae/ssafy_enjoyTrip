@@ -3,7 +3,7 @@ import { localAxios } from "@/util/http-commons";
 const local = localAxios();
 const url = "/tourlist";
 
-async function getAttrtions(param, success, fail) {
+async function getAttrations(param, success, fail) {
   const { sido, start, listsize } = param;
   console.log("param : " + start + "," + listsize);
   await local
@@ -13,6 +13,12 @@ async function getAttrtions(param, success, fail) {
     )
     .then(success)
     .catch(fail);
+}
+
+async function storeSchedule(param, success, fail) {
+  const { sido, start, listsize } = param;
+  console.log("param : " + start + "," + listsize);
+  await local.post(param).then(success).catch(fail);
 }
 
 // async function findById(userid, success, fail) {
@@ -31,4 +37,4 @@ async function getAttrtions(param, success, fail) {
 //   await local.get(`/user/logout/${userid}`).then(success).catch(fail);
 // }
 
-export { getAttrtions };
+export { getAttrations, storeSchedule };

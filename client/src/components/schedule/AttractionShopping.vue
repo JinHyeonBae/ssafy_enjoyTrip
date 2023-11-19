@@ -14,11 +14,12 @@ attrList.value = store.getDataAll;
     <div class="mt-2">
       <ul style="width: 20rem; flex-wrap: nowrap">
         <h3>내가 선택한 여행지</h3>
-        <div class="selectedAttraction" v-for="attr in attrList">
+        <div class="selectedAttraction" v-for="(attr, index) in attrList">
           <AttractionItem
             :attraction="attr.attraction"
             :date="attr.date"
             description=""
+            :index="index"
           />
         </div>
       </ul>

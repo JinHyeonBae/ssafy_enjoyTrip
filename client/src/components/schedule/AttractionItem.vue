@@ -2,10 +2,11 @@
 import Busan from "@/assets/img/main/Busan.jpg";
 import { useAttrStore } from "@/stores/schedule";
 
-const { attraction, date, description } = defineProps({
+const { attraction, date, description, index } = defineProps({
   attraction: String,
   date: String,
   description: String,
+  index: Number,
 });
 
 const store = useAttrStore();
@@ -15,6 +16,7 @@ const getAttractionInfo = () => {
     attraction,
     date,
     description,
+    index,
   });
 };
 </script>

@@ -56,6 +56,11 @@ export const useAttrStore = defineStore("attrStore", () => {
     return indexes.value;
   };
 
+  const getFullDate = () => {
+    console.log(startDate.value + "-" + destDate.value);
+    return startDate.value + "-" + destDate.value;
+  };
+
   const getAllDateAsJson = () => {
     return {
       user_id: userId.value,
@@ -72,6 +77,7 @@ export const useAttrStore = defineStore("attrStore", () => {
     startDate,
     destDate,
     getDataAll,
+    getFullDate,
     addToAttrList,
     changeStartDate,
     changeDestDate,

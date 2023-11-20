@@ -32,7 +32,7 @@ const getAttractionInfo = () => {
       class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
     >
       <strong class="mb-1">{{ attraction }}</strong>
-      <small class="text-body-secondary">{{ date }}</small>
+      <small class="text-body-secondary"> {{ date }}</small>
       <div class="col-10 mb-1 small">
         {{ description }}
       </div>

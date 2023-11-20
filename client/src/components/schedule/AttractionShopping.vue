@@ -5,7 +5,10 @@ import { useAttrStore } from "@/stores/schedule";
 
 const store = useAttrStore();
 const attrList = ref([]);
-const date = console.log("ATTR : " + attrList);
+const date = ref("");
+console.log(store.getStartDate());
+console.log(store.getDestDate());
+
 attrList.value = store.getDataAll;
 </script>
 
@@ -17,7 +20,7 @@ attrList.value = store.getDataAll;
         <div class="selectedAttraction" v-for="(attr, index) in attrList">
           <AttractionItem
             :attraction="attr.attraction"
-            :date="attr.date"
+            :date="date"
             description=""
             :index="index"
           />

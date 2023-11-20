@@ -2,6 +2,7 @@
 import AttractionItem from "./AttractionItem.vue";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
+import TripSearch from "@/components/schedule/tripInfo/TripSearch.vue";
 
 import { ref, watch, onMounted, provide, inject } from "vue";
 import { getAttrations } from "@/api/schedule";
@@ -12,7 +13,6 @@ let page = 1;
 const load = async ($state) => {
   console.log("loading...");
 
-  console.log("STATE : " + $state.loaded);
   const size = import.meta.env.VITE_ATTR_LIST_SIZE;
   const start = page * size - size;
 
@@ -24,7 +24,6 @@ const load = async ($state) => {
         listsize: size,
       },
       ({ data }) => {
-        console.log(data);
         //console.log("ATTRLIST : " + response.data);
 
         const json = data;
@@ -48,6 +47,7 @@ const load = async ($state) => {
 
 <template>
   <div class="input-group mb-3">
+    <TripSearch></TripSearch>
     <span class="input-group-text" id="inputGroup-sizing-default">검색</span>
     <input
       type="text"
@@ -61,7 +61,6 @@ const load = async ($state) => {
       <div id="attr-item" @drag="">
         <AttractionItem
           :attraction="attraction.title"
-          date="2023-10-22"
           :description="attraction.overview"
           :index="index"
         />

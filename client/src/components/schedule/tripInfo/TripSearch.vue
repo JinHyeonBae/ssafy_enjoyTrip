@@ -5,7 +5,7 @@ const props = defineProps({
   select: {
     type: Object,
     default: () => ({
-      sido: "",
+      sido: "3",
       gugun: "",
       type: "",
       search: "",
@@ -53,17 +53,18 @@ const areaUrl =
 // 데이터 왜 안 주나..ㅠㅠㅠ
 // 공공데이터 구군 코드 호출
 async function fetchGuGunOption(areaCode) {
-  const gugunUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${serviceKey}&MobileOS=ETC&MobileApp=AppTest&_type=json`;
+  const gugunUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${serviceKey}&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=${areaCode}`;
 
   const response = await fetch(gugunUrl, {
     headers: {
-      Accept: "application / json",
+      accept: "application/json",
     },
   });
   console.log("RESPONSE : ");
-  console.log(response);
+  //console.log(response);
+  //console.log(response.url)
   const data = await response.json();
-  console.log(data);
+  //console.log(data);
   return data.response.body.items.item;
 }
 
@@ -79,14 +80,16 @@ const changeType = (t) => {
   //emit("changeType", type);
 };
 
-// onMounted(() => {
-//   gugunlist.value = fetch(areaUrl).then((data) => {
-//     console.log(data.json());
-//   });
-//   //console.log(fetchGuGunOption(3));
-//   console.log("GUGUN : ");
-//   console.log(gugunlist.value);
-// });
+onMounted(() => {
+  fetchGuGunOption(3)
+    .then((response)=>{
+      console.log(response)
+      gugunlist.value = response;
+  });
+  
+  //gugunlist.value = fetchGuGunOption(3);
+  //console.log(fetchGuGunOption(3));
+});
 </script>
 
 <template>
@@ -94,15 +97,15 @@ const changeType = (t) => {
     <select
       class="form-select"
       aria-label="Default select example"
-      :model-value="select.gugun"
       @update:modelValue="changeGugun"
-      :items="gugunlist"
-      item-title="name"
-      item-value="code"
       :rules="[(v) => !!v || 'gugun is required']"
       label="구군"
       required
-    ></select>
+    >
+    <option v-for="gugun in gugunlist" :value="gugun.rnum">
+        {{ gugun.name }}
+    </option>
+  </select>
 
     <select
       class="form-select"

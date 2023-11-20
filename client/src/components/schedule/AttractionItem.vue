@@ -2,9 +2,10 @@
 import Busan from "@/assets/img/main/Busan.jpg";
 import { useAttrStore } from "@/stores/schedule";
 
-const { attraction, date, description, index } = defineProps({
+const { attraction, startDate, destDate, description, index } = defineProps({
   attraction: String,
-  date: String,
+  startDate: String,
+  destDate: String,
   description: String,
   index: Number,
 });
@@ -14,7 +15,8 @@ const store = useAttrStore();
 const getAttractionInfo = () => {
   store.addToAttrList({
     attraction,
-    date,
+    startDate,
+    destDate,
     description,
     index,
   });
@@ -32,7 +34,10 @@ const getAttractionInfo = () => {
       class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
     >
       <strong class="mb-1">{{ attraction }}</strong>
-      <small class="text-body-secondary">{{ store.getStartDate() }} - {{ store.getDestDate() }}</small>
+      
+      <div v-if="!!startDate && !!endDate">
+        <small class="text-body-secondary">{{ startDate }} - {{ endDate }}</small>
+      </div>
       <div class="description col-10 mb-1 small">
         {{ description }}
       </div>

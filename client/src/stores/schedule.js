@@ -12,8 +12,8 @@ export const useAttrStore = defineStore("attrStore", () => {
 
   const getDataAll = computed(() => selectedAttrList.value);
   // 저장
-  const addToAttrList = (index) => {
-    selectedAttrList.value.push(index);
+  const addToAttrList = (item) => {
+    selectedAttrList.value.push(item);
   };
 
   const changeStartDate = (start) => {

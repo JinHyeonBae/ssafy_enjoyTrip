@@ -2,7 +2,11 @@ package com.ssafy.vue.board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,6 +17,9 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -91,6 +98,9 @@ public class BoardController {
 			@RequestPart(value = "article", required=false) BoardDto boardDto){
 		logger.debug("writeArticle file - {}", multiFiles[0]);
 		logger.debug("writeArticle article - {}", boardDto);
+		String currentPath = new File("").getAbsolutePath();
+		currentPath = currentPath.replaceAll("\\\\","/");
+		logger.debug("currentPath - {}", currentPath+"/"+saveRootPath);
 		
 		FileInfoDto fileInfoDto;
 		String  uuId, saveFolder,originalFile,saveFile;
@@ -103,7 +113,9 @@ public class BoardController {
                 
                 uuId = UUID.randomUUID().toString();
 //                saveFolder = saveRootPath+"/"+getToDate()+"/";
-                saveFolder = saveRootPath;
+                saveFolder = currentPath+"/"+saveRootPath;
+                
+//                saveFolder = saveRootPath;
                 originalFile = multiFiles[i].getOriginalFilename();
                 saveFile = getToDate() + "_" + uuId+ originalFile.substring(originalFile.lastIndexOf("."));
                 fileInfoDto = new FileInfoDto(saveFolder,originalFile,saveFile);
@@ -133,7 +145,25 @@ public class BoardController {
 			return exceptionHandling(e);
 		}
 	}
-	
+	@GetMapping("/display/{file}")
+    public ResponseEntity<Object> download( @PathVariable("file") String file) {
+        logger.debug("download file info  file : {}",  file);
+        String fileP = saveRootPath + File.separator + file;
+
+        try {
+            Path filePath = Paths.get(fileP);
+            Resource resource = new InputStreamResource(Files.newInputStream(filePath)); // 파일 resource 얻기
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(URLEncoder.encode(file, "UTF-8").replaceAll("\\+", "%20")).build());
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+            return new ResponseEntity<Object>(resource, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<Object>(null, HttpStatus.CONFLICT);
+        }
+    }
 	
 
 	@ApiOperation(value = "게시판 글목록", notes = "모든 게시글의 정보를 반환한다.", response = List.class)

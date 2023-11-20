@@ -32,12 +32,20 @@ const getAttractionInfo = () => {
       class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
     >
       <strong class="mb-1">{{ attraction }}</strong>
-      <small class="text-body-secondary"> {{ date }}</small>
-      <div class="col-10 mb-1 small">
+      <small class="text-body-secondary">{{ store.getStartDate() }} - {{ store.getDestDate() }}</small>
+      <div class="description col-10 mb-1 small">
         {{ description }}
       </div>
     </div>
   </a>
 </template>
 
-<style scoped></style>
+<style scoped>
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>

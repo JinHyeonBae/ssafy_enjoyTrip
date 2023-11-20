@@ -41,7 +41,8 @@ const markers = ref([]);
 // );
 
 onMounted(() => {
-  if (window.kakao && window.kakao.maps) {
+  if (typeof window === "undefined") return;
+  if (!!window.kakao && !!window.kakao.maps) {
     initMap();
   } else {
     const script = document.createElement("script");

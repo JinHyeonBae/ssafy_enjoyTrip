@@ -1,13 +1,11 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import AttractionItem from "./AttractionItem.vue";
 import { useAttrStore } from "@/stores/schedule";
 
 const store = useAttrStore();
 const attrList = ref([]);
 const date = ref("");
-console.log(store.getStartDate());
-console.log(store.getDestDate());
 
 attrList.value = store.getDataAll;
 </script>

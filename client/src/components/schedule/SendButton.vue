@@ -15,6 +15,18 @@ const setSchedule = () => {
 
   const data = store.getAllDateAsJson();
 
+  storeSchedule(
+    data,
+    async (response) => {
+      console.log(response);
+      if (response.status == 201) alert("계획이 성공적으로 등록되었습니다.");
+    },
+    (error) => {
+      console.log("setSchedule : " + error);
+      alert("계획이 등록되지 않았습니다.");
+    }
+  );
+
   console.log(data);
 };
 </script>
@@ -73,7 +85,12 @@ const setSchedule = () => {
             >
               취소
             </button>
-            <button type="button" class="btn btn-primary" @click="setSchedule">
+            <button
+              type="button"
+              data-bs-dismiss="modal"
+              class="btn btn-primary"
+              @click="setSchedule"
+            >
               생성
             </button>
           </div>

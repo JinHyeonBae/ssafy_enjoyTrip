@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 
 export const useAttrStore = defineStore("attrStore", () => {
   //   const attrList = ref([{ name: "", attractionList: [], startDate: "" }]);
+  const userId = ref("ssafy");
   const title = ref("");
   const memo = ref("");
   const selectedAttrList = ref([]);
@@ -47,21 +48,22 @@ export const useAttrStore = defineStore("attrStore", () => {
   //   };
 
   const getIndexes = () => {
-    const indexes = ref([]);
-    indexes.value = selectedAttrList.value.map((item) => ({
-      index: item.index,
-    }));
+    const indexes = ref("");
+    selectedAttrList.value.forEach((item) => {
+      indexes.value += item.index;
+    });
 
     return indexes.value;
   };
 
   const getAllDateAsJson = () => {
     return {
+      user_id: userId.value,
       title: title.value,
       memo: memo.value,
       start_date: startDate.value,
       end_date: destDate.value,
-      selectedAttrList: getIndexes(),
+      content: getIndexes(),
     };
   };
 

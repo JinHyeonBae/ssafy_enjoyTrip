@@ -7,8 +7,6 @@ const store = useAttrStore();
 
 const StartDateValueHandler = () => {
   const dateControl = document.querySelector('input[id="start"]');
-
-  console.log("START : " + dateControl.value);
   store.changeStartDate(dateControl.value);
 };
 

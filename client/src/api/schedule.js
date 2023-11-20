@@ -16,9 +16,11 @@ async function getAttrations(param, success, fail) {
 }
 
 async function storeSchedule(param, success, fail) {
-  const { sido, start, listsize } = param;
-  console.log("param : " + start + "," + listsize);
-  await local.post(param).then(success).catch(fail);
+  console.log("param : " + param);
+  await local
+    .post(`${url}/store-schedule`, JSON.stringify(param))
+    .then(success)
+    .catch(fail);
 }
 
 // async function findById(userid, success, fail) {

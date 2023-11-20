@@ -62,7 +62,10 @@
 		<!-- </trim> -->
 	</select>
 	
-	
+	<insert id="storeSchedule" parameterType="TripScheduleDto">
+		insert into schedule (user_id, title, memo, content, start_date, end_date)
+		values (#{user_id}, #{title}, #{memo}, #{content}, #{start_date}, #{end_date})
+	</insert>
 	
 	<!-- <select id="fileInfoList" resultMap="file">
 		select save_folder, original_file, save_file

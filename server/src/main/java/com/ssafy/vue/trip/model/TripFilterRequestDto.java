@@ -11,14 +11,19 @@ public class TripFilterRequestDto{
 	private Integer contentTypeId;
 	private Integer start;
 	private Integer listsize;
-	
+	private String title;
+
 	@Override
 	public String toString() {
-		return "TripFilterRequestDto [sidoCode=" + sidoCode + ", gugunCode=" + gugunCode + ", contentTypeId="
-				+ contentTypeId + ", start=" + start + ", listsize=" + listsize + "]";
+		return "TripFilterRequestDto{" +
+				"sidoCode=" + sidoCode +
+				", gugunCode=" + gugunCode +
+				", contentTypeId=" + contentTypeId +
+				", start=" + start +
+				", listsize=" + listsize +
+				", title='" + title + '\'' +
+				'}';
 	}
-	
-	
-	
-	
+
+
 }

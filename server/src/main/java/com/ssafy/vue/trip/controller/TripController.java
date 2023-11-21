@@ -73,6 +73,9 @@ public class TripController {
 			if(queryParam.get("contentTypeId") != null && !queryParam.get("contentTypeId").isEmpty())
 				filterDto.setContentTypeId(Integer.parseInt(queryParam.get("contentTypeId")));
 
+			if(queryParam.get("title") != null && !queryParam.get("title").isEmpty())
+				filterDto.setTitle(queryParam.get("title"));
+
 			System.out.println("DATA : " + filterDto.toString());
 			filterDto.setStart((Integer.parseInt(queryParam.get("start"))));
 			filterDto.setListsize(Integer.parseInt(queryParam.get("listsize")));
@@ -104,7 +107,7 @@ public class TripController {
 	}
 
 
-	@ApiOperation(value = "시도 코드 출력 저장", notes = "필터링한 관광지 리스트 불러오기")
+	@ApiOperation(value = "시도 코드 출력 저장", notes = "시도 리스트 불러오기")
 	@ApiResponses({ @ApiResponse(code = 200, message = "관광지 리스트 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),
 			@ApiResponse(code = 500, message = "서버에러!!") })
 	@GetMapping("/sido")
@@ -119,6 +122,21 @@ public class TripController {
 		}
 	}
 
+
+	@ApiOperation(value = "검색 기능", notes = "필터링한 관광지 리스트 불러오기")
+	@ApiResponses({ @ApiResponse(code = 200, message = "관광지 리스트 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),
+			@ApiResponse(code = 500, message = "서버에러!!") })
+	@GetMapping("/search-content")
+	// ContentType,
+	public ResponseEntity<?> searchByContent() throws Exception{
+		try {
+			List<SidoDto> sido = tripService.getSidoCode();
+			return ResponseEntity.status(200).body(sido);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 
 

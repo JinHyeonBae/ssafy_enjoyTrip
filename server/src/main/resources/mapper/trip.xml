@@ -57,8 +57,13 @@
 			<if test="gugunCode != null">
 				AND gugun_code = #{gugunCode}
 			</if>
+			<if test="title != null">
+				AND title like CONCAT('%',#{title},'%')
+			</if>
 		</where>
-		limit #{start}, #{listsize}
+		<if test="start != null AND listsize != null">
+			limit #{start}, #{listsize}
+		</if>
 		<!-- </trim> -->
 	</select>
 	
@@ -73,11 +78,16 @@
 		where article_no = #{articleNo}
 	</select> -->
 
-
 	<select id="getSidoCode" resultType="SidoDto">
 		select sido_code, sido_name
 		from sido
 	</select>
+
+	<select id="searchByContent" resultType="SidoDto">
+		select sido_code, sido_name
+		from sido
+	</select>
+
 
 
 </mapper>

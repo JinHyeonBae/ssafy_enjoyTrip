@@ -2,6 +2,8 @@
 import AttractionItem from "./AttractionItem.vue";
 import InfiniteLoading from "v3-infinite-loading";
 import "v3-infinite-loading/lib/style.css";
+
+import TripFilter from "@/components/schedule/tripInfo/TripFilter.vue";
 import TripSearch from "@/components/schedule/tripInfo/TripSearch.vue";
 
 import { ref, watch, onMounted, provide, inject } from "vue";
@@ -12,6 +14,7 @@ let page = 1;
 
 const gugunCode = ref("");
 const typeInfo = ref("");
+const title = ref("")
 
 // 구군을 선택했을 때! 
 const changeGugun = (gugun) =>{
@@ -25,34 +28,41 @@ const changeType = (type) =>{
   getAttrInfo();
 }
 
+const search = (t)=>{
+  title.value = t;
+  getAttrInfo()
+}
+
+// 필터링 후 서버에 데이터 요청하는 부분
 const getAttrInfo = ()=> {
-  const size = import.meta.env.VITE_ATTR_LIST_SIZE;
-  const start = page * size - size;
+  const size = 100;
+  const start = 1 * size - size;
+  
 
   getAttrations(
       {
-        sido: 5,
+        sido: 2,
         gugun : gugunCode.value,
         type : typeInfo.value,
         start: start,
         listsize: size,
+        title : title.value
       },
       ({data})=>{
         console.log("response : ")
         //console.log(response);
+        console.log(data)
         attrList.value = data
       },
       (error)=>{
         console.log("error")
         console.log(error)
       }
-
   )
-
 }
 
 
-// gugunCode와 type 같은 경우 emit으로 처리해야한다.
+// 무한 스크롤용 API
 const load = async ($state) => {
   console.log("loading...");
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!지금 서버로 보낸다!!!")
@@ -68,6 +78,7 @@ const load = async ($state) => {
         type : typeInfo.value,
         start: start,
         listsize: size,
+        title : title.value
       },
       ({ data }) => {
         //console.log("ATTRLIST : " + response.data);
@@ -93,43 +104,46 @@ const load = async ($state) => {
 </script>
 
 <template>
-  <div class="input-group mb-3">
-    <TripSearch 
-      @change-gugun="changeGugun" 
-      @change-type="changeType">
-    </TripSearch>
-    <span class="input-group-text" id="inputGroup-sizing-default">검색</span>
-    <input
-      type="text"
-      class="form-control"
-      aria-label="Sizing example input"
-      aria-describedby="inputGroup-sizing-default"
-    />
-  </div>
-  <div class="attr-list">
-    <div v-for="(attraction, index) in attrList">
-      <div id="attr-item">
-        <AttractionItem
-          :attraction="attraction.title"
-          :startDate="attraction.startDate"
-          :destDate="attraction.destDate"
-          :description="attraction.overview"
-          :index="index"
-          :lat="attraction.latitude"
-          :lng="attraction.longitude"
-        />
+  <div class="attr">
+    <div class="input-group mb-3">
+      <TripFilter 
+        @change-gugun="changeGugun" 
+        @change-type="changeType">
+      </TripFilter>
+      <TripSearch @search="search">
+      </TripSearch>
+    </div>
+    <div class="attr-list">
+      <div v-for="(attraction, index) in attrList">
+        <div id="attr-item">
+          <AttractionItem
+            :attraction="attraction.title"
+            :startDate="attraction.startDate"
+            :destDate="attraction.destDate"
+            :description="attraction.overview"
+            :index="index"
+            :lat="attraction.latitude"
+            :lng="attraction.longitude"
+          />
+        </div>
       </div>
+    <infinite-loading @infinite="load"></infinite-loading>
     </div>
   </div>
-  <infinite-loading @infinite="load"></infinite-loading>
 </template>
 
 <style scoped>
-.input-group {
-  width: 100%;
+.attr {
+  display: flex;
+  flex-direction: column;
+  width: auto;
+}
+.input-group{
+  
 }
 .attr-list {
-  overflow-y: scroll;
-  overflow-x: hidden;
+  flex-flow: 2;
 }
+
+
 </style>

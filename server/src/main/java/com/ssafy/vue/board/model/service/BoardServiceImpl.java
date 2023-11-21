@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ssafy.vue.board.model.BoardDto;
 import com.ssafy.vue.board.model.BoardListDto;
 import com.ssafy.vue.board.model.FileInfoDto;
+import com.ssafy.vue.board.model.LatestBoardDto;
 import com.ssafy.vue.board.model.mapper.BoardMapper;
 
 @Service
@@ -120,6 +121,12 @@ public class BoardServiceImpl implements BoardService {
 			File file = new File(path + File.separator + fileInfoDto.getSaveFolder() + File.separator + fileInfoDto.getSaveFile());
 			file.delete();
 		}
+	}
+
+	@Override
+	public List<LatestBoardDto> latestListArticle() throws Exception {
+		List<LatestBoardDto> list = boardMapper.latestListArticle();
+		return list;
 	}
 
 //	@Override

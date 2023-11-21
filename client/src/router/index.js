@@ -98,6 +98,10 @@ const router = createRouter({
 			],
 		},
 	],
+	//페이지 이동시 맨위로 스크롤
+	scrollBehavior() {
+		return { top: 0 };
+	},
 });
 
 export default router;

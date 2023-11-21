@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { detailArticle, deleteArticle, displayArticle } from "@/api/board";
+import { detailArticle, deleteArticle } from "@/api/board";
 import CommentList from "@/components/board/item/CommentList.vue";
 import CommentFormItem from "@/components/board/item/CommentFormItem.vue";
 // import imgRootPath from "@/assets/img/upload/";
@@ -12,19 +12,18 @@ const router = useRouter();
 const { articleno } = route.params;
 
 const article = ref({});
-const previewImages = ref([]);
+
 onMounted(() => {
 	getArticle();
 });
 const exfname = "20231120_12532f69-cb62-49af-99b4-176dd25f805b.png";
 const getArticle = () => {
-	// const { articleno } = route.params;
 	console.log(articleno + "번글 얻으러 가자!!!");
 	// API 호출
 	detailArticle(
 		articleno,
 		({ data }) => {
-			console.log(data);
+			// console.log(data);
 			article.value = data;
 			// currentPage.value = data.currentPage;
 			// totalPage.value = data.totalPageCount;
@@ -44,7 +43,6 @@ function moveModify() {
 }
 
 function onDeleteArticle() {
-	// const { articleno } = route.params;
 	console.log(articleno + "번글 삭제하러 가자!!!");
 	deleteArticle(
 		articleno,
@@ -56,11 +54,6 @@ function onDeleteArticle() {
 		}
 	);
 }
-
-// function getImageUrl(path, name) {
-// 	// return new URL(`/src/assets/img/upload/${name}`, import.meta.url).href;
-// 	return new URL(`/localhost/vue/static/assets/img/upload/${name}`, import.meta.url).href;
-// }
 </script>
 
 <template>

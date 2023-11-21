@@ -8,6 +8,10 @@ function listArticle(param, success, fail) {
 	local.get(`${url}`, { params: param }).then(success).catch(fail);
 }
 
+function latestArticles(success, fail) {
+	local.get(`${url}/latest`).then(success).catch(fail);
+}
+
 function detailArticle(articleno, success, fail) {
 	local.get(`${url}/${articleno}`).then(success).catch(fail);
 }
@@ -35,6 +39,7 @@ function deleteArticle(articleno, success, fail) {
 
 export {
 	listArticle,
+	latestArticles,
 	detailArticle,
 	registArticle,
 	displayArticle,

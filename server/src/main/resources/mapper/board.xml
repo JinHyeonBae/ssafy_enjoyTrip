@@ -14,6 +14,13 @@
 		<result column="register_time" property="registerTime"/>
 	</resultMap>
 	
+	<resultMap type="LatestBoardDto" id="Latest">
+		<result column="article_no" property="articleNo"/>
+		<result column="subject" property="subject"/>
+		<result column="content" property="content"/>
+		<result column="save_file" property="saveFile"/>
+	</resultMap>
+	
 	<resultMap type="boardDto" id="viewArticle" extends="article">
 		<collection property="fileInfos" column="article_no" javaType="list" ofType="fileInfoDto" select="fileInfoList"/>
 	</resultMap>
@@ -58,6 +65,15 @@
 		<include refid="search"></include>
 		order by b.article_no desc
 		limit #{start}, #{listsize}
+	</select>
+	
+	<select id="latestListArticle" resultMap="Latest">
+		select b.article_no, b.subject, b.content,
+		(select f.save_file from file_info order by idx desc limit 1 ) save_file
+		from board b, file_info f 
+		where b.article_no = f.article_no 
+		order by b.register_time desc
+		limit 3
 	</select>
 	
 	<select id="getTotalArticleCount" parameterType="map" resultType="int">

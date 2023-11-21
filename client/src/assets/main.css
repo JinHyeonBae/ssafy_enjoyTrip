@@ -1,12 +1,12 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 @font-face {
-  font-family: "NanumBarunpen";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "NanumBarunpen";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
 
-:root {
-  --bs-body-font-family: "NanumBarunpen";
+body {
+	--bs-body-font-family: "NanumBarunpen";
 }

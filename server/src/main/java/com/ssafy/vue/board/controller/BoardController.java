@@ -42,6 +42,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.ssafy.vue.board.model.BoardDto;
 import com.ssafy.vue.board.model.BoardListDto;
 import com.ssafy.vue.board.model.FileInfoDto;
+import com.ssafy.vue.board.model.LatestBoardDto;
 import com.ssafy.vue.board.model.service.BoardService;
 
 import io.swagger.annotations.Api;
@@ -96,48 +97,46 @@ public class BoardController {
 	public ResponseEntity<?> writeArticleFile(
 			@RequestPart(value = "upfile", required=false) MultipartFile[] multiFiles,
 			@RequestPart(value = "article", required=false) BoardDto boardDto){
-		logger.debug("writeArticle file - {}", multiFiles[0]);
 		logger.debug("writeArticle article - {}", boardDto);
-		String currentPath = new File("").getAbsolutePath();
-		currentPath = currentPath.replaceAll("\\\\","/");
-		logger.debug("currentPath - {}", currentPath+"/"+saveRootPath);
-		
-		FileInfoDto fileInfoDto;
-		String  uuId, saveFolder,originalFile,saveFile;
-		List<FileInfoDto> fileInfos = new ArrayList<>();
-        for (int i = 0; i < multiFiles.length; i++) {
-            if (!multiFiles[i].isEmpty()) {
-                logger.debug("saveRootPath :: {}", saveRootPath);
-                logger.debug("file.getOriginalFilename() :: {}", multiFiles[i].getOriginalFilename());
-                logger.debug("file size :: {}", multiFiles[i].getSize());
-                
-                uuId = UUID.randomUUID().toString();
-//                saveFolder = saveRootPath+"/"+getToDate()+"/";
-                saveFolder = currentPath+"/"+saveRootPath;
-                
-//                saveFolder = saveRootPath;
-                originalFile = multiFiles[i].getOriginalFilename();
-                saveFile = getToDate() + "_" + uuId+ originalFile.substring(originalFile.lastIndexOf("."));
-                fileInfoDto = new FileInfoDto(saveFolder,originalFile,saveFile);
-                
-             // 파일에 저장하기
-                logger.debug("dest :: {}", saveFolder + saveFile);
-                File dest = new File(saveFolder + saveFile);
-//                dest.mkdirs();
-                try {
-                	//파일 저장.
-					multiFiles[i].transferTo(dest);
-					
-					//fileInfos에 담기.
-	                fileInfos.add(fileInfoDto);
-	                logger.debug("fileInfoDto :: {}", fileInfoDto);
-				} catch (IOException e) {
-					System.out.println(e);
-				}
-            }
-        }
-      //boardDto에 담기.
-        boardDto.setFileInfos(fileInfos);
+		if(multiFiles != null) {
+			logger.debug("writeArticle file - {}", multiFiles[0]);
+			String currentPath = new File("").getAbsolutePath();
+			currentPath = currentPath.replaceAll("\\\\","/");
+			logger.debug("currentPath - {}", currentPath+"/"+saveRootPath);
+			
+			FileInfoDto fileInfoDto;
+			String  uuId, saveFolder,originalFile,saveFile;
+			List<FileInfoDto> fileInfos = new ArrayList<>();
+	        for (int i = 0; i < multiFiles.length; i++) {
+	            if (!multiFiles[i].isEmpty()) {
+	                logger.debug("saveRootPath :: {}", saveRootPath);
+	                logger.debug("file.getOriginalFilename() :: {}", multiFiles[i].getOriginalFilename());
+	                logger.debug("file size :: {}", multiFiles[i].getSize());
+	                
+	                uuId = UUID.randomUUID().toString();
+	                saveFolder = currentPath+"/"+saveRootPath;
+	                originalFile = multiFiles[i].getOriginalFilename();
+	                saveFile = getToDate() + "_" + uuId+ originalFile.substring(originalFile.lastIndexOf("."));
+	                fileInfoDto = new FileInfoDto(saveFolder,originalFile,saveFile);
+	                
+	             // 파일에 저장하기
+	                logger.debug("dest :: {}", saveFolder + saveFile);
+	                File dest = new File(saveFolder + saveFile);
+	                try {
+	                	//파일 저장.
+						multiFiles[i].transferTo(dest);
+						
+						//fileInfos에 담기.
+		                fileInfos.add(fileInfoDto);
+		                logger.debug("fileInfoDto :: {}", fileInfoDto);
+					} catch (IOException e) {
+						System.out.println(e);
+					}
+	            }
+	        }
+	      //boardDto에 담기.
+	        boardDto.setFileInfos(fileInfos);
+		}
 		try {
 			boardService.writeArticle(boardDto);
 			return new ResponseEntity<Void>(HttpStatus.CREATED);
@@ -178,6 +177,21 @@ public class BoardController {
 			HttpHeaders header = new HttpHeaders();
 			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 			return ResponseEntity.ok().headers(header).body(boardListDto);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	@ApiOperation(value = "최신 게시판 글목록", notes = "최신 게시글의 정보를 반환한다.", response = List.class)
+	@ApiResponses({ @ApiResponse(code = 200, message = "회원목록 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),
+			@ApiResponse(code = 500, message = "서버에러!!")})
+	@GetMapping("/latest")
+	public ResponseEntity<?> latestListArticle() {
+		logger.info("latestListArticle");
+		try {
+			List<LatestBoardDto> latestArticles = boardService.latestListArticle();
+			HttpHeaders header = new HttpHeaders();
+			header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+			return ResponseEntity.ok().headers(header).body(latestArticles);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}

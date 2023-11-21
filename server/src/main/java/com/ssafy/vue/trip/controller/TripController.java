@@ -3,6 +3,7 @@ package com.ssafy.vue.trip.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.vue.trip.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.slf4j.Logger;
@@ -17,11 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ssafy.vue.trip.model.TripInfoDto;
-import com.ssafy.vue.trip.model.TripScheduleDto;
 import com.ssafy.vue.board.controller.BoardController;
-import com.ssafy.vue.trip.model.TripDto;
-import com.ssafy.vue.trip.model.TripFilterRequestDto;
 import com.ssafy.vue.trip.model.service.TripService;
 
 import io.swagger.annotations.Api;
@@ -64,27 +61,30 @@ public class TripController {
 		try {
 			logger.debug("QUERY STRING : {} " + queryParam);
 			TripFilterRequestDto filterDto = new TripFilterRequestDto();
-			
-			if(queryParam.get("sidoCode") != null)
+			System.out.println("Q : " + queryParam.get("sidoCode").isEmpty());
+			if(queryParam.get("sidoCode") != null && !queryParam.get("sidoCode").isEmpty())
 				filterDto.setSidoCode(Integer.parseInt(queryParam.get("sidoCode")));
-			
-			if(queryParam.get("gugunCode") != null)
+
+			System.out.println("Q : " + queryParam.get("gugunCode").isEmpty());
+			if(queryParam.get("gugunCode") != null && !queryParam.get("gugunCode").isEmpty())
 				filterDto.setGugunCode(Integer.parseInt(queryParam.get("gugunCode")));
-			
-			if(queryParam.get("contentTypeId") != null)
+
+			System.out.println("Q : " + queryParam.get("contentTypeId").isEmpty());
+			if(queryParam.get("contentTypeId") != null && !queryParam.get("contentTypeId").isEmpty())
 				filterDto.setContentTypeId(Integer.parseInt(queryParam.get("contentTypeId")));
 
+			System.out.println("DATA : " + filterDto.toString());
 			filterDto.setStart((Integer.parseInt(queryParam.get("start"))));
 			filterDto.setListsize(Integer.parseInt(queryParam.get("listsize")));
 			List<TripDto> tripList = tripService.getSpecificTripList(filterDto);
 			return ResponseEntity.ok().body(tripList);
 		} 
 		catch (Exception e) {
-			return ResponseEntity.status(404).body(e.getMessage());
+			return ResponseEntity.status(404).body(e.getCause() + " : \n" + e.getMessage());
 		}
 	}
 
-	@ApiOperation(value = "유저 관광지 저장", notes = "필터링한 관광지 리스트 불러오기")
+	@ApiOperation(value = "유저가 선택한 관광지 저장", notes = "필터링한 관광지 리스트 불러오기")
 	@ApiResponses({ @ApiResponse(code = 200, message = "관광지 리스트 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),
 			@ApiResponse(code = 500, message = "서버에러!!") })
 	@PostMapping("/store-schedule")
@@ -102,9 +102,28 @@ public class TripController {
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
-	
-	
-	
-	
+
+
+	@ApiOperation(value = "시도 코드 출력 저장", notes = "필터링한 관광지 리스트 불러오기")
+	@ApiResponses({ @ApiResponse(code = 200, message = "관광지 리스트 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),
+			@ApiResponse(code = 500, message = "서버에러!!") })
+	@GetMapping("/sido")
+	// ContentType,
+	public ResponseEntity<?> getSidoCode() throws Exception{
+		try {
+			List<SidoDto> sido = tripService.getSidoCode();
+			return ResponseEntity.status(200).body(sido);
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
+
+
+
+
+
+
 
 }

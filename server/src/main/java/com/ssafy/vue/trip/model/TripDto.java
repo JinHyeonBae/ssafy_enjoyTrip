@@ -1,5 +1,6 @@
 package com.ssafy.vue.trip.model;
 
+
 public class TripDto {
 
 	private int contentId;

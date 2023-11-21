@@ -3,15 +3,12 @@ package com.ssafy.vue.trip.model.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.ssafy.vue.trip.model.*;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.vue.trip.model.TripInfoDto;
-import com.ssafy.vue.trip.model.TripScheduleDto;
-import com.ssafy.vue.trip.model.TripDto;
-import com.ssafy.vue.trip.model.TripFilterRequestDto;
 import com.ssafy.vue.trip.model.mapper.TripMapper;
 
 @Service
@@ -44,9 +41,12 @@ public class TripServiceImpl implements TripService{
 		TripMapper tripMapper = sqlSession.getMapper(TripMapper.class);
 		tripMapper.storeSchedule(scheduleDto);
 	}
-	
-	
-	
+
+	@Override
+	public List<SidoDto>  getSidoCode() throws Exception {
+		TripMapper tripMapper = sqlSession.getMapper(TripMapper.class);
+		return tripMapper.getSidoCode();
+	}
 
 
 }

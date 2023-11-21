@@ -71,7 +71,8 @@ const load = async ($state) => {
       },
       ({ data }) => {
         //console.log("ATTRLIST : " + response.data);
-
+        console.log("서버에서 리스트 모두를 받아온다 : ")
+        console.log(data)
         const json = data;
         console.log($state)
         if (json.length < 10) $state.complete();
@@ -107,11 +108,15 @@ const load = async ($state) => {
   </div>
   <div class="attr-list">
     <div v-for="(attraction, index) in attrList">
-      <div id="attr-item" @drag="">
+      <div id="attr-item">
         <AttractionItem
           :attraction="attraction.title"
+          :startDate="attraction.startDate"
+          :destDate="attraction.destDate"
           :description="attraction.overview"
           :index="index"
+          :lat="attraction.latitude"
+          :lng="attraction.longitude"
         />
       </div>
     </div>

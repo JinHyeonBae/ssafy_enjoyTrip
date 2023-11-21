@@ -2,19 +2,27 @@ import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 
 export const useAttrStore = defineStore("attrStore", () => {
-  //   const attrList = ref([{ name: "", attractionList: [], startDate: "" }]);
+
   const userId = ref("ssafy");
   const title = ref("");
   const memo = ref("");
-  const selectedAttrList = ref([]);
   const startDate = ref("");
   const destDate = ref("");
+  const selectedAttrList = ref([]);
+  const lat = ref(0);
+  const lng = ref(0);
 
-  const getDataAll = computed(() => selectedAttrList.value);
+  const getAttrList = computed(()=> selectedAttrList.value);
   // 저장
   const addToAttrList = (item) => {
+    console.log("store에 추가합니다")
+    console.log(item);
     selectedAttrList.value.push(item);
   };
+
+  // const removeToAttrList = (item) => {
+  //   selectedAttrList.value
+  // }
 
   const changeStartDate = (start) => {
     startDate.value = start;
@@ -47,6 +55,7 @@ export const useAttrStore = defineStore("attrStore", () => {
   //     }));
   //   };
 
+
   const getIndexes = () => {
     const indexes = ref("");
     selectedAttrList.value.forEach((item) => {
@@ -61,7 +70,7 @@ export const useAttrStore = defineStore("attrStore", () => {
     return startDate.value + "-" + destDate.value;
   };
 
-  const getAllDateAsJson = () => {
+  const getAttrData = () => {
     return {
       user_id: userId.value,
       title: title.value,
@@ -72,19 +81,61 @@ export const useAttrStore = defineStore("attrStore", () => {
     };
   };
 
+  const getMapData = () =>{
+    return {
+      user_id: userId.value,
+      title: title.value,
+      memo: memo.value,
+      content: getIndexes(),
+      lag : lat.value,
+      lng : lng.value
+    }
+  }
+
+
   return {
     selectedAttrList,
     startDate,
     destDate,
-    getDataAll,
+    getAttrList,
     getFullDate,
+    getMapData,
     addToAttrList,
     changeStartDate,
     changeDestDate,
     getStartDate,
     getDestDate,
-    getAllDateAsJson,
+    getAttrData,
     setTitle,
     setMemo,
   };
 });
+
+// export default mapCursorStore = defineStore("cursorStore", ()=>{
+
+//   const stations = ref([]);
+//   const selectedStations = ref([])
+
+//   const getStations = ()=>{
+//     return stations.value;
+//   }
+
+//   const getSelectionStations = ()=>{
+//     return stations.value;
+//   }
+
+//   const setStation = (station) => {
+//     stations.value.push(station);
+//   }
+
+//   const setSelectedStation = (station) => {
+//     stations.value.push(station);
+//   }
+
+  
+
+//   return {
+
+//   }
+
+// })

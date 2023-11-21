@@ -10,6 +10,10 @@ import { ref } from "vue";
 //   attrList: Array,
 // });
 
+// const {sido} = defineProps({
+//   sido : Number
+// })
+
 const isShowing = ref(false);
 const getAttractionInfo = () => {};
 

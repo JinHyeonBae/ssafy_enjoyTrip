@@ -13,7 +13,7 @@ const setSchedule = () => {
   store.setTitle(title.value);
   store.setMemo(memo.value);
 
-  const data = store.getAllDateAsJson();
+  const data = store.getAttrData();
 
   storeSchedule(
     data,

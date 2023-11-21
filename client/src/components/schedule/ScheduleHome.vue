@@ -8,15 +8,17 @@ import SendButton from "./SendButton.vue";
 //   sido: Number,
 // });
 
-const sido = 3;
+//const props = defineProps({ stations: Array, selectStation: Object });
 
-const attrList = ref([]);
+const stations = ref([]);
+const selectStation = ref([]);
+
 </script>
 
 <template>
   <div class="sch-container">
     <ScheduleSideBar class="item"></ScheduleSideBar>
-    <ScheduleMap class="item"></ScheduleMap>
+    <ScheduleMap :stations ="stations" :selectStation="selectStation" class="item"></ScheduleMap>
   </div>
   <SendButton></SendButton>
 </template>

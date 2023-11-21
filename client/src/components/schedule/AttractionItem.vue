@@ -2,12 +2,14 @@
 import Busan from "@/assets/img/main/Busan.jpg";
 import { useAttrStore } from "@/stores/schedule";
 
-const { attraction, startDate, destDate, description, index } = defineProps({
+const { attraction, startDate, destDate, description, index, lat, lng } = defineProps({
   attraction: String,
-  startDate: String,
-  destDate: String,
+  startDate : String,
+  destDate : String,
   description: String,
   index: Number,
+  lat : Number,
+  lng : Number
 });
 
 const store = useAttrStore();
@@ -19,6 +21,8 @@ const getAttractionInfo = () => {
     destDate,
     description,
     index,
+    lat,
+    lng,
   });
 };
 </script>

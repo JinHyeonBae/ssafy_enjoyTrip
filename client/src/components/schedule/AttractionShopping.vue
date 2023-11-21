@@ -6,7 +6,7 @@ import { useAttrStore } from "@/stores/schedule";
 const store = useAttrStore();
 const attrList = ref([]);
 
-attrList.value = store.getDataAll;
+attrList.value = store.getAttrList;
 </script>
 
 <template>

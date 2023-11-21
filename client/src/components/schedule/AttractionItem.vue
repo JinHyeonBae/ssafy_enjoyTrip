@@ -50,6 +50,11 @@ const getAttractionInfo = () => {
 </template>
 
 <style scoped>
+
+.list-group-item{
+  overflow-y: scroll;
+}
+
 .description {
   display: -webkit-box;
   -webkit-line-clamp: 3;

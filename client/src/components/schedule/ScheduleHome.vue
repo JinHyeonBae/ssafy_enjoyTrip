@@ -8,26 +8,32 @@ import SendButton from "./SendButton.vue";
 //   sido: Number,
 // });
 
-//const props = defineProps({ stations: Array, selectStation: Object });
-
-const stations = ref([]);
-const selectStation = ref([]);
-
 </script>
 
 <template>
   <div class="sch-container">
     <ScheduleSideBar class="item"></ScheduleSideBar>
-    <ScheduleMap :stations ="stations" :selectStation="selectStation" class="item"></ScheduleMap>
+    <ScheduleMap class="item"></ScheduleMap>
   </div>
   <SendButton></SendButton>
 </template>
 
 <style scope>
+
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+html {
+  height: -webkit-fill-available;
+}
+
 .sch-container {
   display: flex;
+  height: 100%;
+  width: 100%;
   flex-direction: row;
-  font-family: var();
 }
 
 .item:nth-child(1) {
@@ -35,6 +41,6 @@ const selectStation = ref([]);
 }
 
 .item:nth-child(2) {
-  flex-grow: 2;
+  flex-grow: 4;
 }
 </style>

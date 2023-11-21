@@ -126,17 +126,16 @@ const deleteMarkers = () => {
 </script>
 
 <template>
-  <div class="sch-container">
-    <ScheduleSideBar></ScheduleSideBar>
     <div id="map"></div>
-  </div>
 </template>
 
 <style scoped>
+
+
 #map {
-  width: 100vw;
-  overflow-x: hidden;
-  height: 100%;
+  width: 100%;
+  overflow-x: unset;
+  height: 100vh;
   z-index: 3;
 }
 </style>

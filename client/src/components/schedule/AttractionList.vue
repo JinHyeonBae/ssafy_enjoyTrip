@@ -6,7 +6,7 @@ import "v3-infinite-loading/lib/style.css";
 import TripFilter from "@/components/schedule/tripInfo/TripFilter.vue";
 import TripSearch from "@/components/schedule/tripInfo/TripSearch.vue";
 
-import { ref, watch, onMounted, provide, inject } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { getAttrations } from "@/api/schedule";
 
 let attrList = ref([]);
@@ -24,7 +24,7 @@ const changeGugun = (gugun) =>{
 
 // type을 선택했을 때!
 const changeType = (type) =>{
-  typeInfo.value = type
+  typeInfo.value = type;
   getAttrInfo();
 }
 
@@ -37,7 +37,6 @@ const search = (t)=>{
 const getAttrInfo = ()=> {
   const size = 100;
   const start = 1 * size - size;
-  
 
   getAttrations(
       {

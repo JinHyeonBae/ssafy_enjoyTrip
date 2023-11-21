@@ -21,7 +21,7 @@ const getAttractionInfo = () => {};
 </script>
 
 <template>
-  <div class="container">
+  <div class="container-sidebar">
     <div
       class="d-flex flex-column flex-shrink-0 bg-body-tertiary"
       style="width: 4.5rem; z-index: 10"
@@ -36,7 +36,7 @@ const getAttractionInfo = () => {};
     </div>
     <div
       class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary"
-      style="width: 380px"
+      style="width: 20rem"
     >
       <div
         class="list-title d-flex align-items-center flex-shrink-0 p-3 link-body-emphasis text-decoration-none border-bottom mb-2"
@@ -66,7 +66,7 @@ const getAttractionInfo = () => {};
     <div
       id="basket"
       class="collapse collapse-horizontal"
-      style="min-height: 120px; background-color: #f8f9fa"
+      style="background-color: #f8f9fa"
     >
       <AttractionShopping></AttractionShopping>
     </div>
@@ -74,26 +74,21 @@ const getAttractionInfo = () => {};
 </template>
 
 <style scoped>
-.container {
+.container-sidebar {
   display: flex;
+  width: fit-content;
+  height: 100%;
+  position:relative;
 }
 
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
+div#basket{
+  position: absolute;
+  right: 0;
+  transform: translateX(100%);
+  z-index: 100;
 }
 
-html {
-  height: -webkit-fill-available;
-}
 
-main {
-  height: 100vh;
-  height: -webkit-fill-available;
-  max-height: 100vh;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
 .dropdown-toggle {
   outline: 0;
 }
@@ -144,6 +139,6 @@ main {
 }
 
 .list-group {
-  height: 100vh;
+  height: 100%;
 }
 </style>

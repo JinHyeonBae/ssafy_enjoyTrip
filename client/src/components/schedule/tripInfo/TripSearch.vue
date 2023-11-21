@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
 
+// 여기는 props로 시도 코드를 받는다.
 const props = defineProps({
   select: {
     type: Object,
@@ -13,16 +14,20 @@ const props = defineProps({
   },
 });
 
-// const emit = defineEmits(["changeSido", "changeGugun", "changeType"]);
+const emits = defineEmits(['changeGugun', 'changeType'])
+
 
 const select = ref(props.select);
 
 // 무조건 시도코드가 가능
 const enabled = computed(() => !!select.value?.sido);
+
 const gugunlist = ref([]);
+const gugunInfo = ref("")
 const typeInfo = ref("");
 
 const typelist = [
+  {code: "0", name: "전체"},
   { code: "12", name: "관광지" },
   { code: "14", name: "문화시설" },
   { code: "15", name: "축제공연행사" },
@@ -36,21 +41,6 @@ const typelist = [
 // 공공데이터 서비스 키
 const serviceKey = import.meta.env.VITE_OPEN_API_SERVICE_KEY;
 
-// 지역코드
-const areaUrl =
-  "https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=" +
-  serviceKey +
-  "&numOfRows=20&pageNo=1&MobileOS=ETC&MobileApp=AppTest&_type=json";
-
-// 공공데이터 시도 코드 호출
-// async function fetchOption() {
-//   const sidoUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${serviceKey}&MobileOS=ETC&MobileApp=AppTest&_type=json`;
-//   const response = await fetch(sidoUrl);
-//   const data = await response.json();
-//   return data.response.body.items.item;
-// }
-
-// 데이터 왜 안 주나..ㅠㅠㅠ
 // 공공데이터 구군 코드 호출
 async function fetchGuGunOption(areaCode) {
   const gugunUrl = `https://apis.data.go.kr/B551011/KorService1/areaCode1?serviceKey=${serviceKey}&MobileOS=ETC&MobileApp=AppTest&_type=json&areaCode=${areaCode}`;
@@ -61,8 +51,6 @@ async function fetchGuGunOption(areaCode) {
     },
   });
   console.log("RESPONSE : ");
-  //console.log(response);
-  //console.log(response.url)
   const data = await response.json();
   //console.log(data);
   return data.response.body.items.item;
@@ -71,21 +59,37 @@ async function fetchGuGunOption(areaCode) {
 const changeGugun = (gugun) => {
   console.log("gugun :");
   console.log(gugun.target);
-  //emit("changeGugun", gugun);
+  emits("changeGugun", gugunInfo.value)
 };
 
 // 정상적으로 받아옴
 const changeType = (t) => {
-  console.log(typeInfo.value);
+  emits("changeType", typeInfo.value)
   //emit("changeType", type);
+  
 };
 
 onMounted(() => {
-  fetchGuGunOption(3)
+  
+  // 공공데이터 포털에서 너무 많이 요청하면 막히므로 이 코드는 실제로 테스트할 때 연다.
+
+  /*
+  fetchGuGunOption(4) // props로 받아온 sido 코드를 넣는다.
     .then((response)=>{
+      console.log("API : ")
       console.log(response)
       gugunlist.value = response;
+      //{rnum: 1, code: '1', name: '남구'}
+      gugunlist.value.unshift({rnum: 0, code: '0', name: '전체'})
   });
+  */
+
+  gugunlist.value.push({rnum: 1, code: '1', name: '남구'});
+  gugunlist.value.push({rnum: 2, code: '2', name: '남구'});
+  gugunlist.value.push({rnum: 3, code: '3', name: '남구'});
+  gugunlist.value.push({rnum: 4, code: '4', name: '남구'});
+  gugunlist.value.push({rnum: 5, code: '5', name: '남구'});
+  
   
   //gugunlist.value = fetchGuGunOption(3);
   //console.log(fetchGuGunOption(3));
@@ -97,9 +101,9 @@ onMounted(() => {
     <select
       class="form-select"
       aria-label="Default select example"
-      @update:modelValue="changeGugun"
-      :rules="[(v) => !!v || 'gugun is required']"
+      v-model="gugunInfo"
       label="구군"
+      @change="changeGugun"
       required
     >
     <option v-for="gugun in gugunlist" :value="gugun.rnum">

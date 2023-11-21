@@ -4,11 +4,11 @@ const local = localAxios();
 const url = "/tourlist";
 
 async function getAttrations(param, success, fail) {
-  const { sido, start, listsize } = param;
+  const { sido, type, gugun, start, listsize } = param;
   console.log("param : " + start + "," + listsize);
   await local
     .get(
-      `${url}/search?sidoCode=${sido}&start=${start}&listsize=${listsize}`,
+      `${url}/search?sidoCode=${sido}&gugunCode=${gugun}&contentTypeId=${type}&start=${start}&listsize=${listsize}`,
       param
     )
     .then(success)
@@ -19,6 +19,19 @@ async function storeSchedule(param, success, fail) {
   console.log("param : " + param);
   await local
     .post(`${url}/store-schedule`, JSON.stringify(param))
+    .then(success)
+    .catch(fail);
+}
+
+
+async function getAttrationsByFilter(param, success, fail) {
+  const { sido, gugun, type, start, listsize } = param;
+  console.log("param : " + start + "," + listsize);
+  await local
+    .get(
+      `${url}/search?sidoCode=${sido}&gugunCode=${gugun}&contentTypeId=${type}&start=${start}&listsize=${listsize}`,
+      param
+    )
     .then(success)
     .catch(fail);
 }

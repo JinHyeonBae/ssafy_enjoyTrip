@@ -10,16 +10,62 @@ import { getAttrations } from "@/api/schedule";
 let attrList = ref([]);
 let page = 1;
 
-const load = async ($state) => {
-  console.log("loading...");
+const gugunCode = ref("");
+const typeInfo = ref("");
 
+// 구군을 선택했을 때! 
+const changeGugun = (gugun) =>{
+  gugunCode.value = gugun;
+  getAttrInfo();
+}
+
+// type을 선택했을 때!
+const changeType = (type) =>{
+  typeInfo.value = type
+  getAttrInfo();
+}
+
+const getAttrInfo = ()=> {
   const size = import.meta.env.VITE_ATTR_LIST_SIZE;
   const start = page * size - size;
 
+  getAttrations(
+      {
+        sido: 5,
+        gugun : gugunCode.value,
+        type : typeInfo.value,
+        start: start,
+        listsize: size,
+      },
+      ({data})=>{
+        console.log("response : ")
+        //console.log(response);
+        attrList.value = data
+      },
+      (error)=>{
+        console.log("error")
+        console.log(error)
+      }
+
+  )
+
+}
+
+
+// gugunCode와 type 같은 경우 emit으로 처리해야한다.
+const load = async ($state) => {
+  console.log("loading...");
+  console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!지금 서버로 보낸다!!!")
+  const size = import.meta.env.VITE_ATTR_LIST_SIZE;
+  const start = page * size - size;
+
+  // props로 들어온 코드는 들어가야한다.
   try {
     getAttrations(
       {
-        sido: 3,
+        sido: 2,
+        gugun : gugunCode.value,
+        type : typeInfo.value,
         start: start,
         listsize: size,
       },
@@ -27,7 +73,7 @@ const load = async ($state) => {
         //console.log("ATTRLIST : " + response.data);
 
         const json = data;
-
+        console.log($state)
         if (json.length < 10) $state.complete();
         else {
           attrList.value.push(...json);
@@ -47,7 +93,10 @@ const load = async ($state) => {
 
 <template>
   <div class="input-group mb-3">
-    <TripSearch></TripSearch>
+    <TripSearch 
+      @change-gugun="changeGugun" 
+      @change-type="changeType">
+    </TripSearch>
     <span class="input-group-text" id="inputGroup-sizing-default">검색</span>
     <input
       type="text"

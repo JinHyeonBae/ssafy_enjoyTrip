@@ -13,7 +13,6 @@ const getArticleList = () => {
 	latestArticles(
 		({ data }) => {
 			latestListArticle.value = data;
-			console.log(data);
 		},
 		(error) => {
 			console.log(error);

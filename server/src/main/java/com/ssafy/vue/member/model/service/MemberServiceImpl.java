@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.vue.member.model.MemberDto;
 import com.ssafy.vue.member.model.mapper.MemberMapper;
@@ -24,9 +25,24 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public void join(MemberDto memberDto) throws Exception {
+		memberMapper.join(memberDto);
+	}
+	
+	@Override
 	public MemberDto userInfo(String userId) throws Exception {
 		return memberMapper.userInfo(userId);
 	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public int checkId(String userId) throws Exception{
+		MemberDto memberDto = memberMapper.userInfo(userId);
+		if(memberDto == null) return 0; //해당 아이디로 한번도 가입한 이력이 없거나 탈퇴한 이력이 있는 경우
+		return 1;
+	}
+	
+	
 
 	@Override
 	public void saveRefreshToken(String userId, String refreshToken) throws Exception {
@@ -47,6 +63,17 @@ public class MemberServiceImpl implements MemberService {
 		map.put("userId", userId);
 		map.put("token", null);
 		memberMapper.deleteRefreshToken(map);
+	}
+
+	@Override
+	public void update(MemberDto memberDto) throws Exception {
+		memberMapper.update(memberDto);
+	}
+
+	@Override
+	public void delete(String userId) throws Exception {
+		memberMapper.delete(userId);
+		
 	}
 
 }

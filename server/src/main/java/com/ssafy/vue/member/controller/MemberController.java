@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,8 @@ import com.ssafy.vue.member.model.MemberDto;
 import com.ssafy.vue.member.model.service.MemberService;
 import com.ssafy.vue.util.JWTUtil;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +76,94 @@ public class MemberController {
         }
         return new ResponseEntity<Map<String, Object>>(resultMap, status);
     }
+    @ApiOperation(value = "회원가입", notes = "회원정보를 이용하여 회원가입 처리.")
+	@PostMapping(value = "/join")
+	public ResponseEntity<?> join(@RequestBody MemberDto memberDto) {
+		log.info("Welcome join!  {}.", memberDto);
+		HttpStatus status = null;
+		try {
+			memberService.join(memberDto);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			log.error("회원가입 실패 : {}", e);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(status);
+	}
 
+    @ApiOperation(value = "회원가입시 아이디 체크", notes = "아이디를 이용하여 아이디 중복 체크 처리.")
+    @GetMapping(value = "/check/{userId}")
+	public ResponseEntity<?> checkId(@PathVariable("userId") String userId) {
+    	log.info("Welcome checkId!  {}.", userId);
+		HttpStatus status = null;
+		int cnt = 0;
+		try {
+			cnt = memberService.checkId(userId);
+			status = HttpStatus.OK;
+		} catch (Exception e) {
+			log.error("아이디 중복 검사 실패 : {}", e);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(cnt, status);
+	}
+    
+    
+	@ApiOperation(value = "회원정보", notes = "회원한명에 대한 정보.")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "userId", value = "아이디", required = true, dataType = "String", paramType = "path")
+	})
+	@GetMapping(value = "/{userId}")
+	public ResponseEntity<?> userInfo(@PathVariable("userId") String userId) {
+		log.debug("userInfo userid : {}", userId);
+		try {
+			MemberDto memberDto = memberService.userInfo(userId);
+			if(memberDto != null)
+				return new ResponseEntity<MemberDto>(memberDto, HttpStatus.OK);
+			else
+				return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	
+	private ResponseEntity<String> exceptionHandling(Exception e) {
+		e.printStackTrace();
+		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+    
+    
+    
+	@ApiOperation(value = "회원정보수정", notes = "회원정보를 수정합니다.")
+	@PutMapping(value = "/modify")
+	public ResponseEntity<?> userModify(@RequestBody MemberDto memberDto) {
+		log.debug("userModify memberDto : {}", memberDto);
+		HttpStatus status = null;
+		try {
+			memberService.update(memberDto);
+			status =  HttpStatus.OK;
+		} catch (Exception e) {
+			log.error("회원정보수정 실패 : {}", e);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(status);
+	}
+    
+	@ApiOperation(value = "회원정보삭제", notes = "회원정보를 삭제합니다.")
+	@DeleteMapping(value = "/{userId}")
+	public ResponseEntity<?> userDelete(@PathVariable("userId") String userId) {
+		log.debug("userDelete userid : {}", userId);
+		HttpStatus status = null;
+		try {
+			memberService.delete(userId);
+			status =  HttpStatus.OK;
+		} catch (Exception e) {
+			log.error("회원정보수정 실패 : {}", e);
+			status = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<>(status);
+	}
+
+    
     @ApiOperation(value = "회원인증", notes = "회원 정보를 담은 Token을 반환한다.", response = Map.class)
     @GetMapping("/info/{userId}")
     public ResponseEntity<Map<String, Object>> getInfo(

@@ -20,10 +20,6 @@ async function registArticle(formData, success, fail) {
 	console.log("boardjs article", formData);
 	await file.post(`${url}`, formData).then(success).catch(fail);
 }
-async function displayArticle(fname, success, fail) {
-	console.log("fname article", fname);
-	await local.get(`${url}`, fname).then(success).catch(fail);
-}
 
 function getModifyArticle(articleno, success, fail) {
 	local.get(`${url}/modify/${articleno}`).then(success).catch(fail);
@@ -42,7 +38,6 @@ export {
 	latestArticles,
 	detailArticle,
 	registArticle,
-	displayArticle,
 	getModifyArticle,
 	modifyArticle,
 	deleteArticle,

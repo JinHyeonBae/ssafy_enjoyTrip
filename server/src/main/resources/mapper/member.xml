@@ -26,6 +26,27 @@
 		where user_id = #{userId}
 	</select>
 	
+	<insert id="join" parameterType="memberDto" >
+		insert into members(user_id,user_name,user_password,email_id,email_domain,join_date)
+		values(#{userId},#{userName},#{userPwd},#{emailId},#{emailDomain},now())
+	</insert>
+	
+	<update id="update" parameterType="memberDto">
+		update members
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userPwd != null">user_password = #{userPwd},</if>
+			<if test="emailId != null">email_id = #{emailId},</if>
+			<if test="emailDomain != null">email_domain = #{emailDomain},</if>
+		</trim>
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from members
+		where user_id = #{userId}
+	</delete>
+	
+	
 	<update id="saveRefreshToken" parameterType="map">
 		update members
 		set token = #{token}

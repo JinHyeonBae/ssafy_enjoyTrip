@@ -4,8 +4,6 @@ const local = localAxios();
 const url = "/tourlist";
 
 async function getAttrations(param, success, fail) {
-  console.log("param")
-  console.log(param)
   const { sido, type, gugun, start, listsize, title } = param;
   console.log("param : " + start + "," + listsize);
   await local
@@ -34,6 +32,15 @@ async function searchByTitle(param, success, fail) {
     .catch(fail);
 }
 
+async function getUserSchedule(param, success, fail) {
+  const {userId} = param;
+  local.defaults.headers["userId"] = userId;
+  await local
+    .get(`${url}/get-schedule`, JSON.stringify(param))
+    .then(success)
+    .catch(fail);
+}
 
 
-export { getAttrations, storeSchedule };
+
+export { getAttrations, storeSchedule, getUserSchedule };

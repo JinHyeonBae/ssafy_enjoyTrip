@@ -22,12 +22,14 @@ const title = ref("")
 
 // 구군을 선택했을 때! 
 const changeGugun = (gugun) =>{
+  store.setGugunCode(gugun);
   gugunCode.value = gugun;
   getAttrInfo();
 }
 
 // type을 선택했을 때!
 const changeType = (type) =>{
+  store.setTypeInfo(type)
   typeInfo.value = type;
   getAttrInfo();
 }
@@ -52,7 +54,6 @@ const getAttrInfo = ()=> {
         title : title.value
       },
       ({data})=>{
-        console.log("response : ")
         //console.log(response);
         console.log(data)
         attrList.value = data
@@ -110,6 +111,7 @@ const load = async ($state) => {
   <div class="attr">
     <div class="input-group mb-3">
       <TripFilter 
+        :sido="sido"
         @change-gugun="changeGugun" 
         @change-type="changeType">
       </TripFilter>
@@ -120,13 +122,14 @@ const load = async ($state) => {
       <div v-for="(attraction, index) in attrList">
         <div id="attr-item">
           <AttractionItem
-            :attraction="attraction.title"
+            :title="attraction.title"
             :startDate="attraction.startDate"
             :destDate="attraction.destDate"
             :description="attraction.overview"
             :index="index"
             :lat="attraction.latitude"
             :lng="attraction.longitude"
+            :enableSelected="true"
           />
         </div>
       </div>

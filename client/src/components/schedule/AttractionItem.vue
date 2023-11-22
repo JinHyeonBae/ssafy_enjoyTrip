@@ -2,28 +2,32 @@
 import Busan from "@/assets/img/main/Busan.jpg";
 import { useAttrStore } from "@/stores/schedule";
 
-const { attraction, startDate, destDate, description, index, lat, lng } = defineProps({
-  attraction: String,
+const { title, startDate, destDate, description, index, lat, lng, enableSelected } = defineProps({
+  title: String,
   startDate : String,
   destDate : String,
   description: String,
   index: Number,
   lat : Number,
-  lng : Number
+  lng : Number,
+  enableSelected : Boolean
 });
 
 const store = useAttrStore();
 
 const getAttractionInfo = () => {
-  store.addToAttrList({
-    attraction,
-    startDate,
-    destDate,
-    description,
-    index,
-    lat,
-    lng,
-  });
+  if(enableSelected){
+    console.log("ENTER TO LIST")
+    store.addToAttrList({
+      title,
+      startDate,
+      destDate,
+      description,
+      index,
+      lat,
+      lng,
+    });
+  }
 };
 </script>
 
@@ -37,7 +41,7 @@ const getAttractionInfo = () => {
     <div
       class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
     >
-      <strong class="mb-1">{{ attraction }}</strong>
+      <strong class="mb-1">{{ title }}</strong>
       
       <div v-if="!!startDate && !!endDate">
         <small class="text-body-secondary">{{ startDate }} - {{ endDate }}</small>

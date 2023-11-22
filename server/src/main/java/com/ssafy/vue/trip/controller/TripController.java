@@ -9,14 +9,7 @@ import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ssafy.vue.board.controller.BoardController;
 import com.ssafy.vue.trip.model.service.TripService;
@@ -62,6 +55,7 @@ public class TripController {
 			logger.debug("QUERY STRING : {} " + queryParam);
 			TripFilterRequestDto filterDto = new TripFilterRequestDto();
 			System.out.println("Q : " + queryParam.get("sidoCode").isEmpty());
+
 			if(queryParam.get("sidoCode") != null && !queryParam.get("sidoCode").isEmpty())
 				filterDto.setSidoCode(Integer.parseInt(queryParam.get("sidoCode")));
 
@@ -76,13 +70,19 @@ public class TripController {
 			if(queryParam.get("title") != null && !queryParam.get("title").isEmpty())
 				filterDto.setTitle(queryParam.get("title"));
 
-			System.out.println("DATA : " + filterDto.toString());
 			filterDto.setStart((Integer.parseInt(queryParam.get("start"))));
 			filterDto.setListsize(Integer.parseInt(queryParam.get("listsize")));
+
+			System.out.println("DATA : " + filterDto.toString());
 			List<TripDto> tripList = tripService.getSpecificTripList(filterDto);
+			System.out.println("TRIPLIST LENGTH : " + tripList.size());
 			return ResponseEntity.ok().body(tripList);
 		} 
 		catch (Exception e) {
+			System.out.println("ERROR CAUSE");
+			System.out.println(e.getStackTrace());
+			System.out.println(e.getCause());
+
 			return ResponseEntity.status(404).body(e.getCause() + " : \n" + e.getMessage());
 		}
 	}
@@ -134,6 +134,25 @@ public class TripController {
 			return ResponseEntity.status(200).body(sido);
 		}
 		catch (Exception e) {
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
+
+	@ApiOperation(value = "검색 기능", notes = "필터링한 관광지 리스트 불러오기")
+	@ApiResponses({ @ApiResponse(code = 200, message = "관광지 리스트 OK!!"), @ApiResponse(code = 404, message = "페이지없어!!"),
+			@ApiResponse(code = 500, message = "서버에러!!") })
+	@GetMapping("/get-schedule")
+	// ContentType,
+	public ResponseEntity<?> getUserSchedule(@RequestHeader String userId) throws Exception{
+		try {
+			List<TripScheduleDto> schedules = tripService.getUserSchedule(userId);
+			return ResponseEntity.status(200).body(schedules);
+		}
+		catch (Exception e) {
+			System.out.println("GET SCHEUDLE");
+			System.out.println(e.getStackTrace());
+			System.out.println(e.getCause());
+
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}

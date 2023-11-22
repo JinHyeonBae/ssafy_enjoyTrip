@@ -10,9 +10,9 @@ import { useAttrStore } from "@/stores/schedule";
 const { dataObj } = history.state; // 이렇게 받는다.
 const store = useAttrStore();
 
-store.setSidoCode(dataObj.sido)
-console.log(dataObj.sido)
-console.log("SIDO : ")
+if(!!dataObj){
+  store.setSidoCode(dataObj.sido)
+}
 
 
 </script>

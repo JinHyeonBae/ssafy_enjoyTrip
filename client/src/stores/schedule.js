@@ -4,20 +4,22 @@ import { defineStore } from "pinia";
 export const useAttrStore = defineStore("attrStore", () => {
 
   const userId = ref("ssafy");
+
   const title = ref("");
   const memo = ref("");
-  const sido = ref(0);
   const startDate = ref("");
   const destDate = ref("");
   const selectedAttrList = ref([]);
+
+  const sido = ref("");
+  const gugun = ref("");
+  const typeInfo = ref("");
   const lat = ref(0);
   const lng = ref(0);
 
   const getAttrList = computed(()=> selectedAttrList.value);
   // 저장
   const addToAttrList = (item) => {
-    console.log("store에 추가합니다")
-    console.log(item);
     selectedAttrList.value.push(item);
   };
 
@@ -45,6 +47,14 @@ export const useAttrStore = defineStore("attrStore", () => {
     sido.value = s;
   }
 
+  const setGugunCode = (g) => {
+    gugun.value = g;
+  };
+
+  const setTypeInfo = (i) => {
+    typeInfo.value = i;
+  };
+
   const getStartDate = () => {
     return startDate.value;
   };
@@ -57,6 +67,14 @@ export const useAttrStore = defineStore("attrStore", () => {
     return sido.value;
   }
 
+  const getLat = () => {
+    return lat.value;
+  }
+
+  const getLng = () => {
+    return lng.value;
+  }
+
   //   const changeMenuState = () => {
   //     menuList.value = menuList.value.map((item) => ({
   //       ...item,
@@ -65,12 +83,11 @@ export const useAttrStore = defineStore("attrStore", () => {
   //   };
 
 
-  const getIndexes = () => {
+  const getTitles = () => {
     const indexes = ref("");
     selectedAttrList.value.forEach((item) => {
-      indexes.value += item.index;
+      indexes.value += item.title+"-";
     });
-
     return indexes.value;
   };
 
@@ -84,9 +101,12 @@ export const useAttrStore = defineStore("attrStore", () => {
       user_id: userId.value,
       title: title.value,
       memo: memo.value,
+      sido : sido.value,
+      gugun : gugun.value,
+      typeInfo : typeInfo.value,
       start_date: startDate.value,
       end_date: destDate.value,
-      content: getIndexes(),
+      content: getTitles(),
     };
   };
 
@@ -95,12 +115,11 @@ export const useAttrStore = defineStore("attrStore", () => {
       user_id: userId.value,
       title: title.value,
       memo: memo.value,
-      content: getIndexes(),
+      content: getTitles(),
       lag : lat.value,
       lng : lng.value
     }
   }
-
 
   return {
     selectedAttrList,
@@ -116,12 +135,19 @@ export const useAttrStore = defineStore("attrStore", () => {
     getStartDate,
     getDestDate,
     getAttrData,
+    getLng,
+    getLat,
     setTitle,
     setMemo,
-    setSidoCode
+    setSidoCode,
+    setGugunCode,
+    setTypeInfo,
   };
-});
-
+},
+// { 
+//   persist: { storage: sessionStorage } 
+// });
+);
 // export default mapCursorStore = defineStore("cursorStore", ()=>{
 
 //   const stations = ref([]);

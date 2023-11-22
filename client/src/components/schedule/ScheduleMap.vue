@@ -38,24 +38,21 @@ watch(
     stations.value.forEach((station) => {
       let obj = {};
       obj.latlng = new kakao.maps.LatLng(station.lat, station.lng);
-    
       obj.title = station.statNm;
       positions.value.push(obj);
       map.panTo(obj.latlng);
     });
     loadMarkers();
+    drawLine();
   },
   { deep: true }
 );
 
 onMounted(() => {
-  console.log("HELLO THIS IS MAP PART")
   if (window.kakao && window.kakao.maps) {
-    console.log("THIS IS INITMAP")
     initMap();
   } else {
     const script = document.createElement("script");
-    console.log("MAP이 없어요!")
     // autoload = false는 꼭 설정해주자!
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${
       import.meta.env.VITE_KAKAO_MAP_SERVICE_KEY
@@ -80,18 +77,16 @@ const initMap = () => {
 const loadMarkers = () => {
   // 현재 표시되어있는 marker들이 있다면 map에 등록된 marker를 제거한다.
   deleteMarkers();
-  console.log("WHY??1")
   // // 마커 이미지를 생성합니다
-    const imgSrc = "/src/assets/ssafy_logo.png";
+    const imgSrc = "/src/assets/arrow.png";
   // 마커 이미지의 이미지 크기 입니다
-    const imgSize = new kakao.maps.Size(24, 35);
+    const imgSize = new kakao.maps.Size(40, 35);
     const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 
   // 마커를 생성합니다
   markers.value = [];
 
   // 마커를 띄울 로직
-  console.log(positions.value.length)
   if(positions.value.length > 0){
     positions.value.forEach((position) => {
       const marker = new kakao.maps.Marker({
@@ -116,13 +111,137 @@ const loadMarkers = () => {
   );
 
   map.setBounds(bounds);
+
+  //drawLine();
 };
 
 const deleteMarkers = () => {
-  if (markers.value.length > 0) {
+  if (markers.value.length >= 1) {
     markers.value.forEach((marker) => marker.setMap(null));
   }
 };
+
+
+const drawLine = () => {
+  const moveLine = new kakao.maps.Polyline({
+      strokeWeight: 3, // 선의 두께입니다 
+      strokeColor: '#1E90FF', // 선의 색깔입니다
+      strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+      strokeStyle: 'solid' // 선의 스타일입니다    
+  });
+
+// 마우스로 클릭한 위치입니다 
+
+  if (positions.value.length > 1) {
+
+      // // 지도 위에 선이 표시되고 있다면 지도에서 제거합니다
+      // deleteClickLine();
+      
+      // // 지도 위에 커스텀오버레이가 표시되고 있다면 지도에서 제거합니다
+      // deleteDistnce();
+
+      // // 지도 위에 선을 그리기 위해 클릭한 지점과 해당 지점의 거리정보가 표시되고 있다면 지도에서 제거합니다
+      // deleteCircleDot();
+
+      // 클릭한 위치를 기준으로 선을 생성하고 지도위에 표시합니다
+    
+      //draw(clickLine, clickPosition);
+      for(let i = 1; i < positions.value.length; i++){
+        //let path = positions.value
+        console.log("LAT LNG : ")
+        console.log(positions.value[i-1].latlng);
+        console.log(positions.value[i].latlng);
+
+        const pre = positions.value[i-1].latlng;
+        const cur = positions.value[i].latlng
+        
+        let movepath = [pre, cur];
+        moveLine.setPath(movepath);    
+        moveLine.setMap(map);
+      } 
+      // 클릭한 지점에 대한 정보를 지도에 표시합니다
+      //displayCircleDot(clickPosition, 0);
+  }
+};
+
+/*
+const draw = (clickLine, location) => {
+  // 지도 마우스무브 이벤트가 발생했는데 선을 그리고있는 상태이면
+  if (drawingFlag){
+    
+      // 마우스 커서의 현재 위치를 얻어옵니다 
+      var mousePosition = location;
+
+      // 마우스 클릭으로 그려진 선의 좌표 배열을 얻어옵니다
+      var path = clickLine.getPath();
+      
+      // 마우스 클릭으로 그려진 마지막 좌표와 마우스 커서 위치의 좌표로 선을 표시합니다
+      var movepath = [path[path.length-1], mousePosition];
+      moveLine.setPath(movepath);    
+      moveLine.setMap(map);
+      
+      var distance = Math.round(clickLine.getLength() + moveLine.getLength()), // 선의 총 거리를 계산합니다
+          content = '<div class="dotOverlay distanceInfo">총거리 <span class="number">' + distance + '</span>m</div>'; // 커스텀오버레이에 추가될 내용입니다
+      
+      // 거리정보를 지도에 표시합니다
+      showDistance(content, mousePosition);   
+  }             
+};                */
+
+/*
+let options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
+    map: map, // Drawing Manager로 그리기 요소를 그릴 map 객체입니다
+    drawingMode: [ // drawing manager로 제공할 그리기 요소 모드입니다
+        kakao.maps.drawing.OverlayType.MARKER,
+        kakao.maps.drawing.OverlayType.POLYLINE,
+        kakao.maps.drawing.OverlayType.RECTANGLE,
+        kakao.maps.drawing.OverlayType.CIRCLE,
+        kakao.maps.drawing.OverlayType.POLYGON
+    ],
+    // 사용자에게 제공할 그리기 가이드 툴팁입니다
+    // 사용자에게 도형을 그릴때, 드래그할때, 수정할때 가이드 툴팁을 표시하도록 설정합니다
+    guideTooltip: ['draw', 'drag', 'edit'], 
+    markerOptions: { // 마커 옵션입니다 
+        draggable: true, // 마커를 그리고 나서 드래그 가능하게 합니다 
+        removable: true // 마커를 삭제 할 수 있도록 x 버튼이 표시됩니다  
+    },
+    polylineOptions: { // 선 옵션입니다
+        draggable: true, // 그린 후 드래그가 가능하도록 설정합니다
+        removable: true, // 그린 후 삭제 할 수 있도록 x 버튼이 표시됩니다
+        editable: true, // 그린 후 수정할 수 있도록 설정합니다 
+        strokeColor: '#39f', // 선 색
+        hintStrokeStyle: 'dash', // 그리중 마우스를 따라다니는 보조선의 선 스타일
+        hintStrokeOpacity: 0.5  // 그리중 마우스를 따라다니는 보조선의 투명도
+    },
+    rectangleOptions: {
+        draggable: true,
+        removable: true,
+        editable: true,
+        strokeColor: '#39f', // 외곽선 색
+        fillColor: '#39f', // 채우기 색
+        fillOpacity: 0.5 // 채우기색 투명도
+    },
+    circleOptions: {
+        draggable: true,
+        removable: true,
+        editable: true,
+        strokeColor: '#39f',
+        fillColor: '#39f',
+        fillOpacity: 0.5
+    },
+    polygonOptions: {
+        draggable: true,
+        removable: true,
+        editable: true,
+        strokeColor: '#39f',
+        fillColor: '#39f',
+        fillOpacity: 0.5,
+        hintStrokeStyle: 'dash',
+        hintStrokeOpacity: 0.5
+    }
+};*/
+
+
 </script>
 
 <template>

@@ -2,22 +2,11 @@
 import { computed, ref, onMounted } from "vue";
 
 // 여기는 props로 시도 코드를 받는다.
-const props = defineProps({
-  select: {
-    type: Object,
-    default: () => ({
-      sido: "3",
-      gugun: "",
-      type: "",
-      search: "",
-    }),
-  },
+const {sido} = defineProps({
+  sido : Number
 });
 
 const emits = defineEmits(['changeGugun', 'changeType'])
-
-
-const select = ref(props.select);
 
 // 무조건 시도코드가 가능
 const enabled = computed(() => !!select.value?.sido);
@@ -57,7 +46,6 @@ async function fetchGuGunOption(areaCode) {
 }
 
 const changeGugun = (gugun) => {
-  console.log("gugun :");
   console.log(gugun.target);
   emits("changeGugun", gugunInfo.value)
 };
@@ -73,8 +61,8 @@ onMounted(() => {
   
   // 공공데이터 포털에서 너무 많이 요청하면 막히므로 이 코드는 실제로 테스트할 때 연다.
 
-  
-  fetchGuGunOption(4) // props로 받아온 sido 코드를 넣는다.
+  /*
+  fetchGuGunOption(sido) // props로 받아온 sido 코드를 넣는다.
     .then((response)=>{
       console.log("API : ")
       console.log(response)
@@ -82,7 +70,7 @@ onMounted(() => {
       //{rnum: 1, code: '1', name: '남구'}
       gugunlist.value.unshift({rnum: 0, code: '0', name: '전체'})
   });
-
+*/
   /*
   gugunlist.value.push({rnum: 1, code: '1', name: '남구'});
   gugunlist.value.push({rnum: 2, code: '2', name: '남구'});

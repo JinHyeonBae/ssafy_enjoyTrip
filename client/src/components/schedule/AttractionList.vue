@@ -8,10 +8,14 @@ import TripSearch from "@/components/schedule/tripInfo/TripSearch.vue";
 
 import { ref, watch, onMounted } from "vue";
 import { getAttrations } from "@/api/schedule";
+import { useAttrStore } from "@/stores/schedule"
+
+const store = useAttrStore();
 
 let attrList = ref([]);
 let page = 1;
 
+const sido = ref(store.getSidoCode())
 const gugunCode = ref("");
 const typeInfo = ref("");
 const title = ref("")
@@ -40,7 +44,7 @@ const getAttrInfo = ()=> {
 
   getAttrations(
       {
-        sido: 2,
+        sido: sido.value,
         gugun : gugunCode.value,
         type : typeInfo.value,
         start: start,
@@ -72,7 +76,7 @@ const load = async ($state) => {
   try {
     getAttrations(
       {
-        sido: 2,
+        sido: sido.value,
         gugun : gugunCode.value,
         type : typeInfo.value,
         start: start,

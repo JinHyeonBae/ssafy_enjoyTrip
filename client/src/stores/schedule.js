@@ -6,6 +6,7 @@ export const useAttrStore = defineStore("attrStore", () => {
   const userId = ref("ssafy");
   const title = ref("");
   const memo = ref("");
+  const sido = ref(0);
   const startDate = ref("");
   const destDate = ref("");
   const selectedAttrList = ref([]);
@@ -40,6 +41,10 @@ export const useAttrStore = defineStore("attrStore", () => {
     memo.value = m;
   };
 
+  const setSidoCode = (s) => {
+    sido.value = s;
+  }
+
   const getStartDate = () => {
     return startDate.value;
   };
@@ -47,6 +52,10 @@ export const useAttrStore = defineStore("attrStore", () => {
   const getDestDate = () => {
     return destDate.value;
   };
+
+  const getSidoCode = () => {
+    return sido.value;
+  }
 
   //   const changeMenuState = () => {
   //     menuList.value = menuList.value.map((item) => ({
@@ -100,6 +109,7 @@ export const useAttrStore = defineStore("attrStore", () => {
     getAttrList,
     getFullDate,
     getMapData,
+    getSidoCode,
     addToAttrList,
     changeStartDate,
     changeDestDate,
@@ -108,6 +118,7 @@ export const useAttrStore = defineStore("attrStore", () => {
     getAttrData,
     setTitle,
     setMemo,
+    setSidoCode
   };
 });
 

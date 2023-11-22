@@ -17,7 +17,7 @@ const { sidoImages } = storeToRefs(sidoStore);
 				:data-bs-target="`#${sidoImage.name}`"
 				:sidoImage="sidoImage"
 			/>
-			<Modal :modalId="sidoImage.name" :sidoImage="sidoImage" />
+			<Modal :modalId="sidoImage.name" :sidoImage="sidoImage" :sidoCode="sidoImage.code"/>
 		</div>
 	</div>
 </template>

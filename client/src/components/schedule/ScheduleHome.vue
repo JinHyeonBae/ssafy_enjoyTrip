@@ -4,15 +4,22 @@ import ScheduleSideBar from "./ScheduleSideBar.vue";
 import ScheduleMap from "./ScheduleMap.vue";
 import SendButton from "./SendButton.vue";
 
-// const { sido } = defineProps({
-//   sido: Number,
-// });
+import { useRoute, useRouter } from "vue-router"
+import { useAttrStore } from "@/stores/schedule";
+
+const { dataObj } = history.state; // 이렇게 받는다.
+const store = useAttrStore();
+
+store.setSidoCode(dataObj.sido)
+console.log(dataObj.sido)
+console.log("SIDO : ")
+
 
 </script>
 
 <template>
   <div class="sch-container">
-    <ScheduleSideBar class="item"></ScheduleSideBar>
+    <ScheduleSideBar :sido="sido" class="item"></ScheduleSideBar>
     <ScheduleMap class="item"></ScheduleMap>
   </div>
   <SendButton></SendButton>

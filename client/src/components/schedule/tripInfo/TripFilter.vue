@@ -73,7 +73,7 @@ onMounted(() => {
   
   // 공공데이터 포털에서 너무 많이 요청하면 막히므로 이 코드는 실제로 테스트할 때 연다.
 
-  /*
+  
   fetchGuGunOption(4) // props로 받아온 sido 코드를 넣는다.
     .then((response)=>{
       console.log("API : ")
@@ -82,13 +82,14 @@ onMounted(() => {
       //{rnum: 1, code: '1', name: '남구'}
       gugunlist.value.unshift({rnum: 0, code: '0', name: '전체'})
   });
-  */
 
+  /*
   gugunlist.value.push({rnum: 1, code: '1', name: '남구'});
   gugunlist.value.push({rnum: 2, code: '2', name: '남구'});
   gugunlist.value.push({rnum: 3, code: '3', name: '남구'});
   gugunlist.value.push({rnum: 4, code: '4', name: '남구'});
   gugunlist.value.push({rnum: 5, code: '5', name: '남구'});
+  */
   
   
   //gugunlist.value = fetchGuGunOption(3);
@@ -103,6 +104,7 @@ onMounted(() => {
       aria-label="Default select example"
       v-model="gugunInfo"
       label="구군"
+      :value="gugunlist.indexOf(0)"
       @change="changeGugun"
       required
     >
@@ -118,6 +120,7 @@ onMounted(() => {
       v-model="typeInfo"
       required
       @change="changeType"
+      :value="typelist.indexOf(0)"
     >
       <option v-for="t in typelist" :value="t.code">
         {{ t.name }}

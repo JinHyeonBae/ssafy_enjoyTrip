@@ -1,6 +1,24 @@
 <script setup>
 import home_1 from "@/assets/img/main/Busan.jpg";
-defineProps({ modalId: String, sidoImage: Object });
+import {useRouter} from "vue-router"
+
+const {sidoCode} = defineProps({ sidoCode : String, modalId: String, sidoImage: Object });
+
+console.log(sidoCode);
+
+const router = useRouter();
+
+const moveToSchedule = () => {
+	router.push(
+		{
+			name : "schedule", 
+			state: { 
+				dataObj : { sido : Number(sidoCode) },
+			}
+		}
+	)
+}	
+
 </script>
 
 <template>
@@ -40,7 +58,7 @@ defineProps({ modalId: String, sidoImage: Object });
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary">일정만들기</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="moveToSchedule">일정만들기</button>
 				</div>
 			</div>
 		</div>

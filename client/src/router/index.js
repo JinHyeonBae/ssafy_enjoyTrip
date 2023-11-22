@@ -78,11 +78,14 @@ const router = createRouter({
 		{
 			path: "/schedule",
 			name: "schedule",
+			props: true,
+			redirect: { name: "trip-date" },
 			component: ScheduleHome,
 			children: [
 				{
 					path: "list",
 					name: "attraction-list",
+					props: true,
 					component: () => import("@/components/schedule/AttractionList.vue"),
 				},
 				{

@@ -115,9 +115,9 @@ public class BoardController {
 	                
 	                uuId = UUID.randomUUID().toString();
 	                //window
-	                saveFolder = currentPath+"/"+saveRootPath;
+//	                saveFolder = currentPath+"/"+saveRootPath;
 	                //mac
-//	                saveFolder = saveRootPath;
+	                saveFolder = saveRootPath;
 	                originalFile = multiFiles[i].getOriginalFilename();
 	                saveFile = getToDate() + "_" + uuId+ originalFile.substring(originalFile.lastIndexOf("."));
 	                fileInfoDto = new FileInfoDto(saveFolder,originalFile,saveFile);
@@ -224,7 +224,6 @@ public class BoardController {
 	public ResponseEntity<String> modifyArticle(
 			@RequestBody @ApiParam(value = "수정할 글정보.", required = true) BoardDto boardDto) throws Exception {
 		logger.info("modifyArticle - 호출 {}", boardDto);
-
 		boardService.modifyArticle(boardDto);
 		return ResponseEntity.ok().build();
 	}

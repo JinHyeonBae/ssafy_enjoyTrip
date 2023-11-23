@@ -15,9 +15,7 @@ const app = createApp(App);
 const pinia = createPinia();
 
 pinia.use(piniaPluginPersistedstate);
-
 app.use(pinia);
-app.use(pinia.use(piniaPluginPersistedstate));
 app.use(router);
 
 app.component("infinite-loading", InfiniteLoading); //컴포넌트 등록

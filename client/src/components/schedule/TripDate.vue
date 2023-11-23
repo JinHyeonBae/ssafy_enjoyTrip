@@ -24,7 +24,6 @@ const DestDateValueHandler = () => {
       type="date"
       aria-required="true"
       placeholder="출발 일정"
-      :value="store.getStartDate"
       class="ps-5 pe-5"
       :onChange="StartDateValueHandler"
     />
@@ -34,12 +33,9 @@ const DestDateValueHandler = () => {
       type="date"
       aria-required="true"
       placeholder="종료 일정"
-      :value="store.getDestDate"
       class="ps-5 pe-5"
       :onChange="DestDateValueHandler"
     /><br />
-    {{ store.getStartDate }}<br />
-    {{ store.getDestDate }}<br />
   </div>
 </template>
 

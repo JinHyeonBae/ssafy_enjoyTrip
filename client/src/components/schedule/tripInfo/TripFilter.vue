@@ -1,21 +1,23 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
-
+import {useSidoStore} from "@/stores/sido"
 // 여기는 props로 시도 코드를 받는다.
 const {sido} = defineProps({
   sido : Number
 });
 
-const emits = defineEmits(['changeGugun', 'changeType'])
-
+const emits = defineEmits(['changeSido', 'changeGugun', 'changeType'])
+const store = useSidoStore();
 // 무조건 시도코드가 가능
 const enabled = computed(() => !!select.value?.sido);
 const gugunlist = ref([]);
+const sidoInfo = ref("");
 const gugunInfo = ref("")
 const typeInfo = ref("");
+const sidolist = ref(store.sidoImages);
 
 const typelist = [
-  {code: "0", name: "전체"},
+  { code: "0", name: "전체"},
   { code: "12", name: "관광지" },
   { code: "14", name: "문화시설" },
   { code: "15", name: "축제공연행사" },
@@ -44,16 +46,21 @@ async function fetchGuGunOption(areaCode) {
   return data.response.body.items.item;
 }
 
-const changeGugun = (gugun) => {
+const changeSido = () => {
+  console.log("SIDO ");
+  console.log(sidoInfo.value)
+  emits("changeSido", sidoInfo.value)
+}
+
+const changeGugun = () => {
   console.log(gugun.target);
   emits("changeGugun", gugunInfo.value)
 };
 
 // 정상적으로 받아옴
-const changeType = (t) => {
+const changeType = () => {
   emits("changeType", typeInfo.value)
   //emit("changeType", type);
-  
 };
 
 onMounted(() => {
@@ -85,19 +92,22 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="select-container">
-    <div v-if="sido == 0">
       <select
+        v-show="sido == 0"
         class="form-select"
         aria-label="Default select example"
-        v-model="gugunInfo"
+        v-model="sidoInfo"
         label="시도"
-        placeholder="선택하세요."
-        @change="changeGugun"
+        @change="changeSido"
         required
       >
-      </select>
-    </div>
+    <option disabled value="">여행하고 싶은 시도를 선택하세요</option>
+      <option v-for="sido in sidolist" :value="sido.code">
+          {{ sido.name }}
+      </option>
+    </select>
+
+  <div class="select-container">
     <select
       class="form-select"
       aria-label="Default select example"
@@ -119,9 +129,8 @@ onMounted(() => {
       label="관광지유형"
       placeholder="선택하세요."
       v-model="typeInfo"
-      required
       @change="changeType"
-      :value="typelist.indexOf(0)"
+      required
     >
     <option disabled value="">타입을 선택하세요</option>
       <option v-for="t in typelist" :value="t.code">
@@ -142,6 +151,7 @@ onMounted(() => {
   gap: 10px;
   margin: auto;
   margin-top: 30px;
+  justify-content: space-evenly;
 }
 
 .select-container > select {

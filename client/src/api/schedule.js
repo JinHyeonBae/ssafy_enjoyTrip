@@ -5,7 +5,7 @@ const url = "/tourlist";
 
 async function getAttrations(param, success, fail) {
   const { sido, type, gugun, start, listsize, title } = param;
-  console.log("param : " + start + "," + listsize);
+  console.log("param : " +sido + "," + start + "," + listsize);
   await local
     .get(
       `${url}/search?sidoCode=${sido}&gugunCode=${gugun}&contentTypeId=${type}&start=${start}&listsize=${listsize}&title=${title}`,

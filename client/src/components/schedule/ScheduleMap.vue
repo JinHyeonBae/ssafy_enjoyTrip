@@ -37,7 +37,7 @@ watch(
     positions.value = [];
     stations.value.forEach((station) => {
       let obj = {};
-      obj.latlng = new kakao.maps.LatLng(station.lat, station.lng);
+      obj.latlng = new kakao.maps.LatLng(station.latitude, station.longitude);
       obj.title = station.statNm;
       positions.value.push(obj);
       map.panTo(obj.latlng);
@@ -131,7 +131,8 @@ const drawLine = () => {
   });
 
 // 마우스로 클릭한 위치입니다 
-
+  console.log("POSITION : ");
+  console.log(positions.value);
   if (positions.value.length > 1) {
 
       // // 지도 위에 선이 표시되고 있다면 지도에서 제거합니다

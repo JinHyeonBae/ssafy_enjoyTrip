@@ -9,9 +9,10 @@ import TripSearch from "@/components/schedule/tripInfo/TripSearch.vue";
 import { ref, watch, onMounted } from "vue";
 import { getAttrations } from "@/api/schedule";
 import { useAttrStore } from "@/stores/schedule"
+import { storeToRefs } from "pinia";
 
 const store = useAttrStore();
-
+const {startDate, destDate} = storeToRefs(store);
 let attrList = ref([]);
 let page = 1;
 
@@ -21,7 +22,13 @@ const typeInfo = ref("");
 const title = ref("")
 
 const addItem = (item) => {
+  console.log(item);
   store.addToAttrList(item);
+}
+
+const changeSido = (sido)=>{
+  store.setSidoCode(sido);
+  getAttrInfo();
 }
 
 // 구군을 선택했을 때! 
@@ -45,13 +52,13 @@ const search = (t)=>{
 
 // 필터링 후 서버에 데이터 요청하는 부분
 const getAttrInfo = ()=> {
-  const size = 100;
+  const size = 10;
   const start = 1 * size - size;
-  console.log("getAttrInfo");
+  console.log("getAttrInfo :");
   console.log(sido.value);
   getAttrations(
       {
-        sido: sido.value === undefined ? 0 : sido.value,
+        sido: store.getSidoCode() === undefined ? 0 : store.getSidoCode(),
         gugun : gugunCode.value,
         type : typeInfo.value,
         start: start,
@@ -114,24 +121,17 @@ const load = async ($state) => {
     <div class="input-group mb-3">
       <TripFilter 
         :sido="sido"
-        @change-gugun="changeGugun" 
+        @change-sido="changeSido"
+        @change-gugun="changeGugun"
         @change-type="changeType">
       </TripFilter>
       <TripSearch @search="search">
       </TripSearch>
     </div>
     <div class="attr-list">
-      <div v-for="(attraction, index) in attrList">
-
+      <div v-for="attraction in attrList">
           <AttractionItem
-            :title="attraction.title"
-            :startDate="attraction.startDate"
-            :destDate="attraction.destDate"
-            :description="attraction.overview"
-            :index="index"
-            :lat="attraction.latitude"
-            :lng="attraction.longitude"
-            :enableSelected="true"
+            :attraction="attraction"
             @add-item="addItem"
           />
       </div>

@@ -4,14 +4,13 @@ import { defineStore } from "pinia";
 export const useAttrStore = defineStore("attrStore", () => {
 
   const userId = ref("ssafy");
-
   const title = ref("");
   const memo = ref("");
   const startDate = ref("");
   const destDate = ref("");
   const selectedAttrList = ref([]);
 
-  const sido = ref(0);
+  const sido = ref("");
   const gugun = ref("");
   const typeInfo = ref("");
   const lat = ref(0);
@@ -19,35 +18,35 @@ export const useAttrStore = defineStore("attrStore", () => {
 
   const getAttrList = computed(()=> selectedAttrList.value);
   
-  const getFilteredAttrList = () => {
-    selectedAttrList.value = selectedAttrList.value.filter((item, index)=>{
-      return selectedAttrList.value.indexOf(item) === index;
-    })
-  }
   // 저장
   const addToAttrList = (item) => {
-    
     let check = false;
+    const selected = item;
+
     selectedAttrList.value.forEach((attr)=>{
-      if(attr.index == item.index){
+      console.log("SELECTED : ");
+      console.log(selected);
+      if(attr.contentId === selected.contentId){
         check = true;
         return;
       }
     })
     if(check) return;
 
-    console.log("ADDTOLIST");
-    console.log(item)
+    
+    console.log("ATTR REMOVE: ");
+    console.log(item);
+    
     selectedAttrList.value.push(item);
   };
 
   const removeToAttrList = (attr) => {
-    // selectedAttrList.value = selectedAttrList.value.map((item) => ({
-    //   ...item,
-    // }));
 
-    selectedAttrList.value = selectedAttrList.value.filter((item, index)=>{
-      return index !== attr.index;
+    console.log("ATTR REMOVE: ");
+    console.log(attr);
+
+    selectedAttrList.value = selectedAttrList.value.filter((item)=>{
+      return item.contentId !== attr.contentId;
     })
   }
 
@@ -143,7 +142,6 @@ export const useAttrStore = defineStore("attrStore", () => {
     destDate,
     getAttrList,
     getFullDate,
-    getFilteredAttrList,
     getMapData,
     getSidoCode,
     getStartDate,

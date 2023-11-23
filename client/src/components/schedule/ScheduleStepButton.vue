@@ -1,4 +1,5 @@
 <script setup>
+import { useAttrStore } from "@/stores/schedule";
 import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
@@ -6,8 +7,17 @@ const { name } = defineProps({
   name: String,
 });
 
+const store = useAttrStore();
+
 const pushButton = () => {
   console.log("NAME : " + name);
+  
+  if(store.getStartDate() == "" || store.getDestDate() == ""){
+    alert("일정을 지정해주세요.")
+    router.push({ name: "trip-date" });
+    return;
+  }
+
   if (name == "일정 설정") router.push({ name: "trip-date" });
   else router.push({ name: "attraction-list" });
 };

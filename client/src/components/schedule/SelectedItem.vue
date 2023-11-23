@@ -4,46 +4,47 @@ import { useAttrStore } from "@/stores/schedule";
 import {ref} from "vue";
 
 const { attraction } = defineProps({
-  attraction : Object
+  attraction : Object,
+  lat : Number,
+  lng : Number
 });
-
 /*
+
   title: String,
-  description: String,
+  startDate : String,
+  destDate : String,
+  description: String, (overview)
   index: Number,
   lat : Number,
-  lng : Number,
+  lng : Number
 */
 
-const emit = defineEmits(['addItem']);
+const emit = defineEmits(['removeItem']);
 
-const addAttractionInfo = (item) => {
-  console.log("ADD ITEM : ");
-  console.log(item)
-  emit("addItem", item.attraction);
-};
+const removeItem = (item)=>{
+  emit("removeItem", item.attraction)
+}
 
 </script>
 
 <template>
-  <div
+  <a
     href="#"
     class="list-group-item d-flex flex-row list-group-item-action py-3 lh-sm mb-3"
-    @click="addAttractionInfo(this)"
   >
     <img class="rounded" style="width: 4.5rem; height: 100%" :src="Busan" />
     <div
       class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
     >
       <strong class="mb-1">{{ attraction.title }}</strong>
-      <div class="description col-10 mb-1 small">
-        {{ attraction.overview }}
+      
+      <div v-if="!!startDate && !!destDate">
+        <small class="text-body-secondary">{{ attraction.startDate }} - {{ attraction.destDate }}</small>
       </div>
     </div>
-    <div @click="addAttractionInfo(this)">
-      <img src="">
-    </div>
-  </div>
+    <img src="/src/assets/delete-icon.png" 
+    width=20 height=20 @click="removeItem(this)"/>
+  </a>
 </template>
 
 <style scoped>

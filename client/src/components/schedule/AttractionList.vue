@@ -15,10 +15,14 @@ const store = useAttrStore();
 let attrList = ref([]);
 let page = 1;
 
-const sido = ref(store.getSidoCode())
+const sido = ref(store.getSidoCode());
 const gugunCode = ref("");
 const typeInfo = ref("");
 const title = ref("")
+
+const addItem = (item) => {
+  store.addToAttrList(item);
+}
 
 // 구군을 선택했을 때! 
 const changeGugun = (gugun) =>{
@@ -43,10 +47,11 @@ const search = (t)=>{
 const getAttrInfo = ()=> {
   const size = 100;
   const start = 1 * size - size;
-
+  console.log("getAttrInfo");
+  console.log(sido.value);
   getAttrations(
       {
-        sido: sido.value,
+        sido: sido.value === undefined ? 0 : sido.value,
         gugun : gugunCode.value,
         type : typeInfo.value,
         start: start,
@@ -74,7 +79,7 @@ const load = async ($state) => {
   try {
     getAttrations(
       {
-        sido: sido.value,
+        sido: sido.value === undefined ? 0 : sido.value,
         gugun : gugunCode.value,
         type : typeInfo.value,
         start: start,
@@ -127,6 +132,7 @@ const load = async ($state) => {
             :lat="attraction.latitude"
             :lng="attraction.longitude"
             :enableSelected="true"
+            @add-item="addItem"
           />
       </div>
     <infinite-loading @infinite="load"></infinite-loading>

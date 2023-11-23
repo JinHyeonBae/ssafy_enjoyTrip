@@ -1,6 +1,7 @@
 <script setup>
 import Busan from "@/assets/img/main/Busan.jpg";
 import { useAttrStore } from "@/stores/schedule";
+import {ref} from "vue";
 
 const { title, startDate, destDate, description, index, lat, lng, enableSelected } = defineProps({
   title: String,
@@ -13,12 +14,10 @@ const { title, startDate, destDate, description, index, lat, lng, enableSelected
   enableSelected : Boolean
 });
 
-const store = useAttrStore();
+const emit = defineEmits(['addItem','removeItem']);
 
-const getAttractionInfo = () => {
-  if(enableSelected){
-    console.log("ENTER TO LIST")
-    store.addToAttrList({
+const addAttractionInfo = () => {
+  emit("addItem", {
       title,
       startDate,
       destDate,
@@ -26,15 +25,12 @@ const getAttractionInfo = () => {
       index,
       lat,
       lng,
-    });
-  }
+      show : true,
+    })
 };
 
 const removeItem = (item)=>{
-  console.log("REMOVE TEST: ");
-  console.log(item)
-
-  store.removeToAttrList(item.title);
+  emit("removeItem", item)
 }
 
 </script>
@@ -43,7 +39,7 @@ const removeItem = (item)=>{
   <a
     href="#"
     class="list-group-item d-flex flex-row list-group-item-action py-3 lh-sm mb-3"
-    @click="getAttractionInfo"
+    @click="addAttractionInfo"
   >
     <img class="rounded" style="width: 4.5rem; height: 100%" :src="Busan" />
     <div
@@ -59,7 +55,8 @@ const removeItem = (item)=>{
       </div>
     </div>
     <div v-if="!enableSelected">
-      <img src="/src/assets/delete-icon.png" width=20 height=20 @click="removeItem(this)"/>
+      <img src="/src/assets/delete-icon.png" 
+      width=20 height=20 @click="removeItem(this)"/>
     </div>
   </a>
 </template>

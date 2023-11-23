@@ -5,12 +5,16 @@ import ScheduleMap from "./ScheduleMap.vue";
 import SendButton from "./SendButton.vue";
 
 import { useRoute, useRouter } from "vue-router"
+//import { storeToRefs } from "pinia";
 import { useAttrStore } from "@/stores/schedule";
 
-const { dataObj } = history.state; // 이렇게 받는다.
 const store = useAttrStore();
+//const { setSidoCode } = storeToRefs(store);
+
+const { dataObj } = history.state; // 이렇게 받는다.
 
 if(!!dataObj){
+  console.log(dataObj);
   store.setSidoCode(dataObj.sido)
 }
 

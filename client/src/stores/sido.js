@@ -22,7 +22,7 @@ export const useSidoStore = defineStore("sidoStore", () => {
 	const sidoImages = ref([
 		{
 			name: "전체",
-			code: "",
+			code: "0",
 			description:
 			"모든 지역",
 			image: "./src/assets/img/sido/0_korea.jpg",

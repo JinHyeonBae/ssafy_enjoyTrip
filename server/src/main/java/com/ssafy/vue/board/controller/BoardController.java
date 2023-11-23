@@ -115,9 +115,9 @@ public class BoardController {
 	                
 	                uuId = UUID.randomUUID().toString();
 	                //window
-//	                saveFolder = currentPath+"/"+saveRootPath;
+	                saveFolder = currentPath+"/"+saveRootPath;
 	                //mac
-	                saveFolder = saveRootPath;
+	                //saveFolder = saveRootPath;
 	                originalFile = multiFiles[i].getOriginalFilename();
 	                saveFile = getToDate() + "_" + uuId+ originalFile.substring(originalFile.lastIndexOf("."));
 	                fileInfoDto = new FileInfoDto(saveFolder,originalFile,saveFile);

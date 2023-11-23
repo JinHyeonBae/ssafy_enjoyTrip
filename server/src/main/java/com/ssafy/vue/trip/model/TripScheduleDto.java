@@ -32,7 +32,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TripScheduleDto {
-	
+
+
+	Integer schedule_id;
 	String user_id;
 	String title;
 	String memo;
@@ -46,7 +48,8 @@ public class TripScheduleDto {
 	@Override
 	public String toString() {
 		return "TripScheduleDto{" +
-				"user_id='" + user_id + '\'' +
+				"schedule_id'" + schedule_id + '\''+
+				", user_id='" + user_id + '\'' +
 				", title='" + title + '\'' +
 				", memo='" + memo + '\'' +
 				", sido=" + sido +

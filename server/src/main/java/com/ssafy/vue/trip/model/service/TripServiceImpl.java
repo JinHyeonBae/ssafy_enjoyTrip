@@ -55,4 +55,10 @@ public class TripServiceImpl implements TripService{
 	}
 
 
+	@Override
+	public void deleteUserSchedule(TripDeleteDto deleteDto) throws Exception {
+		TripMapper tripMapper = sqlSession.getMapper(TripMapper.class);
+		tripMapper.deleteUserSchedule(deleteDto);
+	}
+
 }

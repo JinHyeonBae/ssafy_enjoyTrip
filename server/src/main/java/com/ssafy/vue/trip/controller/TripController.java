@@ -3,6 +3,8 @@ package com.ssafy.vue.trip.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.vue.comment.model.ReqDelCommentDto;
 import com.ssafy.vue.trip.model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -56,7 +58,7 @@ public class TripController {
 			TripFilterRequestDto filterDto = new TripFilterRequestDto();
 			System.out.println("Q : " + queryParam.get("sidoCode").isEmpty());
 
-			if(queryParam.get("sidoCode") != null && !queryParam.get("sidoCode").isEmpty())
+			if(!queryParam.get("sidoCode").equals("0") && queryParam.get("sidoCode") != null && !queryParam.get("sidoCode").isEmpty())
 				filterDto.setSidoCode(Integer.parseInt(queryParam.get("sidoCode")));
 
 			System.out.println("Q : " + queryParam.get("gugunCode").isEmpty());
@@ -102,6 +104,10 @@ public class TripController {
 			return ResponseEntity.status(201).body("정상 처리 되었습니다.");
 		} 
 		catch (Exception e) {
+			System.out.println("storeSchedule");
+			System.out.println("ERROR CAUSE");
+			System.out.println(e.getStackTrace());
+			System.out.println(e.getCause());
 			return ResponseEntity.status(400).body(e.getMessage());
 		}
 	}
@@ -157,6 +163,36 @@ public class TripController {
 		}
 	}
 
+
+	@ApiOperation(value = "여행 계획 삭제 기능", notes = "삭제")
+	@ApiResponses({ @ApiResponse(code = 200, message = "삭제 완료"), @ApiResponse(code = 404, message = "페이지없어!!"),			@ApiResponse(code = 500, message = "서버에러!!") })
+	@DeleteMapping("")
+	// ContentType,
+	public ResponseEntity<?> deleteUserSchedule(@RequestHeader(value="param") String headers) throws Exception{
+		try {
+
+			ObjectMapper objectMapper = new ObjectMapper();
+			TripDeleteDto delDto = objectMapper.readValue(headers, TripDeleteDto.class);
+
+			System.out.println(delDto.getUserId());
+			System.out.println(delDto.getScheduleId());
+//
+//			TripDeleteDto deleteDto = new TripDeleteDto();
+//			deleteDto.setUserId(headers.get("userId"));
+//
+//			deleteDto.setScheduleId(delDto.getScheduleId());
+
+			tripService.deleteUserSchedule(delDto);
+			return ResponseEntity.status(200).body("삭제가 완료되었습니다.");
+		}
+		catch (Exception e) {
+			System.out.println("GET SCHEUDLE");
+			System.out.println(e.getStackTrace());
+			System.out.println(e.getCause());
+
+			return ResponseEntity.status(400).body(e.getMessage());
+		}
+	}
 
 
 

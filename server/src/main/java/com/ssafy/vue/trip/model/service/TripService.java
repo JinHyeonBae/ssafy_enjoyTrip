@@ -12,5 +12,7 @@ public interface TripService {
 
 	List<SidoDto> getSidoCode() throws Exception;
 	List<TripScheduleDto> getUserSchedule(String userId) throws Exception;
+	void deleteUserSchedule(TripDeleteDto deleteDto) throws Exception;
+
 	
 }

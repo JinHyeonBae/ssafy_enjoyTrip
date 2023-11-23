@@ -61,16 +61,25 @@
 				AND title like CONCAT('%',#{title},'%')
 			</if>
 		</where>
-		<if test="start != null AND listsize != null">
+		<if test="start != null and listsize != null">
 			limit #{start}, #{listsize}
 		</if>
 		<!-- </trim> -->
 	</select>
+
 	
 	<insert id="storeSchedule" parameterType="TripScheduleDto">
-		insert into schedule (user_id, title, memo, content, start_date, end_date)
-		values (#{user_id}, #{title}, #{memo}, #{content}, #{start_date}, #{end_date})
+		insert into schedule (user_id, title, memo, sido, gugun, typeInfo, content, start_date, end_date)
+		values (#{user_id}, #{title}, #{memo}, #{sido}, #{gugun}, #{typeInfo}, #{content}, #{start_date}, #{end_date})
 	</insert>
+
+
+	<select id="getUserSchedule" parameterType="String" resultType="TripScheduleDto">
+		select
+			user_id, title, memo, sido, gugun, typeInfo, content, start_date, end_date
+		from schedule
+		where user_id = #{userId}
+	</select>
 	
 	<!-- <select id="fileInfoList" resultMap="file">
 		select save_folder, original_file, save_file

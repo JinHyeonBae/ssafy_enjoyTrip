@@ -48,7 +48,11 @@ public class TripServiceImpl implements TripService{
 		return tripMapper.getSidoCode();
 	}
 
-
+	@Override
+	public List<TripScheduleDto> getUserSchedule(String userId) throws Exception {
+		TripMapper tripMapper = sqlSession.getMapper(TripMapper.class);
+		return tripMapper.getUserSchedule(userId);
+	}
 
 
 }

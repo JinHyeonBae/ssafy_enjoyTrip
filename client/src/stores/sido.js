@@ -21,6 +21,13 @@ import jeju from "@/assets/img/sido/39_jeju.jpg";
 export const useSidoStore = defineStore("sidoStore", () => {
 	const sidoImages = ref([
 		{
+			name: "전체",
+			code: "0",
+			description:
+			"모든 지역",
+			image: "./src/assets/img/sido/0_korea.jpg",
+		},
+		{
 			name: "서울",
 			code: "1",
 			description:

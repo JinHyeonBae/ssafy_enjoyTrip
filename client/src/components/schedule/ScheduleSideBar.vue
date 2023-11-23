@@ -139,6 +139,6 @@ div#basket{
 }
 
 .list-group {
-  height: 100%;
+  height: 100vh;
 }
 </style>

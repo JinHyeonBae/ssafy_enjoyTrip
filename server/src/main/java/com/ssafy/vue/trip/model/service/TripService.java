@@ -11,5 +11,6 @@ public interface TripService {
 	void storeSchedule(TripScheduleDto scheduleDto) throws Exception;
 
 	List<SidoDto> getSidoCode() throws Exception;
+	List<TripScheduleDto> getUserSchedule(String userId) throws Exception;
 	
 }

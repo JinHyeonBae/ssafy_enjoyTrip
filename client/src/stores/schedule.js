@@ -4,26 +4,52 @@ import { defineStore } from "pinia";
 export const useAttrStore = defineStore("attrStore", () => {
 
   const userId = ref("ssafy");
+
   const title = ref("");
   const memo = ref("");
-  const sido = ref(0);
   const startDate = ref("");
   const destDate = ref("");
   const selectedAttrList = ref([]);
+
+  const sido = ref(0);
+  const gugun = ref("");
+  const typeInfo = ref("");
   const lat = ref(0);
   const lng = ref(0);
 
   const getAttrList = computed(()=> selectedAttrList.value);
+  
+  const getFilteredAttrList = () => {
+    selectedAttrList.value = selectedAttrList.value.filter((item, index)=>{
+      return selectedAttrList.value.indexOf(item) === index;
+    })
+  }
   // 저장
   const addToAttrList = (item) => {
-    console.log("store에 추가합니다")
-    console.log(item);
+    
+    let check = false;
+    selectedAttrList.value.forEach((attr)=>{
+      if(attr.index == item.index){
+        check = true;
+        return;
+      }
+    })
+    if(check) return;
+
+    console.log("ADDTOLIST");
+    console.log(item)
     selectedAttrList.value.push(item);
   };
 
-  // const removeToAttrList = (item) => {
-  //   selectedAttrList.value
-  // }
+  const removeToAttrList = (attr) => {
+    // selectedAttrList.value = selectedAttrList.value.map((item) => ({
+    //   ...item,
+    // }));
+
+    selectedAttrList.value = selectedAttrList.value.filter((item, index)=>{
+      return index !== attr.index;
+    })
+  }
 
   const changeStartDate = (start) => {
     startDate.value = start;
@@ -41,9 +67,17 @@ export const useAttrStore = defineStore("attrStore", () => {
     memo.value = m;
   };
 
-  const setSidoCode = (s) => {
+  const setSidoCode = (s)=>{
     sido.value = s;
   }
+
+  const setGugunCode = (g) => {
+    gugun.value = g;
+  };
+
+  function setTypeInfo(i){
+    typeInfo.value = i;
+  };
 
   const getStartDate = () => {
     return startDate.value;
@@ -57,20 +91,19 @@ export const useAttrStore = defineStore("attrStore", () => {
     return sido.value;
   }
 
-  //   const changeMenuState = () => {
-  //     menuList.value = menuList.value.map((item) => ({
-  //       ...item,
-  //       show: !item.show,
-  //     }));
-  //   };
+  const getLat = () => {
+    return lat.value;
+  }
 
+  const getLng = () => {
+    return lng.value;
+  }
 
-  const getIndexes = () => {
+  const getTitles = () => {
     const indexes = ref("");
     selectedAttrList.value.forEach((item) => {
-      indexes.value += item.index;
+      indexes.value += item.title+"-";
     });
-
     return indexes.value;
   };
 
@@ -84,9 +117,12 @@ export const useAttrStore = defineStore("attrStore", () => {
       user_id: userId.value,
       title: title.value,
       memo: memo.value,
+      sido : sido.value,
+      gugun : gugun.value,
+      typeInfo : typeInfo.value,
       start_date: startDate.value,
       end_date: destDate.value,
-      content: getIndexes(),
+      content: getTitles(),
     };
   };
 
@@ -95,12 +131,11 @@ export const useAttrStore = defineStore("attrStore", () => {
       user_id: userId.value,
       title: title.value,
       memo: memo.value,
-      content: getIndexes(),
+      content: getTitles(),
       lag : lat.value,
       lng : lng.value
     }
   }
-
 
   return {
     selectedAttrList,
@@ -108,20 +143,25 @@ export const useAttrStore = defineStore("attrStore", () => {
     destDate,
     getAttrList,
     getFullDate,
+    getFilteredAttrList,
     getMapData,
     getSidoCode,
-    addToAttrList,
-    changeStartDate,
-    changeDestDate,
     getStartDate,
     getDestDate,
     getAttrData,
+    getLng,
+    getLat,
+    addToAttrList,
+    removeToAttrList,
+    changeStartDate,
+    changeDestDate,
     setTitle,
     setMemo,
-    setSidoCode
-  };
+    setSidoCode,
+    setGugunCode,
+    setTypeInfo,
+  }
 });
-
 // export default mapCursorStore = defineStore("cursorStore", ()=>{
 
 //   const stations = ref([]);

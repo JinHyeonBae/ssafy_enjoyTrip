@@ -1,10 +1,7 @@
 <script setup>
-import home_1 from "@/assets/img/main/Busan.jpg";
 import { useRouter } from "vue-router";
 
 const { sidoCode } = defineProps({ sidoCode: String, modalId: String, sidoImage: Object });
-
-// console.log(sidoCode);
 
 const router = useRouter();
 

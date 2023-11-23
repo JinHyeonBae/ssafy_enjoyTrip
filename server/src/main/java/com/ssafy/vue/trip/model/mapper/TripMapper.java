@@ -12,6 +12,7 @@ public interface TripMapper {
 	List<TripInfoDto> getTripList() throws SQLException;
 	List<TripDto> getSpecificTripList(TripFilterRequestDto filterDto) throws SQLException;
 	void storeSchedule(TripScheduleDto schedule) throws SQLException;
-
 	List<SidoDto> getSidoCode() throws SQLException;
+
+	List<TripScheduleDto> getUserSchedule(String userId) throws SQLException;
 }

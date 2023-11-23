@@ -2,6 +2,7 @@ package com.ssafy.vue.trip.model;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,26 +30,35 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class TripScheduleDto {
 	
 	String user_id;
 	String title;
 	String memo;
+	Integer sido;
+	Integer gugun;
+	Integer typeInfo;
 	String content;
 	String start_date;
 	String end_date;
-	
-	
-	public TripScheduleDto(String user_id, String title, String memo, String content, String start_date,
-			String end_date) {
-		super();
-		this.user_id = user_id;
-		this.title = title;
-		this.memo = memo;
-		this.content = content;
-		this.start_date = start_date;
-		this.end_date = end_date;
+
+	@Override
+	public String toString() {
+		return "TripScheduleDto{" +
+				"user_id='" + user_id + '\'' +
+				", title='" + title + '\'' +
+				", memo='" + memo + '\'' +
+				", sido=" + sido +
+				", gugun=" + gugun +
+				", typeInfo=" + typeInfo +
+				", content='" + content + '\'' +
+				", start_date='" + start_date + '\'' +
+				", end_date='" + end_date + '\'' +
+				'}';
 	}
+
+
 
 }
 

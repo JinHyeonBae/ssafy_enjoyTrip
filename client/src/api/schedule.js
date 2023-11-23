@@ -41,6 +41,18 @@ async function getUserSchedule(param, success, fail) {
     .catch(fail);
 }
 
+async function deleteUserSchedule(param, success, fail) {
+  const {userId, scheduleId} = param;
+  
+  local.defaults.headers.delete["param"] = JSON.stringify(param);
+  
+  await local
+    .delete(`${url}`)
+    .then(success)
+    .catch(fail);
+}
 
 
-export { getAttrations, storeSchedule, getUserSchedule };
+
+
+export { getAttrations, storeSchedule, getUserSchedule, deleteUserSchedule };

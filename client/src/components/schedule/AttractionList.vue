@@ -54,8 +54,6 @@ const getAttrInfo = ()=> {
         title : title.value
       },
       ({data})=>{
-        //console.log(response);
-        console.log(data)
         attrList.value = data
       },
       (error)=>{
@@ -68,7 +66,6 @@ const getAttrInfo = ()=> {
 
 // 무한 스크롤용 API
 const load = async ($state) => {
-  console.log("loading...");
   console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!지금 서버로 보낸다!!!")
   const size = import.meta.env.VITE_ATTR_LIST_SIZE;
   const start = page * size - size;
@@ -120,7 +117,7 @@ const load = async ($state) => {
     </div>
     <div class="attr-list">
       <div v-for="(attraction, index) in attrList">
-        <div id="attr-item">
+
           <AttractionItem
             :title="attraction.title"
             :startDate="attraction.startDate"
@@ -131,7 +128,6 @@ const load = async ($state) => {
             :lng="attraction.longitude"
             :enableSelected="true"
           />
-        </div>
       </div>
     <infinite-loading @infinite="load"></infinite-loading>
     </div>

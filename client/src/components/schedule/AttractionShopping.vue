@@ -1,28 +1,10 @@
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 import AttractionItem from "./AttractionItem.vue";
 import { useAttrStore } from "@/stores/schedule";
 
-const store = useAttrStore();
-const attrList = ref([]);
-const list = store.getAttrList;
-console.log("LIST : ")
-console.log(list.value);
-// watch(
-//   ()=>store.getAttrList,
-//   () => {
-//       const list = store.getAttrList;
-//       console.log(list.value);
-//       // attrList.value = list.filter((item, index)=>{
-//       //   return list.indexOf(item.title) === index;
-//       // })
-    
-//       console.log("ATTR:IST ");
-//       console.log(attrList.value.length)
-//   },
-//   {deep : true}
-// );
-
+const { getAttrList } = useAttrStore();
+//const store = ("attrStore");
 
 </script>
 
@@ -31,8 +13,7 @@ console.log(list.value);
     <div class="mt-2">
       <ul style="width: 20rem; flex-wrap: nowrap;">
         <h3>내가 선택한 여행지</h3>
-        <div class="selectedAttraction" v-for="(attr, index) in attrList">
-          {{ attr.title }}
+        <div class="selectedAttraction" v-for="(attr, index) in getAttrList">
           <AttractionItem
             :title="attr.title"
             :startDate="attr.startDate"
@@ -40,10 +21,10 @@ console.log(list.value);
             description=""
             :index="index"
             :enableSelected="false"
-          />
+          /> 
         </div>
       </ul>
-  </div>
+    </div>
   </div>
 </template>
 

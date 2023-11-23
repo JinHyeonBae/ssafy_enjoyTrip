@@ -148,10 +148,6 @@ const drawLine = () => {
       //draw(clickLine, clickPosition);
       for(let i = 1; i < positions.value.length; i++){
         //let path = positions.value
-        console.log("LAT LNG : ")
-        console.log(positions.value[i-1].latlng);
-        console.log(positions.value[i].latlng);
-
         const pre = positions.value[i-1].latlng;
         const cur = positions.value[i].latlng
         

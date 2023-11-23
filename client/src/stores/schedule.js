@@ -18,14 +18,39 @@ export const useAttrStore = defineStore("attrStore", () => {
   const lng = ref(0);
 
   const getAttrList = computed(()=> selectedAttrList.value);
+  
+  const getFilteredAttrList = () => {
+    selectedAttrList.value = selectedAttrList.value.filter((item, index)=>{
+      return selectedAttrList.value.indexOf(item) === index;
+    })
+  }
   // 저장
   const addToAttrList = (item) => {
+    console.log("ADDTOLIST");
+    console.log(item)
+    let check = false;
+    selectedAttrList.value.forEach((attr)=>{
+      // console.log("----------------------------------")
+      // console.log("ATTR INDEX");
+      // console.log(attr.index);
+      // console.log("item INDEX");
+      // console.log(item.index);
+      // console.log("----------------------------------")
+      if(attr.index == item.index){
+        check = true;
+        return;
+      }
+    })
+    if(check) return;
+
     selectedAttrList.value.push(item);
   };
 
-  // const removeToAttrList = (item) => {
-  //   selectedAttrList.value
-  // }
+  const removeToAttrList = (attr) => {
+    return selectedAttrList.value.filter((item, index)=>{
+      return item.index !== attr.index;
+    })
+  }
 
   const changeStartDate = (start) => {
     startDate.value = start;
@@ -127,9 +152,11 @@ export const useAttrStore = defineStore("attrStore", () => {
     destDate,
     getAttrList,
     getFullDate,
+    getFilteredAttrList,
     getMapData,
     getSidoCode,
     addToAttrList,
+    removeToAttrList,
     changeStartDate,
     changeDestDate,
     getStartDate,

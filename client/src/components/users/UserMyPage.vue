@@ -2,13 +2,31 @@
 import { storeToRefs } from "pinia";
 import { useMemberStore } from "@/stores/member";
 import { onMounted, ref } from "vue";
-import { getUserSchedule } from "@/api/schedule";
+import { getUserSchedule, deleteUserSchedule } from "@/api/schedule";
 const memberStore = useMemberStore();
 const { userInfo } = storeToRefs(memberStore);
 
 const scheduleList = ref([]);
 
 const moveUserModify = () => {};
+
+const deleteSchedule = (id) => {
+	deleteUserSchedule(
+		{
+			userId : "ssafy",
+			scheduleId : id
+		},
+		(response)=>{
+			console.log("RESPONSE :");
+			if(response.status == 200) alert("삭제가 정상적으로 완료되었습니다.")
+		},
+		(error)=>{
+			console.log("ERRor :");
+			console.log(error);
+		}
+	)
+
+}
 
 onMounted(() => {
 	getUserSchedule(
@@ -102,6 +120,7 @@ onMounted(() => {
 									<li class="list-group-item">
 										여행 기간 : {{ schedule.start_date }} ~ {{ schedule.end_date }}
 									</li>
+									<img src="@/assets/delete-icon.png" width="25" height="25" @click="deleteSchedule(schedule.schedule_id)">
 								</ul>
 							</div>
 						</div>
@@ -115,4 +134,10 @@ onMounted(() => {
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.delete-button{
+	
+	right: 0;
+}
+</style>

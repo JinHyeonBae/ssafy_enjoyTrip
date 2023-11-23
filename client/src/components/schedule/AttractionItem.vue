@@ -29,6 +29,14 @@ const getAttractionInfo = () => {
     });
   }
 };
+
+const removeItem = (item)=>{
+  console.log("REMOVE TEST: ");
+  console.log(item)
+
+  store.removeToAttrList(item.title);
+}
+
 </script>
 
 <template>
@@ -49,6 +57,9 @@ const getAttractionInfo = () => {
       <div class="description col-10 mb-1 small">
         {{ description }}
       </div>
+    </div>
+    <div v-if="!enableSelected">
+      <img src="/src/assets/delete-icon.png" width=20 height=20 @click="removeItem(this)"/>
     </div>
   </a>
 </template>

@@ -1,23 +1,23 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
-import {useSidoStore} from "@/stores/sido"
+import { useSidoStore } from "@/stores/sido";
 // 여기는 props로 시도 코드를 받는다.
-const {sido} = defineProps({
-  sido : Number
+const { sido } = defineProps({
+  sido: Number,
 });
 
-const emits = defineEmits(['changeSido', 'changeGugun', 'changeType'])
+const emits = defineEmits(["changeSido", "changeGugun", "changeType"]);
 const store = useSidoStore();
 // 무조건 시도코드가 가능
 const enabled = computed(() => !!select.value?.sido);
 const gugunlist = ref([]);
 const sidoInfo = ref("");
-const gugunInfo = ref("")
+const gugunInfo = ref("");
 const typeInfo = ref("");
 const sidolist = ref(store.sidoImages);
 
 const typelist = [
-  { code: "0", name: "전체"},
+  { code: "0", name: "전체" },
   { code: "12", name: "관광지" },
   { code: "14", name: "문화시설" },
   { code: "15", name: "축제공연행사" },
@@ -48,64 +48,55 @@ async function fetchGuGunOption(areaCode) {
 
 const changeSido = () => {
   console.log("SIDO ");
-  console.log(sidoInfo.value)
-  emits("changeSido", sidoInfo.value)
-}
+  console.log(sidoInfo.value);
+  emits("changeSido", sidoInfo.value);
+
+  fetchGuGunOption(sidoInfo.value) // props로 받아온 sido 코드를 넣는다.
+    .then((response) => {
+      console.log("API : ");
+      console.log(response);
+      gugunlist.value = response;
+      //{rnum: 1, code: '1', name: '남구'}
+      gugunlist.value.unshift({ rnum: 0, code: "0", name: "전체" });
+    });
+};
 
 const changeGugun = () => {
   console.log(gugun.target);
-  emits("changeGugun", gugunInfo.value)
+  emits("changeGugun", gugunInfo.value);
 };
 
 // 정상적으로 받아옴
 const changeType = () => {
-  emits("changeType", typeInfo.value)
+  emits("changeType", typeInfo.value);
   //emit("changeType", type);
 };
 
-onMounted(() => {
-  
-  // 공공데이터 포털에서 너무 많이 요청하면 막히므로 이 코드는 실제로 테스트할 때 연다.
-
-  /*
-  fetchGuGunOption(sido) // props로 받아온 sido 코드를 넣는다.
-    .then((response)=>{
-      console.log("API : ")
-      console.log(response)
-      gugunlist.value = response;
-      //{rnum: 1, code: '1', name: '남구'}
-      gugunlist.value.unshift({rnum: 0, code: '0', name: '전체'})
-  });
-*/
-
-  gugunlist.value.push({rnum: 0, code: '0', name: '영구'});
-  gugunlist.value.push({rnum: 1, code: '1', name: '일구'});
-  gugunlist.value.push({rnum: 2, code: '2', name: '이구'});
-  gugunlist.value.push({rnum: 3, code: '3', name: '삼구'});
-  gugunlist.value.push({rnum: 4, code: '4', name: '사구'});
-  gugunlist.value.push({rnum: 5, code: '5', name: '오구'});
-  
-  
-  //gugunlist.value = fetchGuGunOption(3);
-  //console.log(fetchGuGunOption(3));
-});
+// gugunlist.value.push({rnum: 0, code: '0', name: '영구'});
+// gugunlist.value.push({rnum: 1, code: '1', name: '일구'});
+// gugunlist.value.push({rnum: 2, code: '2', name: '이구'});
+// gugunlist.value.push({rnum: 3, code: '3', name: '삼구'});
+// gugunlist.value.push({rnum: 4, code: '4', name: '사구'});
+// gugunlist.value.push({rnum: 5, code: '5', name: '오구'});
+//gugunlist.value = fetchGuGunOption(3);
+//console.log(fetchGuGunOption(3));
 </script>
 
 <template>
-      <select
-        v-show="sido == 0"
-        class="form-select"
-        aria-label="Default select example"
-        v-model="sidoInfo"
-        label="시도"
-        @change="changeSido"
-        required
-      >
+  <select
+    v-show="sido == 0"
+    class="form-select"
+    aria-label="Default select example"
+    v-model="sidoInfo"
+    label="시도"
+    @change="changeSido"
+    required
+  >
     <option disabled value="">여행하고 싶은 시도를 선택하세요</option>
-      <option v-for="sido in sidolist" :value="sido.code">
-          {{ sido.name }}
-      </option>
-    </select>
+    <option v-for="sido in sidolist" :value="sido.code">
+      {{ sido.name }}
+    </option>
+  </select>
 
   <div class="select-container">
     <select
@@ -117,11 +108,11 @@ onMounted(() => {
       @change="changeGugun"
       required
     >
-    <option disabled value="">구를 선택하세요</option>
-    <option v-for="gugun in gugunlist" :value="gugun.rnum">
+      <option disabled value="">구를 선택하세요</option>
+      <option v-for="gugun in gugunlist" :value="gugun.rnum">
         {{ gugun.name }}
-    </option>
-  </select>
+      </option>
+    </select>
 
     <select
       class="form-select"
@@ -132,7 +123,7 @@ onMounted(() => {
       @change="changeType"
       required
     >
-    <option disabled value="">타입을 선택하세요</option>
+      <option disabled value="">타입을 선택하세요</option>
       <option v-for="t in typelist" :value="t.code">
         {{ t.name }}
       </option>

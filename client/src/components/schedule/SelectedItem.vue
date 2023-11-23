@@ -1,12 +1,12 @@
 <script setup>
 import Busan from "@/assets/img/main/Busan.jpg";
 import { useAttrStore } from "@/stores/schedule";
-import {ref} from "vue";
+import { ref } from "vue";
 
 const { attraction } = defineProps({
-  attraction : Object,
-  lat : Number,
-  lng : Number
+  attraction: Object,
+  lat: Number,
+  lng: Number,
 });
 /*
 
@@ -19,12 +19,11 @@ const { attraction } = defineProps({
   lng : Number
 */
 
-const emit = defineEmits(['removeItem']);
+const emit = defineEmits(["removeItem"]);
 
-const removeItem = (item)=>{
-  emit("removeItem", item.attraction)
-}
-
+const removeItem = (item) => {
+  emit("removeItem", item.attraction);
+};
 </script>
 
 <template>
@@ -37,22 +36,23 @@ const removeItem = (item)=>{
       class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
     >
       <strong class="mb-1">{{ attraction.title }}</strong>
-      
+
       <div v-if="!!startDate && !!destDate">
-        <small class="text-body-secondary">{{ attraction.startDate }} - {{ attraction.destDate }}</small>
+        <small class="text-body-secondary"
+          >{{ attraction.startDate }} - {{ attraction.destDate }}</small
+        >
       </div>
     </div>
-    <img src="/src/assets/delete-icon.png" 
-    width=20 height=20 @click="removeItem(this)"/>
+    <img
+      src="/src/assets/delete-icon.png"
+      width="20"
+      height="20"
+      @click="removeItem(this)"
+    />
   </a>
 </template>
 
 <style scoped>
-
-.list-group-item{
-  overflow-y: scroll;
-}
-
 .description {
   display: -webkit-box;
   -webkit-line-clamp: 3;

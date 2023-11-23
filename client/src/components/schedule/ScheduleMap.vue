@@ -12,7 +12,7 @@ const store = useAttrStore();
 //const props = defineProps({ stations: Array, selectStation: Object });
 const stations = ref([]);
 
-stations.value = store.getAttrList
+stations.value = store.getAttrList;
 // 클릭한 곳에 지도의 중심을 이동시키는 메서드 (이게 있어야 지도에서 더블클릭 후 움직임이 가능해짐)
 // watch(
 //   () => selectStation.value,
@@ -78,16 +78,16 @@ const loadMarkers = () => {
   // 현재 표시되어있는 marker들이 있다면 map에 등록된 marker를 제거한다.
   deleteMarkers();
   // // 마커 이미지를 생성합니다
-    const imgSrc = "/src/assets/arrow.png";
+  const imgSrc = "/src/assets/arrow.png";
   // 마커 이미지의 이미지 크기 입니다
-    const imgSize = new kakao.maps.Size(40, 35);
-    const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
+  const imgSize = new kakao.maps.Size(40, 35);
+  const markerImage = new kakao.maps.MarkerImage(imgSrc, imgSize);
 
   // 마커를 생성합니다
   markers.value = [];
 
   // 마커를 띄울 로직
-  if(positions.value.length > 0){
+  if (positions.value.length > 0) {
     positions.value.forEach((position) => {
       const marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
@@ -97,10 +97,10 @@ const loadMarkers = () => {
         image: markerImage, // 마커의 이미지
       });
 
-      console.log(marker)
+      console.log(marker);
       markers.value.push(marker);
-    })
-  };
+    });
+  }
 
   // 4. 지도를 이동시켜주기
   // 배열.reduce( (누적값, 현재값, 인덱스, 요소)=>{ return 결과값}, 초기값);
@@ -121,43 +121,41 @@ const deleteMarkers = () => {
   }
 };
 
-
 const drawLine = () => {
   const moveLine = new kakao.maps.Polyline({
-      strokeWeight: 3, // 선의 두께입니다 
-      strokeColor: '#1E90FF', // 선의 색깔입니다
-      strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
-      strokeStyle: 'solid' // 선의 스타일입니다    
+    strokeWeight: 3, // 선의 두께입니다
+    strokeColor: "#1E90FF", // 선의 색깔입니다
+    strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+    strokeStyle: "solid", // 선의 스타일입니다
   });
 
-// 마우스로 클릭한 위치입니다 
+  // 마우스로 클릭한 위치입니다
   console.log("POSITION : ");
   console.log(positions.value);
   if (positions.value.length > 1) {
+    // // 지도 위에 선이 표시되고 있다면 지도에서 제거합니다
+    // deleteClickLine();
 
-      // // 지도 위에 선이 표시되고 있다면 지도에서 제거합니다
-      // deleteClickLine();
-      
-      // // 지도 위에 커스텀오버레이가 표시되고 있다면 지도에서 제거합니다
-      // deleteDistnce();
+    // // 지도 위에 커스텀오버레이가 표시되고 있다면 지도에서 제거합니다
+    // deleteDistnce();
 
-      // // 지도 위에 선을 그리기 위해 클릭한 지점과 해당 지점의 거리정보가 표시되고 있다면 지도에서 제거합니다
-      // deleteCircleDot();
+    // // 지도 위에 선을 그리기 위해 클릭한 지점과 해당 지점의 거리정보가 표시되고 있다면 지도에서 제거합니다
+    // deleteCircleDot();
 
-      // 클릭한 위치를 기준으로 선을 생성하고 지도위에 표시합니다
-    
-      //draw(clickLine, clickPosition);
-      for(let i = 1; i < positions.value.length; i++){
-        //let path = positions.value
-        const pre = positions.value[i-1].latlng;
-        const cur = positions.value[i].latlng
-        
-        let movepath = [pre, cur];
-        moveLine.setPath(movepath);    
-        moveLine.setMap(map);
-      } 
-      // 클릭한 지점에 대한 정보를 지도에 표시합니다
-      //displayCircleDot(clickPosition, 0);
+    // 클릭한 위치를 기준으로 선을 생성하고 지도위에 표시합니다
+
+    //draw(clickLine, clickPosition);
+    for (let i = 1; i < positions.value.length; i++) {
+      //let path = positions.value
+      const pre = positions.value[i - 1].latlng;
+      const cur = positions.value[i].latlng;
+
+      let movepath = [pre, cur];
+      moveLine.setPath(movepath);
+      moveLine.setMap(map);
+    }
+    // 클릭한 지점에 대한 정보를 지도에 표시합니다
+    //displayCircleDot(clickPosition, 0);
   }
 };
 
@@ -237,21 +235,17 @@ let options = { // Drawing Manager를 생성할 때 사용할 옵션입니다
         hintStrokeOpacity: 0.5
     }
 };*/
-
-
 </script>
 
 <template>
-    <div id="map"></div>
+  <div id="map"></div>
 </template>
 
 <style scoped>
-
-
 #map {
   width: 100%;
   overflow-x: unset;
-  height: 100vh;
+  height: 100%;
   z-index: 3;
 }
 </style>

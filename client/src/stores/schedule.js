@@ -2,7 +2,6 @@ import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 
 export const useAttrStore = defineStore("attrStore", () => {
-
   const userId = ref("ssafy");
   const title = ref("");
   const memo = ref("");
@@ -16,39 +15,37 @@ export const useAttrStore = defineStore("attrStore", () => {
   const lat = ref(0);
   const lng = ref(0);
 
-  const getAttrList = computed(()=> selectedAttrList.value);
-  
+  const getAttrList = computed(() => selectedAttrList.value);
+
   // 저장
   const addToAttrList = (item) => {
     let check = false;
     const selected = item;
 
-    selectedAttrList.value.forEach((attr)=>{
+    selectedAttrList.value.forEach((attr) => {
       console.log("SELECTED : ");
       console.log(selected);
-      if(attr.contentId === selected.contentId){
+      if (attr.contentId === selected.contentId) {
         check = true;
         return;
       }
-    })
-    if(check) return;
+    });
+    if (check) return;
 
-    
     console.log("ATTR REMOVE: ");
     console.log(item);
-    
+
     selectedAttrList.value.push(item);
   };
 
   const removeToAttrList = (attr) => {
-
     console.log("ATTR REMOVE: ");
     console.log(attr);
 
-    selectedAttrList.value = selectedAttrList.value.filter((item)=>{
+    selectedAttrList.value = selectedAttrList.value.filter((item) => {
       return item.contentId !== attr.contentId;
-    })
-  }
+    });
+  };
 
   const changeStartDate = (start) => {
     startDate.value = start;
@@ -56,6 +53,10 @@ export const useAttrStore = defineStore("attrStore", () => {
 
   const changeDestDate = (dest) => {
     destDate.value = dest;
+  };
+
+  const setUserId = (id) => {
+    userId.value = id;
   };
 
   const setTitle = (t) => {
@@ -66,17 +67,17 @@ export const useAttrStore = defineStore("attrStore", () => {
     memo.value = m;
   };
 
-  const setSidoCode = (s)=>{
+  const setSidoCode = (s) => {
     sido.value = s;
-  }
+  };
 
   const setGugunCode = (g) => {
     gugun.value = g;
   };
 
-  function setTypeInfo(i){
+  function setTypeInfo(i) {
     typeInfo.value = i;
-  };
+  }
 
   const getStartDate = () => {
     return startDate.value;
@@ -88,20 +89,20 @@ export const useAttrStore = defineStore("attrStore", () => {
 
   const getSidoCode = () => {
     return sido.value;
-  }
+  };
 
   const getLat = () => {
     return lat.value;
-  }
+  };
 
   const getLng = () => {
     return lng.value;
-  }
+  };
 
   const getTitles = () => {
     const indexes = ref("");
     selectedAttrList.value.forEach((item) => {
-      indexes.value += item.title+"-";
+      indexes.value += item.title + "-";
     });
     return indexes.value;
   };
@@ -116,25 +117,25 @@ export const useAttrStore = defineStore("attrStore", () => {
       user_id: userId.value,
       title: title.value,
       memo: memo.value,
-      sido : sido.value,
-      gugun : gugun.value,
-      typeInfo : typeInfo.value,
+      sido: sido.value,
+      gugun: gugun.value,
+      typeInfo: typeInfo.value,
       start_date: startDate.value,
       end_date: destDate.value,
       content: getTitles(),
     };
   };
 
-  const getMapData = () =>{
+  const getMapData = () => {
     return {
       user_id: userId.value,
       title: title.value,
       memo: memo.value,
       content: getTitles(),
-      lag : lat.value,
-      lng : lng.value
-    }
-  }
+      lag: lat.value,
+      lng: lng.value,
+    };
+  };
 
   return {
     selectedAttrList,
@@ -158,7 +159,8 @@ export const useAttrStore = defineStore("attrStore", () => {
     setSidoCode,
     setGugunCode,
     setTypeInfo,
-  }
+    setUserId,
+  };
 });
 // export default mapCursorStore = defineStore("cursorStore", ()=>{
 
@@ -180,8 +182,6 @@ export const useAttrStore = defineStore("attrStore", () => {
 //   const setSelectedStation = (station) => {
 //     stations.value.push(station);
 //   }
-
-  
 
 //   return {
 

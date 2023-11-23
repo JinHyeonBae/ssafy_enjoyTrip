@@ -78,16 +78,15 @@ const getAttractionInfo = () => {};
   display: flex;
   width: fit-content;
   height: 100%;
-  position:relative;
+  position: relative;
 }
 
-div#basket{
+div#basket {
   position: absolute;
   right: 0;
   transform: translateX(100%);
   z-index: 100;
 }
-
 
 .dropdown-toggle {
   outline: 0;

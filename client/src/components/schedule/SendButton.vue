@@ -1,17 +1,26 @@
 <script setup>
 import { useRouter } from "vue-router";
-import { ref, watch, onMounted, provide, inject } from "vue";
+import { ref } from "vue";
+import { useMemberStore } from "@/stores/member";
 import { useAttrStore } from "@/stores/schedule";
 import { storeSchedule } from "@/api/schedule";
+import { storeToRefs } from "pinia";
+import router from "@/router";
 const store = useAttrStore();
 const title = ref("");
 const memo = ref("");
 
+const memberStore = useMemberStore();
+const { userInfo } = storeToRefs(memberStore);
+const isShow = ref(false);
+//자신이 작성한 글만 수정 및 삭제 가능하도록 하는 코드
+
 const setSchedule = () => {
-  //console.log(title.value);
-  //console.log(memo.value);
-  store.setTitle(title.value);
-  store.setMemo(memo.value);
+  if (userInfo.value == null) {
+    alert("로그인을 해야 접근할 수 있습니다.");
+    router.replace({ name: "user-login" });
+    return;
+  }
 
   const data = store.getAttrData();
 

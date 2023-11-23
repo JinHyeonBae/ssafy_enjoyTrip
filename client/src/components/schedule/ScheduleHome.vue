@@ -4,7 +4,7 @@ import ScheduleSideBar from "./ScheduleSideBar.vue";
 import ScheduleMap from "./ScheduleMap.vue";
 import SendButton from "./SendButton.vue";
 
-import { useRoute, useRouter } from "vue-router"
+import { useRoute, useRouter } from "vue-router";
 //import { storeToRefs } from "pinia";
 import { useAttrStore } from "@/stores/schedule";
 
@@ -13,12 +13,10 @@ const store = useAttrStore();
 
 const { dataObj } = history.state; // 이렇게 받는다.
 
-if(!!dataObj){
+if (!!dataObj) {
   console.log(dataObj);
-  store.setSidoCode(dataObj.sido)
+  store.setSidoCode(dataObj.sido);
 }
-
-
 </script>
 
 <template>
@@ -30,7 +28,6 @@ if(!!dataObj){
 </template>
 
 <style scope>
-
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
@@ -42,7 +39,7 @@ html {
 
 .sch-container {
   display: flex;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   flex-direction: row;
 }

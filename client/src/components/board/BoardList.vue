@@ -87,7 +87,8 @@ onMounted(() => {
           <div class="col-md-2 text-start">
             <button
               type="button"
-              class="btn btn-outline-primary btn-sm"
+              class="btn btn-sm"
+              style="background-color: #dee2e6"
               @click="moveWrite"
             >
               글쓰기
@@ -104,8 +105,9 @@ onMounted(() => {
                   placeholder="검색어..."
                 />
                 <button
-                  class="btn btn-dark"
+                  class="btn"
                   type="button"
+                  style="background-color: #dee2e6"
                   @click="getArticleList"
                 >
                   검색

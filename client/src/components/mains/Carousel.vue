@@ -12,64 +12,64 @@ import home_7 from "@/assets/img/main/Yeosu.jpg";
 import "vue3-carousel/dist/carousel.css";
 
 export default defineComponent({
-	name: "Autoplay",
-	components: {
-		Carousel,
-		Slide,
-		Pagination,
-	},
-	data() {
-		return {
-			slides: [home_1, home_2, home_3, home_4, home_5, home_6, home_7],
-		};
-	},
+  name: "Autoplay",
+  components: {
+    Carousel,
+    Slide,
+    Pagination,
+  },
+  data() {
+    return {
+      slides: [home_1, home_2, home_3, home_4, home_5, home_6, home_7],
+    };
+  },
 });
 </script>
 <template>
-	<div class="wrapper">
-		<Carousel :autoplay="3000" :wrap-around="true">
-			<Slide v-for="slide in slides" :key="slide">
-				<div class="carousel__item">
-					<img
-						class="slideImg"
-						:src="slide"
-						style="height: 500px; width: 2000px; object-fit: cover"
-					/>
-				</div>
-			</Slide>
+  <div class="wrapper">
+    <Carousel :autoplay="3000" :wrap-around="true">
+      <Slide v-for="slide in slides" :key="slide">
+        <div class="carousel__item">
+          <img
+            class="slideImg"
+            :src="slide"
+            style="height: 400px; width: 2000px; object-fit: cover"
+          />
+        </div>
+      </Slide>
 
-			<template #addons>
-				<Pagination />
-			</template>
-		</Carousel>
-	</div>
+      <template #addons>
+        <Pagination />
+      </template>
+    </Carousel>
+  </div>
 </template>
 
 <style>
 .carousel__item {
-	color: var(--vc-clr-white);
-	font-size: 20px;
-	border-radius: 8px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  color: var(--vc-clr-white);
+  font-size: 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel__slide {
-	padding: 10px;
+  padding: 10px;
 }
 
 .carousel__prev,
 .carousel__next {
-	box-sizing: content-box;
-	border: 5px solid white;
+  box-sizing: content-box;
+  border: 5px solid white;
 }
 .slideImg {
-	max-height: 740px;
-	max-width: 100%;
+  max-height: 740px;
+  max-width: 100%;
 }
 .wrapper {
-	margin-top: 3vh;
+  margin-top: 3vh;
 }
 </style>
 

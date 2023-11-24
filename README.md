@@ -8,9 +8,7 @@
 
 
 <!-- https://github.com/Cosmopolitan777/Cosmopolitan/assets/127120819/ef5597c1-6383-4c63-bb26-f24e75d795e4 -->
-![ezgif com-gif-maker](https://github.com/Cosmopolitan777/Cosmopolitan/assets/61008837/6cc3a915-0b28-4271-962c-84a475d37537)
-
-
+![트립_1분원테이크](/uploads/1b97afcd261a1e7dee543e3ae8abec4f/트립_1분원테이크.gif)
 <!-- https://github.com/Cosmopolitan777/Cosmopolitan/assets/127120819/595033d0-becd-4563-94b5-76929039107b -->
 
  
@@ -37,14 +35,6 @@
 - **페이지 보안성 강화** - JWT 토큰으로 인증 강화
 
 
-<details>
-<summary>카카오 로그인</summary>
-<div markdown="1">
-
-[screen-recording (11).webm](https://github.com/Cosmopolitan777/Cosmopolitan/assets/127120819/52cf0b01-c173-438e-bc7a-20c667146240)
-
-</div>
-</details>
 
 ## :arrows_counterclockwise: 서비스 흐름
 
@@ -53,8 +43,13 @@
 ![메인_화면](/uploads/36d345a7b2ba4259d70c4d01d826577c/메인_화면.gif)
 
 ### 로그인, 회원가입
+![회원가입](/uploads/7b1a49d7b30c5656c52616c56c7fd24f/회원가입.gif)
 
-### 내 정보 페이지
+### 게시판 조회, 수정, 삭제
+![게시판자성수정삭제조회](/uploads/cc2731510520a26479183791467d83b0/게시판자성수정삭제조회.gif)
+
+### 댓글 조회, 수정, 삭제
+![댓글작성수정삭제조회](/uploads/aa51accabecbaea8ec6734c93e7b390c/댓글작성수정삭제조회.gif)
 
 
 ### 여행 계획 페이지
@@ -102,8 +97,8 @@ java -jar ./target/vue-api-0.0.1-SNAPSHOT.jar
 
 ## :shipit: 팀원 소개
 
-|                                                       배진현(팀장)                                                       |                                                                         최자영(팀원)                                                                         |                                                       김지효(팀원)                                                       |                                                       정유진(팀원)                                                       |                                                       홍의채(팀원)                                                       |
-| :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://drive.google.com/uc?id=1C_DYRFIctedL9eR1-QuLfxDLXYqIguIG" alt="img" height="150px" width="150px" /> | <img src="https://drive.google.com/uc?id=1PCJHyAyF1aOM_ia3ywzc1cIl-vBpFaMb" alt="img" height="150px" width="150px" /> | <img src="https://drive.google.com/uc?id=1HrK9JMOcgm9W2OFGtRuKZmNyZkYf1Ixf" alt="img" height="150px" width="150px" /> | <img src="https://drive.google.com/uc?id=1d9GD-F2knr3Vmlr8i4U3MS1pUl6NN58C" alt="img" height="150px" width="150px" /> | <img src="https://drive.google.com/uc?id=1C7WAZmZf1IMHMKsrTi_KIqvrz1QT1v4O" alt="img" height="150px" width="150px" /> |
-|                                      [coing-ye](https://github.com/coing-ye)                                     |                                                           [jayoung977](https://github.com/jayoung977)                                                           |                                            [ji-dawn](https://github.com/ji-dawn)                                            |                                  [8566uyu](https://github.com/8566uyu)       |                                  [UichaeHong](https://github.com/UichaeHong)       
+|                                                       배진현(팀장)                                                       |                                                             최자영(팀원)                                                                       |                                                            |                                                            |                                                       |
+| ---------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://drive.google.com/uc?id=1C7WAZmZf1IMHMKsrTi_KIqvrz1QT1v4O" alt="img" height="150px" width="150px" />   |<img src="https://drive.google.com/uc?id=1PCJHyAyF1aOM_ia3ywzc1cIl-vBpFaMb" alt="img" height="150px" width="150px" /> 
+   [compuet33](https://github.com/compuet33)                                                  |               [jayoung977](https://github.com/jayoung977)          
 

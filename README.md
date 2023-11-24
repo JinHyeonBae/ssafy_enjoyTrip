@@ -32,34 +32,10 @@
 - **게시판 페이지** - 게시글 생성, 게시글 내용 조회 및 삭제
 - **로그인, 회원가입** - CRUD 기능 구현
 - **여행 계획 페이지** - 여행지 리스트 조회 및 여행지 필터링, 카카오맵을 활용한 마커, 선을 렌더링 
-- **회원정보수정 및 삭제 기능** - CRUD 사용
+- **회원정보 수정 및 삭제 기능** - CRUD 사용
 - **내 정보 페이지** - 유저 정보 및 여행 계획 조회
 - **페이지 보안성 강화** - JWT 토큰으로 인증 강화
 
-<details>
-<summary>칵테일 데이터 크롤링</summary>
-<div markdown="1">
-
- ![image](https://github.com/Cosmopolitan777/Cosmopolitan/assets/127190327/5230d85f-c10a-4dc8-b075-22e33f73f865)
-![image](https://github.com/Cosmopolitan777/Cosmopolitan/assets/127190327/43bb5ef0-80db-4410-8015-2a947919a36b)
-
-English Highball|11338|Alcoholic|Ordinary Drink|Highball glass|Brandy|Gin|Sweet Vermouth|Carbonated water|Lemon peel|null|null|null|null|null|null|null|null|null|null|3/4 oz |3/4 oz |3/4 oz |null|null|null|null|null|null|null|null|null|null|null|null|null|https://www.thecocktaildb.com/images/media/drink/dhvr7d1504519752.jpg|브랜디, 진, 스위트 베르무트를 하이볼 글래스에 얼음과 함께 붓습니다. 탄산수를 채웁니다. 레몬 껍질 트위스트를 넣고 저은 후 서빙합니다. (진저에일은 기호에 따라 탄산수로 대체 가능합니다.)
-</div>
-</details>
-
-<details>
-<summary>칵테일 추천 기능</summary>
-<div markdown="1">
-
-![스크린샷 2023-05-15 13 57 39](https://github.com/Cosmopolitan777/Cosmopolitan/assets/127120819/e2d248e8-1c52-4227-90d5-bb06db12e773)
-
-
-![스크린샷 2023-05-15 13 57 58](https://github.com/Cosmopolitan777/Cosmopolitan/assets/127120819/3f41496d-ebbc-4b80-8b29-209c669b43e6)
-
-
-
-</div>
-</details>
 
 <details>
 <summary>카카오 로그인</summary>
@@ -76,9 +52,14 @@ English Highball|11338|Alcoholic|Ordinary Drink|Highball glass|Brandy|Gin|Sweet 
 
 ![메인_화면](/uploads/36d345a7b2ba4259d70c4d01d826577c/메인_화면.gif)
 
+### 로그인, 회원가입
 
-### 여행 계획
+### 내 정보 페이지
+
+
+### 여행 계획 페이지
 ![여행계획](/uploads/b4f6e5feef2d34df0acfc760485267cd/여행계획.gif)
+![여행_검색](/uploads/5b64f6a23a7308911ee9c24fd7075562/여행_검색.gif)
 
 <!-- <img width="800" alt="image" src="https://user-images.githubusercontent.com/61008837/227681564-b11c528d-f9c6-4740-a8e5-d5d68718ee13.png">
 <img width="800" alt="image" src="https://user-images.githubusercontent.com/61008837/227681579-0b4730a5-43a9-4dfb-babd-50edd64c65fa.png">

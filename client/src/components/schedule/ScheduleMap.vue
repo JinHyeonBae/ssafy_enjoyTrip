@@ -1,18 +1,20 @@
 <script setup>
 import { ref, watch, onMounted, computed } from "vue";
 import { useAttrStore } from "@/stores/schedule";
+import { storeToRefs } from "pinia";
 
 let map;
 const positions = ref([]);
 const markers = ref([]);
+const lines = ref([]);
 
 const store = useAttrStore();
+const {getAttrList} = storeToRefs(store);
 
 // 선택한 부분을 말하는 것 같다..ㅠㅠㅠㅠ흑흑
 //const props = defineProps({ stations: Array, selectStation: Object });
 const stations = ref([]);
 
-stations.value = store.getAttrList;
 // 클릭한 곳에 지도의 중심을 이동시키는 메서드 (이게 있어야 지도에서 더블클릭 후 움직임이 가능해짐)
 // watch(
 //   () => selectStation.value,
@@ -32,10 +34,11 @@ stations.value = store.getAttrList;
 // );
 
 watch(
-  () => stations.value,
+  () => getAttrList,
   () => {
+    deleteLine();
     positions.value = [];
-    stations.value.forEach((station) => {
+    getAttrList.value.forEach((station) => {
       let obj = {};
       obj.latlng = new kakao.maps.LatLng(station.latitude, station.longitude);
       obj.title = station.statNm;
@@ -116,13 +119,30 @@ const loadMarkers = () => {
 };
 
 const deleteMarkers = () => {
+  //console.log("MARKER DELETE");
   if (markers.value.length >= 1) {
-    markers.value.forEach((marker) => marker.setMap(null));
+    markers.value.forEach((marker) => {
+      marker.setMap(null)
+      //console.log(maker.getPosition());
+      //deleteLine(marker.getPosition())
+    });
   }
 };
 
+// const deleteLine = () => {
+
+//   for (let i = 1; i < positions.value.length; i++) {
+//       //let path = positions.value
+//       console.log(positions.value[i-1]);
+//       const pre = positions.value[i - 1].latlng;
+//       const cur = positions.value[i].latlng;
+//   }
+
+// }
+
 const drawLine = () => {
   const moveLine = new kakao.maps.Polyline({
+    map: map,
     strokeWeight: 3, // 선의 두께입니다
     strokeColor: "#1E90FF", // 선의 색깔입니다
     strokeOpacity: 1, // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
@@ -131,7 +151,10 @@ const drawLine = () => {
 
   // 마우스로 클릭한 위치입니다
   console.log("POSITION : ");
-  console.log(positions.value);
+
+  // moveLine.getPath().map((item) => item.setMap(null));
+
+
   if (positions.value.length > 1) {
     // // 지도 위에 선이 표시되고 있다면 지도에서 제거합니다
     // deleteClickLine();
@@ -143,21 +166,40 @@ const drawLine = () => {
     // deleteCircleDot();
 
     // 클릭한 위치를 기준으로 선을 생성하고 지도위에 표시합니다
-
     //draw(clickLine, clickPosition);
     for (let i = 1; i < positions.value.length; i++) {
       //let path = positions.value
+      console.log(positions.value[i - 1]);
       const pre = positions.value[i - 1].latlng;
       const cur = positions.value[i].latlng;
 
       let movepath = [pre, cur];
       moveLine.setPath(movepath);
       moveLine.setMap(map);
+      console.log(moveLine.getPath())
+      //deleteLine();
+      lines.value.push(moveLine);
     }
+
+
     // 클릭한 지점에 대한 정보를 지도에 표시합니다
     //displayCircleDot(clickPosition, 0);
   }
+  else{
+
+    //initMap();
+  }
+
 };
+
+const deleteLine = (item) =>{
+  console.log(item);
+  lines.value.forEach((line)=>{
+    if(line.getPath() == item){
+      line.setMap(null);
+    }
+  })
+}
 
 /*
 const draw = (clickLine, location) => {

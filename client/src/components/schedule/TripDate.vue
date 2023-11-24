@@ -24,8 +24,22 @@ const getToday = () => {
   let date = d.getDate(); // 날짜
   let day = d.getDay(); // 요일
 
+  return year + "-" + month + "-" + date;
+
   today.value = year + "-" + month + "-" + date;
 };
+
+const getNxtDay = () => {
+  let d = new Date();
+
+  let year = d.getFullYear(); // 년도
+  let month = d.getMonth() + 1; // 월
+  let date = d.getDate(); // 날짜
+  let day = d.getDay(); // 요일
+
+  return year + "-" + month + "-" + (date + 1);
+}
+
 </script>
 
 <template>
@@ -37,7 +51,7 @@ const getToday = () => {
       aria-required="true"
       placeholder="출발 일정"
       class="ps-5 pe-5"
-      :max="new Date()"
+      :min="getToday()"
       :onChange="StartDateValueHandler"
     />
     <h3 class="mt-5">종료 일정</h3>
@@ -46,7 +60,7 @@ const getToday = () => {
       type="date"
       aria-required="true"
       placeholder="종료 일정"
-      :max="new Date()"
+      :min="getNxtDay()"
       class="ps-5 pe-5"
       :onChange="DestDateValueHandler"
     /><br />

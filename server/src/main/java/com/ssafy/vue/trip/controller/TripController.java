@@ -58,19 +58,19 @@ public class TripController {
 			TripFilterRequestDto filterDto = new TripFilterRequestDto();
 			System.out.println("Q : " + queryParam.get("sidoCode").isEmpty());
 
-			if(!queryParam.get("sidoCode").equals("0") && queryParam.get("sidoCode") != null && !queryParam.get("sidoCode").isEmpty())
-				filterDto.setSidoCode(Integer.parseInt(queryParam.get("sidoCode")));
+			String sido = queryParam.get("sidoCode");
+			String gugun = queryParam.get("gugunCode");
+			String type = queryParam.get("contentTypeId");
+			String title = queryParam.get("title");
 
-			System.out.println("Q : " + queryParam.get("gugunCode").isEmpty());
-			if(queryParam.get("gugunCode") != null && !queryParam.get("gugunCode").isEmpty())
-				filterDto.setGugunCode(Integer.parseInt(queryParam.get("gugunCode")));
-
-			System.out.println("Q : " + queryParam.get("contentTypeId").isEmpty());
-			if(queryParam.get("contentTypeId") != null && !queryParam.get("contentTypeId").isEmpty())
-				filterDto.setContentTypeId(Integer.parseInt(queryParam.get("contentTypeId")));
-
-			if(queryParam.get("title") != null && !queryParam.get("title").isEmpty())
-				filterDto.setTitle(queryParam.get("title"));
+			if(isProper(sido))
+				filterDto.setSidoCode(Integer.parseInt(sido));
+			if(isProper(gugun))
+				filterDto.setGugunCode(Integer.parseInt(gugun));
+			if(isProper(type))
+				filterDto.setContentTypeId(Integer.parseInt(type));
+			if(isProper(title))
+				filterDto.setTitle(title);
 
 			filterDto.setStart((Integer.parseInt(queryParam.get("start"))));
 			filterDto.setListsize(Integer.parseInt(queryParam.get("listsize")));
@@ -194,6 +194,10 @@ public class TripController {
 		}
 	}
 
+
+	private boolean isProper(String code){
+		return !code.equals("0") && code != null && !code.isEmpty();
+	}
 
 
 

@@ -23,6 +23,8 @@ const setSchedule = () => {
   }
 
   const data = store.getAttrData();
+  data.memo = memo.value;
+  data.title = title.value;
 
   storeSchedule(
     data,

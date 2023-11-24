@@ -16,9 +16,10 @@ const removeItem = (item) => {
 
 <template>
   <div class="selected-list">
-    <div class="mt-2">
-      <ul style="width: 20rem; flex-wrap: nowrap;">
-        <h3>내가 선택한 여행지</h3>
+    <div class="mt-2 ps-2">
+      <div style="width: 18rem; flex-wrap: nowrap;">
+        <h3 class="mt-4 ms-2">내가 선택한 여행지</h3>
+        <hr/>
         <div class="selectedAttraction" v-for="attraction in getAttrList">
             <SelectedItem
               :attraction="attraction"
@@ -33,7 +34,7 @@ const removeItem = (item) => {
               @remove-item="removeItem"
             /> --->
         </div>
-      </ul>
+      </div>
     </div>
   </div>
 </template>

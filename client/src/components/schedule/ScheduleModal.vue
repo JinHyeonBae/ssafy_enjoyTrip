@@ -1,27 +1,26 @@
 <script setup>
-const { attraction } = defineProps({
-  attraction: Object,
+import { onMounted } from 'vue';
+
+const props = defineProps({
+  title: String,
+  description : String
 });
 
-console.log(attraction);
-// const router = useRouter();
 
-// const moveToSchedule = () => {
-// 	router.push({
-// 		name: "schedule",
-// 		state: {
-// 			dataObj: { sido: Number(sidoCode) },
-// 		},
-// 	});
-// };
+onMounted(()=>{
+  
+console.log(props.title);  
+  console.log(props.description);
+})
+
 </script>
 
 <template>
-  <div class="modal" id="scheduleModal">
+  <div class="modal">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">{{ attraction.title }}</h5>
+          <h5 class="modal-title">{{ props.title }}</h5>
           <button
             type="button"
             class="btn-close"
@@ -31,7 +30,7 @@ console.log(attraction);
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            {{ attraction.overview }}
+            {{ props.description }}
           </div>
         </div>
         <div class="modal-footer">

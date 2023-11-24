@@ -24,7 +24,7 @@ export const useSidoStore = defineStore("sidoStore", () => {
 			name: "전체",
 			code: "0",
 			description:
-			"모든 지역",
+			"한국, 남한은 동아시아의 한반도 군사 분계선 남부에 위치한 국가이다. 현정체제는 대한민국 제6공화국이다. 대한민국의 국기는 대한민국 국기법에 따라 태극기이며, 국가는 관습상 애국가, 국화는 관습상 무궁화이다. 공용어는 한국어와 한국 수어이다. 수도는 서울이다. 인구는 2023년을 기준으로 약 5,174만 명으로, 전체 인구 중 절반이(약 2,624만 명) 수도권에 살고 있다.",
 			image: "./src/assets/img/sido/0_korea.jpg",
 		},
 		{
@@ -148,5 +148,21 @@ export const useSidoStore = defineStore("sidoStore", () => {
 		},
 	]);
 
-	return { sidoImages };
+	const sido = ref(sidoImages.value);
+
+	const initSido = () => {
+		sido.value = sidoImages.value;
+	}
+
+	const searchByTitle = (title) =>{
+		sido.value = sidoImages.value.filter((item)=>{
+			return item.name.includes(title);
+		})
+	}
+
+	const init = () =>{
+
+	}
+
+	return { sidoImages, searchByTitle, initSido, sido };
 });

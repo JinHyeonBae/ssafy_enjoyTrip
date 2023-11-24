@@ -43,7 +43,14 @@ const deleteSchedule = (id) => {
     },
     (response) => {
       console.log("RESPONSE :");
-      if (response.status == 200) alert("삭제가 정상적으로 완료되었습니다.");
+      if (response.status == 200) {
+		alert("삭제가 정상적으로 완료되었습니다.");
+		changeScheduleInfo();
+	  }
+	  else{
+		alert("삭제가 완료되지 않았습니다.");
+	  }
+
     },
     (error) => {
       console.log("ERRor :");
@@ -51,6 +58,23 @@ const deleteSchedule = (id) => {
     }
   );
 };
+
+const changeScheduleInfo = () =>{
+	getUserSchedule(
+    {
+      userId: "ssafy",
+    },
+    (response) => {
+      console.log("USERPAGE SCHEDULE response : ");
+      console.log(response);
+      scheduleList.value = response.data;
+    },
+    (error) => {
+      console.log("USERPAGE SCHEDULE ERROR : ");
+      console.log(error);
+    }
+  );
+}
 
 onMounted(() => {
   getUserSchedule(
@@ -162,17 +186,24 @@ onMounted(() => {
               <div class="card-body text-start">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">{{ schedule.title }}</li>
-                  <li class="list-group-item">{{ schedule.content }}</li>
+                  <li class="list-group-item">
+					<div v-for="title in schedule.content.split('-')">
+						{{ title }}
+					</div>
+				</li>
                   <li class="list-group-item">
                     여행 기간 : {{ schedule.start_date }} ~
                     {{ schedule.end_date }}
-                  </li>
-                  <img
-                    src="@/assets/delete-icon.png"
-                    width="25"
-                    height="25"
-                    @click="deleteSchedule(schedule.schedule_id)"
-                  />
+                  </li>  
+        <li class="list-group-item">
+          {{ schedule.memo }}
+        </li>
+				<button 
+					type="button" 
+					class="btn btn-outline-danger"
+					@click="deleteSchedule(schedule.schedule_id)"
+					>
+					삭제</button>
                 </ul>
               </div>
             </div>

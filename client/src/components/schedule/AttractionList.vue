@@ -131,8 +131,8 @@ const load = async ($state) => {
       <TripSearch @search="search"> </TripSearch>
     </div>
     <div class="attr-list">
-      <div v-for="attraction in attrList">
-        <AttractionItem :attraction="attraction" @add-item="addItem" />
+      <div v-for="(attraction,index) in attrList">
+        <AttractionItem :index="index" :attraction="attraction" @add-item="addItem" />
       </div>
     </div>
     <infinite-loading @infinite="load"></infinite-loading>

@@ -33,7 +33,7 @@ const removeItem = (item) => {
   >
     <img class="rounded" style="width: 4.5rem; height: 100%" :src="Busan" />
     <div
-      class="d-flex flex-column w-100 align-items-center justify-content-between ps-2"
+      class="d-flex ps-2"
     >
       <strong class="mb-1">{{ attraction.title }}</strong>
 
@@ -53,6 +53,10 @@ const removeItem = (item) => {
 </template>
 
 <style scoped>
+
+.list-group-item{
+  justify-content: space-evenly;
+}
 .description {
   display: -webkit-box;
   -webkit-line-clamp: 3;

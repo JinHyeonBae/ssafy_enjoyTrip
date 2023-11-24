@@ -5,12 +5,13 @@ import { useSidoStore } from "@/stores/sido";
 import { storeToRefs } from "pinia";
 
 const sidoStore = useSidoStore();
-const { sidoImages } = storeToRefs(sidoStore);
+const { sidoImages, searchByTitle, sido } = storeToRefs(sidoStore);
+
 </script>
 
 <template>
 	<div class="row row-cols-auto mx-5">
-		<div v-for="(sidoImage, index) in sidoImages" :key="index">
+		<div v-for="(sidoImage, index) in sido" :key="index">
 			<SidoCard
 				class="col"
 				data-bs-toggle="modal"

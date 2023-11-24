@@ -42,7 +42,7 @@ async function fetchGuGunOption(areaCode) {
   });
   console.log("RESPONSE : ");
   const data = await response.json();
-  //console.log(data);
+  console.log(data);
   return data.response.body.items.item;
 }
 
@@ -62,15 +62,26 @@ const changeSido = () => {
 };
 
 const changeGugun = () => {
-  console.log(gugun.target);
   emits("changeGugun", gugunInfo.value);
 };
 
 // 정상적으로 받아옴
 const changeType = () => {
+  console.log("TYPEINFO :");
+  console.log(typeInfo.value);
   emits("changeType", typeInfo.value);
   //emit("changeType", type);
 };
+
+onMounted(()=>{
+  fetchGuGunOption(sido)
+  .then((response) => {
+    gugunlist.value = response
+  })
+  .catch((error)=>{
+    console.log(error);
+  })
+});
 
 // gugunlist.value.push({rnum: 0, code: '0', name: '영구'});
 // gugunlist.value.push({rnum: 1, code: '1', name: '일구'});
@@ -98,7 +109,7 @@ const changeType = () => {
     </option>
   </select>
 
-  <div class="select-container">
+  <div class="select-container mb-4">
     <select
       class="form-select"
       aria-label="Default select example"

@@ -1,6 +1,6 @@
 <script setup>
 import Datepicker from "vue3-datepicker";
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useAttrStore } from "@/stores/schedule";
 
 const store = useAttrStore();
@@ -16,6 +16,10 @@ const DestDateValueHandler = () => {
   store.changeDestDate(dateControl.value);
 };
 
+onMounted(()=>{
+  getToday();
+})
+
 const getToday = () => {
   let d = new Date();
 
@@ -24,7 +28,8 @@ const getToday = () => {
   let date = d.getDate(); // 날짜
   let day = d.getDay(); // 요일
 
-  return year + "-" + month + "-" + date;
+  today.value = year + "-" + month + "-" + date;
+  //return year + "-" + month + "-" + date;
 
   today.value = year + "-" + month + "-" + date;
 };
@@ -51,7 +56,7 @@ const getNxtDay = () => {
       aria-required="true"
       placeholder="출발 일정"
       class="ps-5 pe-5"
-      :min="getToday()"
+      :min="today"
       :onChange="StartDateValueHandler"
     />
     <h3 class="mt-5">종료 일정</h3>
@@ -60,7 +65,7 @@ const getNxtDay = () => {
       type="date"
       aria-required="true"
       placeholder="종료 일정"
-      :min="getNxtDay()"
+      :min="today"
       class="ps-5 pe-5"
       :onChange="DestDateValueHandler"
     /><br />

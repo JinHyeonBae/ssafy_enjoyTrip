@@ -134,7 +134,7 @@ div#basket {
 }
 
 .list-title {
-  background-color: #85d5e4;
+  background-color: #dfcdeb;
 }
 
 .list-group {

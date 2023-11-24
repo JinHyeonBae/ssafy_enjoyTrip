@@ -120,8 +120,8 @@ const setSchedule = () => {
 
   border: 10px solid transparent; /* border 투명 */
   border-radius: 10rem;
-  border-color: #85d5e4;
-  background-color: #85d5e4;
+  border-color: #dfcdeb;
+  background-color: #dfcdeb;
 
   color: white;
   height: 5rem;

@@ -53,7 +53,7 @@
 
 
 ### 여행 계획 페이지
-![여행계획](/uploads/b4f6e5feef2d34df0acfc760485267cd/여행계획.gif)
+![여행지생성라스트](/uploads/ae0bed0ea4d975d415607b1f294b2b92/여행지생성라스트.gif)
 ![여행_검색](/uploads/5b64f6a23a7308911ee9c24fd7075562/여행_검색.gif)
 
 <!-- <img width="800" alt="image" src="https://user-images.githubusercontent.com/61008837/227681564-b11c528d-f9c6-4740-a8e5-d5d68718ee13.png">

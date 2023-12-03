@@ -41,7 +41,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (1,'ssafy','고맙네','영주 팬티',0,'2023-10-18 06:40:04'),(2,'ssafy','ㅎㅇ','피곤누적',0,'2023-10-19 00:36:57'),(3,'ssafy','11','22',0,'2023-10-19 01:57:00'),(4,'ssafy','22','44',0,'2023-10-19 01:57:32'),(5,'ssafy','33','44',0,'2023-10-19 01:59:01'),(6,'ssafy','11','암호화한 내용 ::: 22',0,'2023-10-19 02:02:32'),(7,'ssafy','영주시러','john',0,'2023-10-23 03:03:29'),(8,'ssafy','그 유명한','람다',0,'2023-10-23 03:05:48'),(10,'ssafy','영주 니','다이어트 좀 해',1,'2023-10-23 06:55:12'),(11,'ssafy','영주시러','응 시러',1,'2023-10-23 06:55:25'),(12,'honey','fdfdfdf','dfdfdf',0,'2023-10-24 08:21:47'),(13,'honey','dfdf','dfdf',3,'2023-10-24 08:22:09'),(14,'honey','그 유명한','람다',0,'2023-10-24 08:22:57'),(15,'honey','50분이에여?','쉬고오삼~~~',3,'2023-10-25 06:50:28'),(16,'honey','오늘은','머리자르는날',5,'2023-10-25 07:14:18'),(18,'honey','오늘은?','힘든날일까용?',88,'2023-11-07 06:17:00');
+INSERT INTO `board` VALUES (1,'ssafy','고맙네','gg',0,'2023-10-18 06:40:04'),(2,'ssafy','ㅎㅇ','피곤누적',0,'2023-10-19 00:36:57'),(3,'ssafy','11','22',0,'2023-10-19 01:57:00'),(4,'ssafy','22','44',0,'2023-10-19 01:57:32'),(5,'ssafy','33','44',0,'2023-10-19 01:59:01'),(6,'ssafy','11','암호화한 내용 ::: 22',0,'2023-10-19 02:02:32'),(7,'ssafy','영주시러','john',0,'2023-10-23 03:03:29'),(8,'ssafy','그 유명한','람다',0,'2023-10-23 03:05:48'),(10,'ssafy','영주 니','다이어트 좀 해',1,'2023-10-23 06:55:12'),(11,'ssafy','영주시러','응 시러',1,'2023-10-23 06:55:25'),(12,'honey','fdfdfdf','dfdfdf',0,'2023-10-24 08:21:47'),(13,'honey','dfdf','dfdf',3,'2023-10-24 08:22:09'),(14,'honey','그 유명한','람다',0,'2023-10-24 08:22:57'),(15,'honey','50분이에여?','쉬고오삼~~~',3,'2023-10-25 06:50:28'),(16,'honey','오늘은','머리자르는날',5,'2023-10-25 07:14:18'),(18,'honey','오늘은?','힘든날일까용?',88,'2023-11-07 06:17:00');
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -53,8 +53,8 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
-  `commentNo` int NOT NULL AUTO_INCREMENT,
-  `articleNo` int NOT NULL,
+  `comment_no` int NOT NULL AUTO_INCREMENT,
+  `article_no` int NOT NULL,
   `userId` varchar(255) NOT NULL,
   `content` varchar(255) NOT NULL,
   `registerTime` date NOT NULL,
@@ -104,30 +104,9 @@ UNLOCK TABLES;
 -- Table structure for table `guestbook`
 --
 
-DROP TABLE IF EXISTS `guestbook`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `guestbook` (
-  `articleno` int NOT NULL AUTO_INCREMENT,
-  `userid` varchar(16) DEFAULT NULL,
-  `subject` varchar(100) DEFAULT NULL,
-  `content` varchar(2000) DEFAULT NULL,
-  `regtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`articleno`),
-  KEY `guestbook_to_ssafy_member_fk` (`userid`),
-  CONSTRAINT `guestbook_to_ssafy_member_fk` FOREIGN KEY (`userid`) REFERENCES `ssafy_member` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Dumping data for table `guestbook`
 --
-
-LOCK TABLES `guestbook` WRITE;
-/*!40000 ALTER TABLE `guestbook` DISABLE KEYS */;
-/*!40000 ALTER TABLE `guestbook` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `members`
 --
@@ -189,29 +168,10 @@ UNLOCK TABLES;
 --
 -- Table structure for table `ssafy_member`
 --
-
-DROP TABLE IF EXISTS `ssafy_member`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ssafy_member` (
-  `userid` varchar(16) NOT NULL,
-  `username` varchar(40) NOT NULL,
-  `userpwd` varchar(40) NOT NULL,
-  `email` varchar(40) NOT NULL,
-  `joindate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Dumping data for table `ssafy_member`
 --
 
-LOCK TABLES `ssafy_member` WRITE;
-/*!40000 ALTER TABLE `ssafy_member` DISABLE KEYS */;
-INSERT INTO `ssafy_member` VALUES ('admin','admin','1234','admin@ssafy.com','2023-10-26 05:27:06'),('ssafy','ssafy','1234','ssafy@ssafy.com','2023-10-26 05:26:10');
-/*!40000 ALTER TABLE `ssafy_member` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -1,41 +1,25 @@
 <script setup>
 import SidoCard from "./SidoCard.vue";
+import Modal from "./Modal.vue";
+import { useSidoStore } from "@/stores/sido";
+import { storeToRefs } from "pinia";
+
+const sidoStore = useSidoStore();
+const { sidoImages, searchByTitle, sido } = storeToRefs(sidoStore);
+
 </script>
 
 <template>
 	<div class="row row-cols-auto mx-5">
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<div class="col"><SidoCard /></div>
-		<!-- <SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard />
-		<SidoCard /> -->
+		<div v-for="(sidoImage, index) in sido" :key="index">
+			<SidoCard
+				class="col"
+				data-bs-toggle="modal"
+				:data-bs-target="`#${sidoImage.name}`"
+				:sidoImage="sidoImage"
+			/>
+			<Modal :modalId="sidoImage.name" :sidoImage="sidoImage" :sidoCode="sidoImage.code"/>
+		</div>
 	</div>
 </template>
 

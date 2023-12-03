@@ -5,11 +5,11 @@ import TheFooter from "./components/layout/TheFooter.vue";
 </script>
 
 <template>
-	<div class="mb-5">
-		<TheHeadingNavbar></TheHeadingNavbar>
-		<router-view></router-view>
-		<TheFooter />
-	</div>
+  <div class="mb-5">
+    <TheHeadingNavbar></TheHeadingNavbar>
+    <router-view></router-view>
+    <TheFooter />
+  </div>
 </template>
 
 <style scoped></style>

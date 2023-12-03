@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ssafy.vue.board.model.BoardDto;
 import com.ssafy.vue.board.model.FileInfoDto;
+import com.ssafy.vue.board.model.LatestBoardDto;
 
 @Mapper
 public interface BoardMapper {
@@ -31,5 +32,7 @@ public interface BoardMapper {
 	void deleteArticle(int articleNo) throws SQLException;
 
 	List<FileInfoDto> fileInfoList(int articleNo) throws Exception;
+
+	List<LatestBoardDto> latestListArticle() throws SQLException;
 	
 }
